@@ -8,6 +8,8 @@
 
 #import "phpRequestViewController.h"
 
+#define REQUEST_SAMPLE3 @"http://blooming-sword-3303.herokuapp.com/posts/4.json"
+
 #define REQUEST_SAMPLE1 @"http://ipassim.com/phpMySQL/handleNewsRequest.php?geolat_upper=63.938939868946846&geolong_upper=-47.21773354874881&geolat_lower=29.691152016132396&geolong_lower=-131.5927335487488&mode=NewsOnCloseGeoLocation&num_marker=60"
 
 #define REQUEST_SAMPLE2 @"http://rss.news.yahoo.com/rss/world"
@@ -19,7 +21,7 @@
 {
   NSString * requestURL;
   if ([sender.titleLabel.text isEqualToString:@"Request 1"]) {
-    requestURL = REQUEST_SAMPLE1;
+    requestURL = REQUEST_SAMPLE3;
   } else {
     requestURL = REQUEST_SAMPLE2;
   }
