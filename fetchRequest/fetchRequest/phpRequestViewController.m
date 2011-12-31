@@ -8,57 +8,48 @@
 
 #import "phpRequestViewController.h"
 
+#define REQUEST_SAMPLE1 @"http://ipassim.com/phpMySQL/handleNewsRequest.php?geolat_upper=63.938939868946846&geolong_upper=-47.21773354874881&geolat_lower=29.691152016132396&geolong_lower=-131.5927335487488&mode=NewsOnCloseGeoLocation&num_marker=60"
+
+#define REQUEST_SAMPLE2 @"http://rss.news.yahoo.com/rss/world"
+
 @implementation phpRequestViewController
+@synthesize outputArea = _outputArea;
 
-- (void)didReceiveMemoryWarning
+- (IBAction)sendRequest:(UIButton *)sender 
 {
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
+  NSString * requestURL;
+  if ([sender.titleLabel.text isEqualToString:@"Request 1"]) {
+    requestURL = REQUEST_SAMPLE1;
+  } else {
+    requestURL = REQUEST_SAMPLE2;
+  }
+  UIActivityIndicatorView *spiner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+  [spiner startAnimating];
+  sender.hidden = YES;
+  spiner.frame = sender.frame;
+  [self.view addSubview:spiner];
+  dispatch_queue_t requestQ = dispatch_queue_create("request from URL", NULL);
+  dispatch_async(requestQ, ^{
+    NSURL* url = [NSURL URLWithString:requestURL];
+    NSData * dataObject = [[NSData alloc] initWithContentsOfURL:url];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      sender.hidden = NO;
+      [spiner removeFromSuperview];
+      NSString * output = [[NSString alloc] initWithData:dataObject 
+                                                encoding:NSASCIIStringEncoding];
+      self.outputArea.text = output;
+    });
+  });
+  dispatch_release(requestQ);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-      return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-  } else {
-      return YES;
-  }
+  return NO;
 }
 
+- (void)viewDidUnload {
+  [self setOutputArea:nil];
+  [super viewDidUnload];
+}
 @end

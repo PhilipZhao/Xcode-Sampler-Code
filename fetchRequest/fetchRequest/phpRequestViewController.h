@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface phpRequestViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *outputArea;
 
 @end
