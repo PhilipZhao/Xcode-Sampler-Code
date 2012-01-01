@@ -1,0 +1,289 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E481F37F14AFFA1100112794 /* simple2View.m in Sources */ = {isa = PBXBuildFile; fileRef = E481F37D14AFFA1100112794 /* simple2View.m */; };
+		E481F38314AFFFA600112794 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481F38214AFFFA600112794 /* Storyboard.storyboard */; };
+		E48BD67314AFF3FF00C25C3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48BD67214AFF3FF00C25C3E /* UIKit.framework */; };
+		E48BD67514AFF3FF00C25C3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48BD67414AFF3FF00C25C3E /* Foundation.framework */; };
+		E48BD67714AFF3FF00C25C3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48BD67614AFF3FF00C25C3E /* CoreGraphics.framework */; };
+		E48BD67D14AFF3FF00C25C3E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E48BD67B14AFF3FF00C25C3E /* InfoPlist.strings */; };
+		E48BD67F14AFF3FF00C25C3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E48BD67E14AFF3FF00C25C3E /* main.m */; };
+		E48BD68314AFF3FF00C25C3E /* simple2ViewsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E48BD68214AFF3FF00C25C3E /* simple2ViewsAppDelegate.m */; };
+		E48BD68914AFF3FF00C25C3E /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E48BD68714AFF3FF00C25C3E /* MainStoryboard_iPad.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E481F37C14AFFA1100112794 /* simple2View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simple2View.h; sourceTree = "<group>"; };
+		E481F37D14AFFA1100112794 /* simple2View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = simple2View.m; sourceTree = "<group>"; };
+		E481F38214AFFFA600112794 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = ../Storyboard.storyboard; sourceTree = "<group>"; };
+		E48BD66E14AFF3FF00C25C3E /* simple2View.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = simple2View.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E48BD67214AFF3FF00C25C3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E48BD67414AFF3FF00C25C3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E48BD67614AFF3FF00C25C3E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E48BD67A14AFF3FF00C25C3E /* simple2View-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "simple2View-Info.plist"; sourceTree = "<group>"; };
+		E48BD67C14AFF3FF00C25C3E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E48BD67E14AFF3FF00C25C3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E48BD68014AFF3FF00C25C3E /* simple2View-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "simple2View-Prefix.pch"; sourceTree = "<group>"; };
+		E48BD68114AFF3FF00C25C3E /* simple2ViewsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = simple2ViewsAppDelegate.h; sourceTree = "<group>"; };
+		E48BD68214AFF3FF00C25C3E /* simple2ViewsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = simple2ViewsAppDelegate.m; sourceTree = "<group>"; };
+		E48BD68814AFF3FF00C25C3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E48BD66B14AFF3FF00C25C3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E48BD67314AFF3FF00C25C3E /* UIKit.framework in Frameworks */,
+				E48BD67514AFF3FF00C25C3E /* Foundation.framework in Frameworks */,
+				E48BD67714AFF3FF00C25C3E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E48BD66314AFF3FF00C25C3E = {
+			isa = PBXGroup;
+			children = (
+				E48BD67814AFF3FF00C25C3E /* simple2View */,
+				E48BD67114AFF3FF00C25C3E /* Frameworks */,
+				E48BD66F14AFF3FF00C25C3E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E48BD66F14AFF3FF00C25C3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E48BD66E14AFF3FF00C25C3E /* simple2View.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E48BD67114AFF3FF00C25C3E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E48BD67214AFF3FF00C25C3E /* UIKit.framework */,
+				E48BD67414AFF3FF00C25C3E /* Foundation.framework */,
+				E48BD67614AFF3FF00C25C3E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E48BD67814AFF3FF00C25C3E /* simple2View */ = {
+			isa = PBXGroup;
+			children = (
+				E48BD68114AFF3FF00C25C3E /* simple2ViewsAppDelegate.h */,
+				E48BD68214AFF3FF00C25C3E /* simple2ViewsAppDelegate.m */,
+				E481F37C14AFFA1100112794 /* simple2View.h */,
+				E481F37D14AFFA1100112794 /* simple2View.m */,
+				E481F38214AFFFA600112794 /* Storyboard.storyboard */,
+				E48BD68714AFF3FF00C25C3E /* MainStoryboard_iPad.storyboard */,
+				E48BD67914AFF3FF00C25C3E /* Supporting Files */,
+			);
+			path = simple2View;
+			sourceTree = "<group>";
+		};
+		E48BD67914AFF3FF00C25C3E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E48BD67A14AFF3FF00C25C3E /* simple2View-Info.plist */,
+				E48BD67B14AFF3FF00C25C3E /* InfoPlist.strings */,
+				E48BD67E14AFF3FF00C25C3E /* main.m */,
+				E48BD68014AFF3FF00C25C3E /* simple2View-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E48BD66D14AFF3FF00C25C3E /* simple2View */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E48BD68F14AFF3FF00C25C3E /* Build configuration list for PBXNativeTarget "simple2View" */;
+			buildPhases = (
+				E48BD66A14AFF3FF00C25C3E /* Sources */,
+				E48BD66B14AFF3FF00C25C3E /* Frameworks */,
+				E48BD66C14AFF3FF00C25C3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = simple2View;
+			productName = simple2View;
+			productReference = E48BD66E14AFF3FF00C25C3E /* simple2View.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E48BD66514AFF3FF00C25C3E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "University of Wisconsin-Madison";
+			};
+			buildConfigurationList = E48BD66814AFF3FF00C25C3E /* Build configuration list for PBXProject "simple2View" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E48BD66314AFF3FF00C25C3E;
+			productRefGroup = E48BD66F14AFF3FF00C25C3E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E48BD66D14AFF3FF00C25C3E /* simple2View */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E48BD66C14AFF3FF00C25C3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E48BD67D14AFF3FF00C25C3E /* InfoPlist.strings in Resources */,
+				E48BD68914AFF3FF00C25C3E /* MainStoryboard_iPad.storyboard in Resources */,
+				E481F38314AFFFA600112794 /* Storyboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E48BD66A14AFF3FF00C25C3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E48BD67F14AFF3FF00C25C3E /* main.m in Sources */,
+				E48BD68314AFF3FF00C25C3E /* simple2ViewsAppDelegate.m in Sources */,
+				E481F37F14AFFA1100112794 /* simple2View.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E48BD67B14AFF3FF00C25C3E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E48BD67C14AFF3FF00C25C3E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E48BD68714AFF3FF00C25C3E /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E48BD68814AFF3FF00C25C3E /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E48BD68D14AFF3FF00C25C3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E48BD68E14AFF3FF00C25C3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E48BD69014AFF3FF00C25C3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "simple2View/simple2View-Prefix.pch";
+				INFOPLIST_FILE = "simple2View/simple2View-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E48BD69114AFF3FF00C25C3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "simple2View/simple2View-Prefix.pch";
+				INFOPLIST_FILE = "simple2View/simple2View-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E48BD66814AFF3FF00C25C3E /* Build configuration list for PBXProject "simple2View" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E48BD68D14AFF3FF00C25C3E /* Debug */,
+				E48BD68E14AFF3FF00C25C3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E48BD68F14AFF3FF00C25C3E /* Build configuration list for PBXNativeTarget "simple2View" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E48BD69014AFF3FF00C25C3E /* Debug */,
+				E48BD69114AFF3FF00C25C3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E48BD66514AFF3FF00C25C3E /* Project object */;
+}
