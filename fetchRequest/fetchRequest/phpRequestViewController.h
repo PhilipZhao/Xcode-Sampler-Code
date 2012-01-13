@@ -10,5 +10,6 @@
 
 @interface phpRequestViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *outputArea;
+@property (weak, nonatomic) IBOutlet UILabel *outputArea2;
 
 @end

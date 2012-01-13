@@ -16,6 +16,7 @@
 
 @implementation phpRequestViewController
 @synthesize outputArea = _outputArea;
+@synthesize outputArea2 = _outputArea2;
 
 - (IBAction)sendRequest:(UIButton *)sender 
 {
@@ -40,6 +41,7 @@
       NSString * output = [[NSString alloc] initWithData:dataObject 
                                                 encoding:NSASCIIStringEncoding];
       self.outputArea.text = output;
+      self.outputArea2.text = output;
     });
   });
   dispatch_release(requestQ);
@@ -52,6 +54,7 @@
 
 - (void)viewDidUnload {
   [self setOutputArea:nil];
+  [self setOutputArea2:nil];
   [super viewDidUnload];
 }
 @end
