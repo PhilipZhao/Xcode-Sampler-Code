@@ -1,0 +1,309 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
+		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
+		E45247AD14C0EEC200CC8BFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AC14C0EEC200CC8BFC /* CoreGraphics.framework */; };
+		E45247B314C0EEC200CC8BFC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E45247B114C0EEC200CC8BFC /* InfoPlist.strings */; };
+		E45247B514C0EEC200CC8BFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247B414C0EEC200CC8BFC /* main.m */; };
+		E45247B914C0EEC200CC8BFC /* PMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */; };
+		E45247BC14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */; };
+		E45247BF14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */; };
+		E45247C214C0EEC300CC8BFC /* PMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247C114C0EEC300CC8BFC /* PMViewController.m */; };
+		E45247C914C0EEDA00CC8BFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247C814C0EEDA00CC8BFC /* MapKit.framework */; };
+		E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */; };
+		E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CC14C0EEEB00CC8BFC /* CoreData.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E45247A414C0EEC200CC8BFC /* Passim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passim.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E45247A814C0EEC200CC8BFC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E45247AA14C0EEC200CC8BFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E45247AC14C0EEC200CC8BFC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E45247B014C0EEC200CC8BFC /* Passim-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Passim-Info.plist"; sourceTree = "<group>"; };
+		E45247B214C0EEC200CC8BFC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E45247B414C0EEC200CC8BFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E45247B614C0EEC200CC8BFC /* Passim-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Passim-Prefix.pch"; sourceTree = "<group>"; };
+		E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMAppDelegate.h; sourceTree = "<group>"; };
+		E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMAppDelegate.m; sourceTree = "<group>"; };
+		E45247BB14C0EEC200CC8BFC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		E45247BE14C0EEC300CC8BFC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		E45247C014C0EEC300CC8BFC /* PMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMViewController.h; sourceTree = "<group>"; };
+		E45247C114C0EEC300CC8BFC /* PMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMViewController.m; sourceTree = "<group>"; };
+		E45247C814C0EEDA00CC8BFC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E45247CC14C0EEEB00CC8BFC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E45247A114C0EEC200CC8BFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */,
+				E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */,
+				E45247C914C0EEDA00CC8BFC /* MapKit.framework in Frameworks */,
+				E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */,
+				E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */,
+				E45247AD14C0EEC200CC8BFC /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E452479914C0EEC200CC8BFC = {
+			isa = PBXGroup;
+			children = (
+				E45247AE14C0EEC200CC8BFC /* Passim */,
+				E45247A714C0EEC200CC8BFC /* Frameworks */,
+				E45247A514C0EEC200CC8BFC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E45247A514C0EEC200CC8BFC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E45247A414C0EEC200CC8BFC /* Passim.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E45247A714C0EEC200CC8BFC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E45247CC14C0EEEB00CC8BFC /* CoreData.framework */,
+				E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */,
+				E45247C814C0EEDA00CC8BFC /* MapKit.framework */,
+				E45247A814C0EEC200CC8BFC /* UIKit.framework */,
+				E45247AA14C0EEC200CC8BFC /* Foundation.framework */,
+				E45247AC14C0EEC200CC8BFC /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E45247AE14C0EEC200CC8BFC /* Passim */ = {
+			isa = PBXGroup;
+			children = (
+				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
+				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
+				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
+				E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */,
+				E45247C014C0EEC300CC8BFC /* PMViewController.h */,
+				E45247C114C0EEC300CC8BFC /* PMViewController.m */,
+				E45247AF14C0EEC200CC8BFC /* Supporting Files */,
+			);
+			path = Passim;
+			sourceTree = "<group>";
+		};
+		E45247AF14C0EEC200CC8BFC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E45247B014C0EEC200CC8BFC /* Passim-Info.plist */,
+				E45247B114C0EEC200CC8BFC /* InfoPlist.strings */,
+				E45247B414C0EEC200CC8BFC /* main.m */,
+				E45247B614C0EEC200CC8BFC /* Passim-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E45247A314C0EEC200CC8BFC /* Passim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E45247C514C0EEC300CC8BFC /* Build configuration list for PBXNativeTarget "Passim" */;
+			buildPhases = (
+				E45247A014C0EEC200CC8BFC /* Sources */,
+				E45247A114C0EEC200CC8BFC /* Frameworks */,
+				E45247A214C0EEC200CC8BFC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Passim;
+			productName = Passim;
+			productReference = E45247A414C0EEC200CC8BFC /* Passim.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E452479B14C0EEC200CC8BFC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PM;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "University of Wisconsin-Madison";
+			};
+			buildConfigurationList = E452479E14C0EEC200CC8BFC /* Build configuration list for PBXProject "Passim" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E452479914C0EEC200CC8BFC;
+			productRefGroup = E45247A514C0EEC200CC8BFC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E45247A314C0EEC200CC8BFC /* Passim */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E45247A214C0EEC200CC8BFC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E45247B314C0EEC200CC8BFC /* InfoPlist.strings in Resources */,
+				E45247BC14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard in Resources */,
+				E45247BF14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E45247A014C0EEC200CC8BFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E45247B514C0EEC200CC8BFC /* main.m in Sources */,
+				E45247B914C0EEC200CC8BFC /* PMAppDelegate.m in Sources */,
+				E45247C214C0EEC300CC8BFC /* PMViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E45247B114C0EEC200CC8BFC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E45247B214C0EEC200CC8BFC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E45247BB14C0EEC200CC8BFC /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E45247BE14C0EEC300CC8BFC /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E45247C314C0EEC300CC8BFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E45247C414C0EEC300CC8BFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E45247C614C0EEC300CC8BFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Passim/Passim-Prefix.pch";
+				INFOPLIST_FILE = "Passim/Passim-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E45247C714C0EEC300CC8BFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Passim/Passim-Prefix.pch";
+				INFOPLIST_FILE = "Passim/Passim-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E452479E14C0EEC200CC8BFC /* Build configuration list for PBXProject "Passim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E45247C314C0EEC300CC8BFC /* Debug */,
+				E45247C414C0EEC300CC8BFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E45247C514C0EEC300CC8BFC /* Build configuration list for PBXNativeTarget "Passim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E45247C614C0EEC300CC8BFC /* Debug */,
+				E45247C714C0EEC300CC8BFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E452479B14C0EEC200CC8BFC /* Project object */;
+}
