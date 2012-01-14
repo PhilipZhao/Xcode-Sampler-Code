@@ -21,6 +21,8 @@
 		E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */; };
 		E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CC14C0EEEB00CC8BFC /* CoreData.framework */; };
 		E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247CF14C0F19600CC8BFC /* PMMapViewController.m */; };
+		E49AA02414C129DC00C504E3 /* PMTweeterUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */; };
+		E49AA02A14C12A6100C504E3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49AA02914C12A6100C504E3 /* Accounts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,9 @@
 		E45247CC14C0EEEB00CC8BFC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E45247CE14C0F19600CC8BFC /* PMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMapViewController.h; sourceTree = "<group>"; };
 		E45247CF14C0F19600CC8BFC /* PMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMapViewController.m; sourceTree = "<group>"; };
+		E49AA02214C129DB00C504E3 /* PMTweeterUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMTweeterUtility.h; sourceTree = "<group>"; };
+		E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMTweeterUtility.m; sourceTree = "<group>"; };
+		E49AA02914C12A6100C504E3 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49AA02A14C12A6100C504E3 /* Accounts.framework in Frameworks */,
 				E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */,
 				E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */,
 				E45247C914C0EEDA00CC8BFC /* MapKit.framework in Frameworks */,
@@ -84,6 +90,7 @@
 		E45247A714C0EEC200CC8BFC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E49AA02914C12A6100C504E3 /* Accounts.framework */,
 				E45247CC14C0EEEB00CC8BFC /* CoreData.framework */,
 				E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */,
 				E45247C814C0EEDA00CC8BFC /* MapKit.framework */,
@@ -100,6 +107,8 @@
 				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
 				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
 				E40AA91E14C10BE7005526D8 /* PMUtility.h */,
+				E49AA02214C129DB00C504E3 /* PMTweeterUtility.h */,
+				E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */,
 				E40AA91F14C10BE8005526D8 /* PMUtility.m */,
 				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
 				E45247CE14C0F19600CC8BFC /* PMMapViewController.h */,
@@ -193,6 +202,7 @@
 				E45247C214C0EEC300CC8BFC /* PMViewController.m in Sources */,
 				E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */,
 				E40AA92014C10BE8005526D8 /* PMUtility.m in Sources */,
+				E49AA02414C129DC00C504E3 /* PMTweeterUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
