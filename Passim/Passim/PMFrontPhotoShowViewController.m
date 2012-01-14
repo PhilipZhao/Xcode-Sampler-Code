@@ -10,7 +10,7 @@
 
 #define SLIDE_SHOW_DURIATION 1
 #define ANIMATION_DURIATION 0.5
-#define MAX_NUM_OF_IMAGE 4
+#define MAX_NUM_OF_IMAGE 1
 @interface PMFrontPhotoShowViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) NSTimer *animationTimer;
@@ -29,11 +29,12 @@
 {
   if (_imageArray == nil) {
     NSMutableArray *imgArray = [[NSMutableArray alloc] initWithCapacity:MAX_NUM_OF_IMAGE];
-    for (int i = 0; i < [imgArray count]; i++) {
-      UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"frontPhotoShow%d.png", i]];
-      [imgArray addObject:image];
+    for (int i = 0; i < MAX_NUM_OF_IMAGE; i++) {
+      UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"frontPhotoShow%d.png", i]];
+      NSLog(@"%@", [NSString stringWithFormat:@"frontPhotoShow%d.png",i]);
+      if (image) [imgArray addObject:image];
     }
-    _imageArray = [NSArray arrayWithArray:imgArray];
+    _imageArray = [[NSArray alloc] initWithArray:imgArray];
     _imgIndex = 0; // start from the very beginning
   }
   return _imageArray;
@@ -51,7 +52,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+  [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -59,6 +60,7 @@
 {
   [self setImageView:nil];
   [super viewDidUnload];
+  NSLog(@"view did unload");
   // Release any retained subviews of the main view.
 }
 
@@ -66,12 +68,15 @@
 {
   [super viewWillAppear:animated];
   self.view.backgroundColor = [UIColor blackColor];
-  self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:SLIDE_SHOW_DURIATION 
+  if ([self.imageArray count] != 0 ) {
+    // start animation if we have images
+    self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:SLIDE_SHOW_DURIATION 
                                                        target:self 
                                                      selector:@selector(fadingOut:) 
                                                      userInfo:nil 
                                                       repeats:NO];
-  self.imageView.image = [self.imageArray objectAtIndex:self.imgIndex];
+    self.imageView.image = [self.imageArray objectAtIndex:self.imgIndex];
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -131,7 +136,11 @@
 #pragma mark - Target Action
 - (IBAction)twitterSignIn:(UIButton *)sender {
   // send requires to tweeter and decide which way to go on based there
-  
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

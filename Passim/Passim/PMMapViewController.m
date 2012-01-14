@@ -7,13 +7,13 @@
 //
 
 #import "PMMapViewController.h"
-#import "PMUtility.h"
+#import "PMLocationUtility.h"
 #import "PMAppDelegate.h"
 
 #define METERS_PER_MILE 1609.344
 
 @interface PMMapViewController () <PMUtilityDelegate>
-@property (weak, nonatomic) PMUtility *sharedUtilty;
+@property (weak, nonatomic) PMLocationUtility *sharedUtilty;
 @end
 
 @implementation PMMapViewController
@@ -65,7 +65,7 @@
 }
 
 #pragma mark - PMUtility Delegate
-- (void)utility:(PMUtility *)sender getUserLocationUpdate:(CLLocation *)location 
+- (void)utility:(PMLocationUtility *)sender getUserLocationUpdate:(CLLocation *)location 
 {
   // move the map to this center
   [self displayMapWithLocation:location.coordinate];

@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E40AA92014C10BE8005526D8 /* PMUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = E40AA91F14C10BE8005526D8 /* PMUtility.m */; };
+		E40AA92014C10BE8005526D8 /* PMLocationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = E40AA91F14C10BE8005526D8 /* PMLocationUtility.m */; };
+		E40CF77D14C1C9D300F0A0A0 /* frontPhotoShow0.png in Resources */ = {isa = PBXBuildFile; fileRef = E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */; };
+		E40CF78114C1DD7800F0A0A0 /* PMNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = E40CF78014C1DD7800F0A0A0 /* PMNavigation.m */; };
 		E42A40F914C14B39009626C5 /* PMFrontPhotoShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */; };
 		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
 		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
@@ -27,8 +29,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E40AA91E14C10BE7005526D8 /* PMUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMUtility.h; sourceTree = "<group>"; };
-		E40AA91F14C10BE8005526D8 /* PMUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMUtility.m; sourceTree = "<group>"; };
+		E40AA91E14C10BE7005526D8 /* PMLocationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PMLocationUtility.h; sourceTree = "<group>"; };
+		E40AA91F14C10BE8005526D8 /* PMLocationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMLocationUtility.m; sourceTree = "<group>"; };
+		E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frontPhotoShow0.png; path = ../frontPhotoShow0.png; sourceTree = "<group>"; };
+		E40CF77F14C1DD7800F0A0A0 /* PMNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PMNavigation.h; path = ../PMNavigation.h; sourceTree = "<group>"; };
+		E40CF78014C1DD7800F0A0A0 /* PMNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PMNavigation.m; path = ../PMNavigation.m; sourceTree = "<group>"; };
 		E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMFrontPhotoShowViewController.h; sourceTree = "<group>"; };
 		E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMFrontPhotoShowViewController.m; sourceTree = "<group>"; };
 		E45247A414C0EEC200CC8BFC /* Passim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +81,7 @@
 		E42A40FB14C14C7B009626C5 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */,
 			);
 			name = resource;
 			path = Passim;
@@ -116,14 +122,16 @@
 		E45247AE14C0EEC200CC8BFC /* Passim */ = {
 			isa = PBXGroup;
 			children = (
+				E40CF77F14C1DD7800F0A0A0 /* PMNavigation.h */,
+				E40CF78014C1DD7800F0A0A0 /* PMNavigation.m */,
 				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
 				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
-				E40AA91E14C10BE7005526D8 /* PMUtility.h */,
+				E40AA91E14C10BE7005526D8 /* PMLocationUtility.h */,
 				E49AA02214C129DB00C504E3 /* PMTweeterUtility.h */,
 				E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */,
 				E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */,
 				E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */,
-				E40AA91F14C10BE8005526D8 /* PMUtility.m */,
+				E40AA91F14C10BE8005526D8 /* PMLocationUtility.m */,
 				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
 				E45247CE14C0F19600CC8BFC /* PMMapViewController.h */,
 				E45247CF14C0F19600CC8BFC /* PMMapViewController.m */,
@@ -201,6 +209,7 @@
 				E45247B314C0EEC200CC8BFC /* InfoPlist.strings in Resources */,
 				E45247BC14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard in Resources */,
 				E45247BF14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard in Resources */,
+				E40CF77D14C1C9D300F0A0A0 /* frontPhotoShow0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,9 +224,10 @@
 				E45247B914C0EEC200CC8BFC /* PMAppDelegate.m in Sources */,
 				E45247C214C0EEC300CC8BFC /* PMViewController.m in Sources */,
 				E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */,
-				E40AA92014C10BE8005526D8 /* PMUtility.m in Sources */,
+				E40AA92014C10BE8005526D8 /* PMLocationUtility.m in Sources */,
 				E49AA02414C129DC00C504E3 /* PMTweeterUtility.m in Sources */,
 				E42A40F914C14B39009626C5 /* PMFrontPhotoShowViewController.m in Sources */,
+				E40CF78114C1DD7800F0A0A0 /* PMNavigation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
