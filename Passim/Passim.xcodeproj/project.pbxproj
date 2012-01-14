@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E40AA92014C10BE8005526D8 /* PMLocationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = E40AA91F14C10BE8005526D8 /* PMLocationUtility.m */; };
 		E40CF77D14C1C9D300F0A0A0 /* frontPhotoShow0.png in Resources */ = {isa = PBXBuildFile; fileRef = E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */; };
-		E40CF78114C1DD7800F0A0A0 /* PMNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = E40CF78014C1DD7800F0A0A0 /* PMNavigation.m */; };
+		E40CF78814C1F19F00F0A0A0 /* PMNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */; };
 		E42A40F914C14B39009626C5 /* PMFrontPhotoShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */; };
 		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
 		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
@@ -29,11 +29,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E40AA91E14C10BE7005526D8 /* PMLocationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PMLocationUtility.h; sourceTree = "<group>"; };
+		E40AA91E14C10BE7005526D8 /* PMLocationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMLocationUtility.h; sourceTree = "<group>"; };
 		E40AA91F14C10BE8005526D8 /* PMLocationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMLocationUtility.m; sourceTree = "<group>"; };
 		E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frontPhotoShow0.png; path = ../frontPhotoShow0.png; sourceTree = "<group>"; };
-		E40CF77F14C1DD7800F0A0A0 /* PMNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PMNavigation.h; path = ../PMNavigation.h; sourceTree = "<group>"; };
-		E40CF78014C1DD7800F0A0A0 /* PMNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PMNavigation.m; path = ../PMNavigation.m; sourceTree = "<group>"; };
+		E40CF78614C1F19F00F0A0A0 /* PMNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMNavigation.h; sourceTree = "<group>"; };
+		E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMNavigation.m; sourceTree = "<group>"; };
 		E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMFrontPhotoShowViewController.h; sourceTree = "<group>"; };
 		E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMFrontPhotoShowViewController.m; sourceTree = "<group>"; };
 		E45247A414C0EEC200CC8BFC /* Passim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,8 +122,8 @@
 		E45247AE14C0EEC200CC8BFC /* Passim */ = {
 			isa = PBXGroup;
 			children = (
-				E40CF77F14C1DD7800F0A0A0 /* PMNavigation.h */,
-				E40CF78014C1DD7800F0A0A0 /* PMNavigation.m */,
+				E40CF78614C1F19F00F0A0A0 /* PMNavigation.h */,
+				E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */,
 				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
 				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
 				E40AA91E14C10BE7005526D8 /* PMLocationUtility.h */,
@@ -227,7 +227,7 @@
 				E40AA92014C10BE8005526D8 /* PMLocationUtility.m in Sources */,
 				E49AA02414C129DC00C504E3 /* PMTweeterUtility.m in Sources */,
 				E42A40F914C14B39009626C5 /* PMFrontPhotoShowViewController.m in Sources */,
-				E40CF78114C1DD7800F0A0A0 /* PMNavigation.m in Sources */,
+				E40CF78814C1F19F00F0A0A0 /* PMNavigation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
