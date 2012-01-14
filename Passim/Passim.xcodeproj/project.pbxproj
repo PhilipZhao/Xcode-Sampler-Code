@@ -19,6 +19,8 @@
 		E45247C914C0EEDA00CC8BFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247C814C0EEDA00CC8BFC /* MapKit.framework */; };
 		E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */; };
 		E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CC14C0EEEB00CC8BFC /* CoreData.framework */; };
+		E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247CF14C0F19600CC8BFC /* PMMapViewController.m */; };
+		E45247D314C0F61F00CC8BFC /* PMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247D214C0F61F00CC8BFC /* PMTabBarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,10 @@
 		E45247C814C0EEDA00CC8BFC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E45247CC14C0EEEB00CC8BFC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E45247CE14C0F19600CC8BFC /* PMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMapViewController.h; sourceTree = "<group>"; };
+		E45247CF14C0F19600CC8BFC /* PMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMapViewController.m; sourceTree = "<group>"; };
+		E45247D114C0F61F00CC8BFC /* PMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMTabBarViewController.h; sourceTree = "<group>"; };
+		E45247D214C0F61F00CC8BFC /* PMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMTabBarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,10 @@
 				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
 				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
 				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
+				E45247CE14C0F19600CC8BFC /* PMMapViewController.h */,
+				E45247CF14C0F19600CC8BFC /* PMMapViewController.m */,
+				E45247D114C0F61F00CC8BFC /* PMTabBarViewController.h */,
+				E45247D214C0F61F00CC8BFC /* PMTabBarViewController.m */,
 				E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */,
 				E45247C014C0EEC300CC8BFC /* PMViewController.h */,
 				E45247C114C0EEC300CC8BFC /* PMViewController.m */,
@@ -181,6 +191,8 @@
 				E45247B514C0EEC200CC8BFC /* main.m in Sources */,
 				E45247B914C0EEC200CC8BFC /* PMAppDelegate.m in Sources */,
 				E45247C214C0EEC300CC8BFC /* PMViewController.m in Sources */,
+				E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */,
+				E45247D314C0F61F00CC8BFC /* PMTabBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

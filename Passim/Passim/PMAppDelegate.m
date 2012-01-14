@@ -7,10 +7,18 @@
 //
 
 #import "PMAppDelegate.h"
-
+@interface PMAppDelegate()
+@property (strong, nonatomic) NSString *hello;
+@end
 @implementation PMAppDelegate
 
 @synthesize window = _window;
+@synthesize hello = _hello;
+
+- (NSString *)hello {
+  NSLog(@"YY");
+  return @"hello back, it should work";
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -43,6 +51,10 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
   // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+  NSLog(@"tabBar");
 }
 
 @end
