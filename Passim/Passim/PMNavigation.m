@@ -25,7 +25,7 @@
   UIApplication *app = [UIApplication sharedApplication];
   id appDelegate = app.delegate;
   PMTweeterUtility *tweeterUtil = [appDelegate valueForKey:PMTWEETERUTILITY_KEY];
-  if ([tweeterUtil getDefaultsScreenName] == nil) {
+  if (![tweeterUtil canAccessTweeter]) {
     vc = [self.storyboard instantiateViewControllerWithIdentifier:@"fronPhotoShowController"];
   } else {
     vc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];

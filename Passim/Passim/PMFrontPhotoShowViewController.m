@@ -7,6 +7,7 @@
 //
 
 #import "PMFrontPhotoShowViewController.h"
+#import "PMAppDelegate.h"
 
 #define SLIDE_SHOW_DURIATION 1
 #define ANIMATION_DURIATION 0.5
@@ -136,11 +137,26 @@
 #pragma mark - Target Action
 - (IBAction)twitterSignIn:(UIButton *)sender {
   // send requires to tweeter and decide which way to go on based there
+  id delegate =[UIApplication sharedApplication].delegate;
+  PMTweeterUtility *tweeter = [delegate valueForKey: PMTWEETERUTILITY_KEY];
+  [tweeter requireAccessUserAccountWithCompleteHandler:^(BOOL granted){
+    if (granted) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"fromPhotoSlideToTabBar" sender:self];
+      });
+    } else {
+      // I did not know what to do here!!!
+    }
+  }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-  [self dismissModalViewControllerAnimated:YES];
+  if ([segue.identifier isEqualToString:@"fromPhotoSlideToTabBar"]) {
+  } else {
+    // Something wrong with it.
+    NSLog(@"We need to crash here!");
+  }
 }
 
 @end

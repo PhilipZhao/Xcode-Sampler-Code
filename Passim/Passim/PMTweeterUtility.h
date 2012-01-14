@@ -11,4 +11,7 @@
 @interface PMTweeterUtility : NSObject
 
 - (NSString *)getDefaultsScreenName;
+- (void) updateDefaultsScreenName:(NSString *)screen_name;
+- (BOOL) canAccessTweeter;
+- (void)requireAccessUserAccountWithCompleteHandler:(void (^)(BOOL granted)) handler;
 @end
