@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PMLocationUtility.h"
+#import "PMTweeterUtility.h"
 
 #define PMTWEETERUTILITY_KEY @"sharedTweeterUtility"
 #define PMUTILITY_KEY @"sharedUtility"
@@ -14,5 +16,6 @@
 @interface PMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) PMLocationUtility* sharedUtility; // a utitly object that shared across VC
+@property (strong, nonatomic) PMTweeterUtility *sharedTweeterUtility;
 @end

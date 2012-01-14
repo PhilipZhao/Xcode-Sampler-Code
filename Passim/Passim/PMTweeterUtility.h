@@ -10,4 +10,5 @@
 
 @interface PMTweeterUtility : NSObject
 
+- (NSString *)getDefaultsScreenName;
 @end

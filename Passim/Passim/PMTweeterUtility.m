@@ -10,6 +10,8 @@
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
 
+#define PREFER_SCREEN_NAME @"prefer screen_name"
+
 @interface PMTweeterUtility() 
 @property (strong, nonatomic) ACAccountStore *accountStore;
 @property (strong, nonatomic) ACAccountType *accountType;
@@ -31,6 +33,12 @@
 - (void)requireAccessUserAccount
 {
   
+}
+
+- (NSString *)getDefaultsScreenName 
+{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  return [defaults stringForKey:PREFER_SCREEN_NAME];
 }
 
 @end

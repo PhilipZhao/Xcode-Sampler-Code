@@ -7,14 +7,11 @@
 //
 
 #import "PMAppDelegate.h"
-#import "PMLocationUtility.h"
-#import "PMTweeterUtility.h"
+
 
 @interface PMAppDelegate()
-@property (strong, nonatomic) PMLocationUtility* sharedUtility; // a utitly object that shared across VC
-@property (strong, nonatomic) PMTweeterUtility *sharedTweeterUtility;
-@end
 
+@end
 @implementation PMAppDelegate
 
 @synthesize window = _window;

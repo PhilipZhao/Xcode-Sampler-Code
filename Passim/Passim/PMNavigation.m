@@ -7,10 +7,11 @@
 //
 
 #import "PMNavigation.h"
+#import "PMAppDelegate.h"
 
 #define TAB_SELECTED_INDEX @"tabSelectedIndex"
 @interface PMNavigation()
-@property (strong, nonatomic) id viewController;
+@property (weak, nonatomic) id viewController;
 @end
 
 @implementation PMNavigation
@@ -20,27 +21,27 @@
 {
   [super viewDidLoad];
   NSLog(@"Navigation: viewDidLoad");
-  static NSInteger value = 0;
   UIViewController *vc;
-  
-  if (value == 1) {
+  UIApplication *app = [UIApplication sharedApplication];
+  id appDelegate = app.delegate;
+  PMTweeterUtility *tweeterUtil = [appDelegate valueForKey:PMTWEETERUTILITY_KEY];
+  if ([tweeterUtil getDefaultsScreenName] == nil) {
     vc = [self.storyboard instantiateViewControllerWithIdentifier:@"fronPhotoShowController"];
   } else {
     vc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
   }
   [self presentViewController:vc animated:NO completion:^{
-    NSLog(@"complete presentViewController");
     if ([vc isKindOfClass:[UITabBarController class]]) {
       // retrieve user information
-      NSLog(@"I am Tab Bar Controller");
       UITabBarController *tabBarController = (UITabBarController *)vc;
       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
       NSInteger value = [[defaults stringForKey:TAB_SELECTED_INDEX] integerValue];
       tabBarController.selectedIndex = value;
     }
+    // init to set up delegate?
   }];
+
   self.viewController = vc;
-  UIApplication *app = [UIApplication sharedApplication];
   [[NSNotificationCenter defaultCenter] addObserver:self 
                                            selector:@selector(saveCurrentStatus:) 
                                                name:UIApplicationDidEnterBackgroundNotification object:app];
@@ -54,9 +55,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-  if (self.viewController == nil) {
-    NSLog(@"too sad");
-  }
   [super viewWillDisappear:animated];
   NSLog(@"Naviagtion: viewWillDisappar");
 }
@@ -72,11 +70,11 @@
 {
   NSLog(@"%@", NSStringFromSelector(_cmd));
   if ([self.viewController isKindOfClass:[UITabBarController class]]) {
-    NSLog(@"I am Tab Bar Controller and I ready to syn with user default");
     UITabBarController *tabController = (UITabBarController *)self.viewController;
-    // write to file
+    // write to user defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSString stringWithFormat:@"%d", tabController.selectedIndex] forKey:TAB_SELECTED_INDEX];
+    [defaults setValue:[NSString stringWithFormat:@"%d", tabController.selectedIndex] 
+                forKey:TAB_SELECTED_INDEX];
     [defaults synchronize];
   }
 }
