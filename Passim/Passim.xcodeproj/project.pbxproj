@@ -34,6 +34,8 @@
 		E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frontPhotoShow0.png; path = ../frontPhotoShow0.png; sourceTree = "<group>"; };
 		E40CF78614C1F19F00F0A0A0 /* PMNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMNavigation.h; sourceTree = "<group>"; };
 		E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMNavigation.m; sourceTree = "<group>"; };
+		E428759E14C242D300357EFE /* Union, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Union, Madison.gpx"; sourceTree = "<group>"; };
+		E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kolch Center, Madison.gpx"; sourceTree = "<group>"; };
 		E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMFrontPhotoShowViewController.h; sourceTree = "<group>"; };
 		E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMFrontPhotoShowViewController.m; sourceTree = "<group>"; };
 		E436B95F14C22F5700A8FF2F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -146,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				E45247B014C0EEC200CC8BFC /* Passim-Info.plist */,
+				E428759E14C242D300357EFE /* Union, Madison.gpx */,
+				E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */,
 				E45247B114C0EEC200CC8BFC /* InfoPlist.strings */,
 				E45247B414C0EEC200CC8BFC /* main.m */,
 				E45247B614C0EEC200CC8BFC /* Passim-Prefix.pch */,

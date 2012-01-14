@@ -35,6 +35,7 @@
   id delegate = [[UIApplication sharedApplication] delegate];
   self.sharedUtilty = [delegate valueForKey:PMUTILITY_KEY];
   [self.sharedUtilty setValue:self forKey:@"delegate"];
+  self.sharedUtilty.turnOnLocationUpdate = YES;
   CLLocation *userLocation = [self.sharedUtilty getUserCurrentLocationWithSender:self];
   if (userLocation != nil) {
     [self displayMapWithLocation:userLocation.coordinate];
