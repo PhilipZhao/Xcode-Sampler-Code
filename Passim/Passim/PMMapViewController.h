@@ -13,5 +13,4 @@
 @interface PMMapViewController : UIViewController<MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (nonatomic) CLLocationCoordinate2D userLocation;
 @end

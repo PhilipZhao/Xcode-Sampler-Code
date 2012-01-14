@@ -7,23 +7,28 @@
 //
 
 #import "PMAppDelegate.h"
+#import "PMUtility.h"
 @interface PMAppDelegate()
-@property (strong, nonatomic) NSString *hello;
+@property (strong, nonatomic) PMUtility* sharedUtility; // a utitly object that shared across VC
 @end
 @implementation PMAppDelegate
 
 @synthesize window = _window;
-@synthesize hello = _hello;
+@synthesize sharedUtility = _sharedUtility;
 
-- (NSString *)hello {
-  NSLog(@"YY");
-  return @"hello back, it should work";
+- (PMUtility *)sharedUtility
+{
+  if (_sharedUtility == nil) {
+    _sharedUtility = [[PMUtility alloc] init];
+  }
+  return _sharedUtility;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    return YES;
+  [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+  return YES;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

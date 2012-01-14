@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E40AA92014C10BE8005526D8 /* PMUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = E40AA91F14C10BE8005526D8 /* PMUtility.m */; };
 		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
 		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
 		E45247AD14C0EEC200CC8BFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AC14C0EEC200CC8BFC /* CoreGraphics.framework */; };
@@ -20,10 +21,11 @@
 		E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */; };
 		E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CC14C0EEEB00CC8BFC /* CoreData.framework */; };
 		E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247CF14C0F19600CC8BFC /* PMMapViewController.m */; };
-		E45247D314C0F61F00CC8BFC /* PMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247D214C0F61F00CC8BFC /* PMTabBarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E40AA91E14C10BE7005526D8 /* PMUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMUtility.h; sourceTree = "<group>"; };
+		E40AA91F14C10BE8005526D8 /* PMUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMUtility.m; sourceTree = "<group>"; };
 		E45247A414C0EEC200CC8BFC /* Passim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E45247A814C0EEC200CC8BFC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E45247AA14C0EEC200CC8BFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -43,8 +45,6 @@
 		E45247CC14C0EEEB00CC8BFC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E45247CE14C0F19600CC8BFC /* PMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMapViewController.h; sourceTree = "<group>"; };
 		E45247CF14C0F19600CC8BFC /* PMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMapViewController.m; sourceTree = "<group>"; };
-		E45247D114C0F61F00CC8BFC /* PMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMTabBarViewController.h; sourceTree = "<group>"; };
-		E45247D214C0F61F00CC8BFC /* PMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMTabBarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,11 +99,11 @@
 			children = (
 				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
 				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
+				E40AA91E14C10BE7005526D8 /* PMUtility.h */,
+				E40AA91F14C10BE8005526D8 /* PMUtility.m */,
 				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
 				E45247CE14C0F19600CC8BFC /* PMMapViewController.h */,
 				E45247CF14C0F19600CC8BFC /* PMMapViewController.m */,
-				E45247D114C0F61F00CC8BFC /* PMTabBarViewController.h */,
-				E45247D214C0F61F00CC8BFC /* PMTabBarViewController.m */,
 				E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */,
 				E45247C014C0EEC300CC8BFC /* PMViewController.h */,
 				E45247C114C0EEC300CC8BFC /* PMViewController.m */,
@@ -192,7 +192,7 @@
 				E45247B914C0EEC200CC8BFC /* PMAppDelegate.m in Sources */,
 				E45247C214C0EEC300CC8BFC /* PMViewController.m in Sources */,
 				E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */,
-				E45247D314C0F61F00CC8BFC /* PMTabBarViewController.m in Sources */,
+				E40AA92014C10BE8005526D8 /* PMUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +314,7 @@
 				E45247C714C0EEC300CC8BFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

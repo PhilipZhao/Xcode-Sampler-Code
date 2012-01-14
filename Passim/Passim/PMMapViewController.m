@@ -7,14 +7,17 @@
 //
 
 #import "PMMapViewController.h"
+#import "PMUtility.h"
 
-@interface PMMapViewController ()
+#define METERS_PER_MILE 1609.344
 
+@interface PMMapViewController () <PMUtilityDelegate>
+@property (weak, nonatomic) PMUtility *sharedUtilty;
 @end
 
 @implementation PMMapViewController
 @synthesize mapView = _mapView;
-@synthesize userLocation = _userLocation;
+@synthesize sharedUtilty = _sharedUtilty;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,25 +28,24 @@
     return self;
 }
 
-- (void)loadView
-{
-    // Implement loadView to create a view hierarchy programmatically, without using a nib.
-}
-
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   id delegate = [[UIApplication sharedApplication] delegate];
-  NSString *sth = [delegate valueForKey:@"hello"];
-  NSLog(@"%@", sth);
-  // Do any additional setup after loading the view, typically from a nib.
+  self.sharedUtilty = [delegate valueForKey:PMUTILITY_KEY];
+  [self.sharedUtilty setValue:self forKey:@"delegate"];
+  CLLocation *userLocation = [self.sharedUtilty getUserCurrentLocationWithSender:self];
+  if (userLocation != nil) {
+    [self displayMapWithLocation:userLocation.coordinate];
+  }
 }
 
 - (void)viewDidUnload
 {
-    [self setMapView:nil];
-    [super viewDidUnload];
+  [self setMapView:nil];
+  [super viewDidUnload];
+  self.sharedUtilty = nil;
+  
     // Release any retained subviews of the main view.
 }
 
@@ -52,4 +54,19 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - private function
+- (void)displayMapWithLocation:(CLLocationCoordinate2D) zoomLocation
+{
+  MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5 * METERS_PER_MILE, 0.5 * METERS_PER_MILE);
+  MKCoordinateRegion adjustRegion = [self.mapView regionThatFits:viewRegion];
+  [self.mapView setRegion:adjustRegion animated:YES];
+  
+}
+
+#pragma mark - PMUtility Delegate
+- (void)utility:(PMUtility *)sender getUserLocationUpdate:(CLLocation *)location 
+{
+  // move the map to this center
+  [self displayMapWithLocation:location.coordinate];
+}
 @end
