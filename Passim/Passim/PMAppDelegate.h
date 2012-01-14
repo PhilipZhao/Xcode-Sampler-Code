@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#define PMTWEETERUTILITY_KEY @"sharedTweeterUtility"
+#define PMUTILITY_KEY @"sharedUtility"
+
 @interface PMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

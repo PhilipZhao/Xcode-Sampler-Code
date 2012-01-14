@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#define PMUTILITY_KEY @"sharedUtility"
-
 @class  PMUtility;
 @protocol PMUtilityDelegate <NSObject>
 - (void)utility:(PMUtility *) sender getUserLocationUpdate:(CLLocation *) location;

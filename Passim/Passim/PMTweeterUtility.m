@@ -22,9 +22,15 @@
 - (id)init 
 {
   if (self = [super init]) {
-    
+    self.accountStore = [[ACAccountStore alloc] init];
+    self.accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
   }
   return self;
+}
+
+- (void)requireAccessUserAccount
+{
+  
 }
 
 @end

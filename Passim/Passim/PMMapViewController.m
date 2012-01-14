@@ -8,6 +8,7 @@
 
 #import "PMMapViewController.h"
 #import "PMUtility.h"
+#import "PMAppDelegate.h"
 
 #define METERS_PER_MILE 1609.344
 

@@ -8,20 +8,32 @@
 
 #import "PMAppDelegate.h"
 #import "PMUtility.h"
+#import "PMTweeterUtility.h"
 @interface PMAppDelegate()
 @property (strong, nonatomic) PMUtility* sharedUtility; // a utitly object that shared across VC
+@property (strong, nonatomic) PMTweeterUtility *sharedTweeterUtility;
 @end
 @implementation PMAppDelegate
 
 @synthesize window = _window;
 @synthesize sharedUtility = _sharedUtility;
+@synthesize sharedTweeterUtility = _sharedTweeterUtility;
 
+#pragma mark - Setter/Getter
 - (PMUtility *)sharedUtility
 {
   if (_sharedUtility == nil) {
     _sharedUtility = [[PMUtility alloc] init];
   }
   return _sharedUtility;
+}
+
+- (PMTweeterUtility *)sharedTweeterUtility 
+{
+  if (_sharedTweeterUtility == nil) {
+    _sharedTweeterUtility = [[PMTweeterUtility alloc] init];
+  }
+  return _sharedTweeterUtility;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
