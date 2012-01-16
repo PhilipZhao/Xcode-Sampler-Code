@@ -88,7 +88,7 @@
   NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
   if (abs(howRecent) < 15) {
     // stop the geolocation service
-    //self.turnOnLocationUpdate = NO;
+    self.turnOnLocationUpdate = NO;
     [self.delegate utility:self getUserLocationUpdate:self.locationManager.location]; // update its delegate
   }
 }

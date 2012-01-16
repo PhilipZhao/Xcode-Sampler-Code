@@ -139,13 +139,22 @@
   // send requires to tweeter and decide which way to go on based there
   id delegate =[UIApplication sharedApplication].delegate;
   PMTweeterUtility *tweeter = [delegate valueForKey: PMTWEETERUTILITY_KEY];
-  [tweeter requireAccessUserAccountWithCompleteHandler:^(BOOL granted){
-    if (granted) {
+  [tweeter requireAccessUserAccountWithCompleteHandler:^(BOOL granted, BOOL hasAccountInSystem){
+    if (granted && hasAccountInSystem) {
       dispatch_async(dispatch_get_main_queue(), ^{
         [self performSegueWithIdentifier:@"fromPhotoSlideToTabBar" sender:self];
       });
-    } else {
+    } else if (granted && !hasAccountInSystem) {
       // I did not know what to do here!!!
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Twitter Account Set up" 
+                                                      message:@"Need to set up twitter account in Setting App before continue" 
+                                                     delegate:self 
+                                            cancelButtonTitle:@"OK" 
+                                            otherButtonTitles: nil];
+      [alert show];
+      // TODO: show open up Setting App
+    } else {
+      // not granted
     }
   }];
 }

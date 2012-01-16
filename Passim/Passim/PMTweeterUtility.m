@@ -77,7 +77,7 @@
   return self;
 }
 
-- (void)requireAccessUserAccountWithCompleteHandler:(void (^)(BOOL granted)) handler
+- (void)requireAccessUserAccountWithCompleteHandler:(void (^)(BOOL granted, BOOL hasAccountInSystem)) handler
 {
   if (self.userAccount == nil) {
     // ask for require
@@ -85,6 +85,7 @@
       if (granted) {
         NSArray *accountArray = [self.accountStore accountsWithAccountType:self.accountType];
         if ([accountArray count] == 0) {
+          handler(granted, NO);
         } else {
           self.userAccount = [accountArray objectAtIndex:0];
           // always load from network 
@@ -97,11 +98,11 @@
           }
           //TODO(PHIL):need to check the timestamp of user profile image and possible reload it from network
           
-          handler(granted);
+          handler(granted, YES);
         }
       } else {
         NSLog(@"Failed to access the user account");
-        handler(granted);
+        handler(granted, NO);
       }
     }];
   }
