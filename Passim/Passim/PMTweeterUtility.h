@@ -30,7 +30,7 @@
  */
 - (void) updateDefaultsScreenName:(NSString *)screen_name;
 - (BOOL) canAccessTweeter;
-- (void) requireAccessUserAccountWithCompleteHandler:(void (^)(BOOL granted)) handler;
+- (void) requireAccessUserAccountWithCompleteHandler:(void (^)(BOOL granted, BOOL hasAccountInSystem)) handler;
 - (UIImage *) getCurrentUserProfile;
 - (void) tweeter:(NSString *)tweet withURL:(NSURL *)url;
 
