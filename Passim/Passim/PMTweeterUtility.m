@@ -39,6 +39,16 @@
   [self.delegate tweeterUtil:self user:user updateProfileImage:[UIImage imageWithData:imgData]];
 }
 
+- (UIImage *)getProfileImageFromUser:(ACAccount *)user
+{
+  if (user == nil) return nil;
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSData *imgData = [defaults valueForKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
+  if (imgData == nil) {
+    [self NTRequestForProfieImage:user];
+  }
+  return [UIImage imageWithData:imgData];
+}
 
 - (void)NTRequestForProfieImage:(ACAccount *) account;
 {
@@ -125,18 +135,6 @@
 - (void)tweeter:(NSString *)tweet withURL:(NSURL *)url
 {
   // tweeter the message with url
-}
-
-
-- (UIImage *)getProfileImageFromUser:(ACAccount *)user
-{
-  if (user == nil) return nil;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSData *imgData = [defaults valueForKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
-  if (imgData == nil) {
-    [self NTRequestForProfieImage:user];
-  }
-  return [UIImage imageWithData:imgData];
 }
 
 @end
