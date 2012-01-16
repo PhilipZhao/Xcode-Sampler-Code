@@ -22,11 +22,38 @@
 @end
 
 @implementation PMTweeterUtility
+#pragma mark -
 @synthesize delegate = _delegate;
-
 @synthesize accountStore = _accountStore;
 @synthesize accountType = _accountType;
 @synthesize userAccount = _userAccount;
+
+#pragma mark - private function
+- (void)updateUser:(ACAccount *) user withProfileImageData:(NSData *) imgData
+{
+  NSLog(@"update User with ProfileImage Data");
+  if (user == nil) return;
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setValue:imgData forKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
+  [defaults synchronize];
+  [self.delegate tweeterUtil:self user:user updateProfileImage:[UIImage imageWithData:imgData]];
+}
+
+
+- (void)NTRequestForProfieImage:(ACAccount *) account;
+{
+  TWRequest *getRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:TWAPI_PROFILE_IMAGE] 
+                                              parameters: [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:account.username, @"bigger", nil] 
+                                                                                      forKeys: [NSArray arrayWithObjects:@"screen_name",@"size", nil]] 
+                                           requestMethod:TWRequestMethodGET];
+  [getRequest setAccount:account];
+  [getRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+    if (responseData != nil) {
+      [self updateUser:account withProfileImageData:responseData];
+    }
+  }];
+}
+
 
 #pragma mark - Setter/Getter
 
@@ -100,20 +127,6 @@
   // tweeter the message with url
 }
 
-#pragma mark - Private function
-- (void)NTRequestForProfieImage:(ACAccount *) account;
-{
-  TWRequest *getRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:TWAPI_PROFILE_IMAGE] 
-                                              parameters: [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:account.username, @"bigger", nil] 
-                                                                                      forKeys: [NSArray arrayWithObjects:@"screen_name",@"size", nil]] 
-                                           requestMethod:TWRequestMethodGET];
-  [getRequest setAccount:account];
-  [getRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-    if (responseData != nil) {
-      [self updateUser:account withProfileImageData:responseData];
-    }
-  }];
-}
 
 - (UIImage *)getProfileImageFromUser:(ACAccount *)user
 {
@@ -126,13 +139,4 @@
   return [UIImage imageWithData:imgData];
 }
 
-- (void)updateUser:(ACAccount *) user withProfileImageData:(NSData *) imgData
-{
-  NSLog(@"update User with ProfileImage Data");
-  if (user == nil) return;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setValue:imgData forKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
-  [defaults synchronize];
-  [self.delegate tweeterUtil:self user:user updateProfileImage:[UIImage imageWithData:imgData]];
-}
 @end

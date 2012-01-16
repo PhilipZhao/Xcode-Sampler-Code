@@ -26,10 +26,52 @@
 @synthesize newsAnnotation = _newsAnnotation;
 @synthesize sharedUtilty = _sharedUtilty;
 
+#pragma mark - private function
+- (void)displayMapWithLocation:(CLLocationCoordinate2D) zoomLocation
+{
+  MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5 * METERS_PER_MILE, 0.5 * METERS_PER_MILE);
+  MKCoordinateRegion adjustRegion = [self.mapView regionThatFits:viewRegion];
+  [self.mapView setRegion:adjustRegion animated:YES];
+}
+
+// Add news pin into map
+- (void)updateNewsMap
+{
+  if (self.mapView.annotations) [self.mapView removeAnnotations:self.mapView.annotations];
+  if (self.newsAnnotation) [self.mapView addAnnotations: [self.newsAnnotation allValues]];
+}
+
+// Add one news pin to map
+- (void)addToNewsMapWithAnnotation:(id<MKAnnotation>) annotation
+{
+  if ([annotation isKindOfClass:[PMNewsAnnotation class]]) {
+    NSInteger news_id = [(PMNewsAnnotation *)annotation news_id];
+    id value = [self.newsAnnotation objectForKey:[NSNumber numberWithInt:news_id]];
+    // check whehter it exist in the map
+    if (!value) {
+      [self.newsAnnotation setObject:annotation forKey:[NSNumber numberWithInt:news_id]];
+      // TODO: Pin drop animation. need more research on this.
+      [self.mapView addAnnotation:annotation];
+    }
+  }
+  
+}
+
+// Remove one news pin from Map
+- (void)removeFromNewsMapWithAnnotation:(id<MKAnnotation>) annotation
+{
+  if ([annotation isKindOfClass:[PMNewsAnnotation class]]) {
+    NSInteger news_id = [(PMNewsAnnotation *)annotation news_id];
+    [self.newsAnnotation removeObjectForKey:[NSNumber numberWithInt:news_id]];
+  }
+  [self.mapView removeAnnotation:annotation];
+}
+
+
 #pragma mark - Setter/Getter
 - (void)setNewsAnnotation:(NSDictionary *)newsAnnotation
 {
-  _newsAnnotation = newsAnnotation;
+  _newsAnnotation = [newsAnnotation mutableCopy];
   [self updateNewsMap];
 }
 
@@ -79,43 +121,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
-#pragma mark - private function
-- (void)displayMapWithLocation:(CLLocationCoordinate2D) zoomLocation
-{
-  MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5 * METERS_PER_MILE, 0.5 * METERS_PER_MILE);
-  MKCoordinateRegion adjustRegion = [self.mapView regionThatFits:viewRegion];
-  [self.mapView setRegion:adjustRegion animated:YES];
-}
-
-// Add news pin into map
-- (void)updateNewsMap
-{
-  if (self.mapView.annotations) [self.mapView removeAnnotations:self.mapView.annotations];
-  if (self.newsAnnotation) [self.mapView addAnnotations: [self.newsAnnotation allValues]];
-}
-
-// Add one news pin to map
-- (void)addToNewsMapWithAnnotation:(id<MKAnnotation>) annotation
-{
-  if ([annotation isKindOfClass:[PMNewsAnnotation class]]) {
-    NSInteger news_id = [(PMNewsAnnotation *)annotation news_id];
-    id value = [self.newsAnnotation objectForKey:[NSNumber numberWithInt:news_id]];
-    // check whehter it exist in the map
-    if (!value) {
-      [self.newsAnnotation setObject:annotation forKey:[NSNumber numberWithInt:news_id]];
-      // TODO: Pin drop animation. need more research on this.
-      [self.mapView addAnnotation:annotation];
-    }
-  }
-  
-}
-
-// Remove one news pin from Map
-- (void)removeFromNewsMapWithAnnotation:(id<MKAnnotation>) annotation
-{
-  [self.mapView removeAnnotation:annotation];
-}
 
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
