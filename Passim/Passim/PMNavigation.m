@@ -28,6 +28,7 @@
   if (![tweeterUtil canAccessTweeter]) {
     vc = [self.storyboard instantiateViewControllerWithIdentifier:@"fronPhotoShowController"];
   } else {
+    [tweeterUtil requireAccessUserAccountWithCompleteHandler:^(BOOL granted){}];
     vc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
   }
   [self presentViewController:vc animated:NO completion:^{

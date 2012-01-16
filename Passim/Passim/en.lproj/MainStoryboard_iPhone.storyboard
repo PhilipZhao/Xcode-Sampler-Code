@@ -40,9 +40,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Post" id="kp4-if-MHZ"/>
+                    <connections>
+                        <outlet property="view" destination="3NB-d6-R9T" id="1W7-3t-BzR"/>
+                    </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1547" y="102"/>
+            <point key="canvasLocation" x="1563" y="93"/>
         </scene>
         <!--View Controller - Profile-->
         <scene sceneID="Sqt-Vy-CfZ">
@@ -57,7 +60,7 @@
                     <tabBarItem key="tabBarItem" title="Profile" id="oBU-W3-Q7u"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="835" y="1052"/>
+            <point key="canvasLocation" x="568" y="853"/>
         </scene>
         <!--View Controller - News Feed-->
         <scene sceneID="H2N-1s-rhe">
@@ -67,27 +70,66 @@
                     <view key="view" contentMode="scaleToFill" id="Inv-oP-omY">
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kub-U6-YjO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="sjh-Ww-Unk">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="News Feed" id="HPg-pN-4Ja"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1203" y="510"/>
+            <point key="canvasLocation" x="1230" y="508"/>
         </scene>
-        <!--View Controller - List-->
+        <!--List View Controller - List-->
         <scene sceneID="Zs1-0T-XJQ">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxI-mE-YiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="eXR-2P-KdM" sceneMemberID="viewController">
+                <viewController id="eXR-2P-KdM" customClass="PMListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nqb-LM-4NO">
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="WpE-Dq-8Qj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VOU-hC-uPC">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" id="xcY-sY-wEG"/>
+                    <connections>
+                        <outlet property="view" destination="WpE-Dq-8Qj" id="EL4-Wx-xKU"/>
+                    </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1547" y="-488"/>
+            <point key="canvasLocation" x="1533" y="-441"/>
         </scene>
         <!--Front Photo Show View Controller-->
         <scene sceneID="kmu-GZ-mXf">
@@ -168,7 +210,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="767" y="61"/>
+            <point key="canvasLocation" x="698" y="70"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cdt-Sh-eWb">

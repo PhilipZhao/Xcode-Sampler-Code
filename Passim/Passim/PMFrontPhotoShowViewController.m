@@ -9,9 +9,9 @@
 #import "PMFrontPhotoShowViewController.h"
 #import "PMAppDelegate.h"
 
-#define SLIDE_SHOW_DURIATION 1
-#define ANIMATION_DURIATION 0.5
-#define MAX_NUM_OF_IMAGE 1
+#define SLIDE_SHOW_DURIATION 4
+#define ANIMATION_DURIATION 0.8
+#define MAX_NUM_OF_IMAGE 4
 @interface PMFrontPhotoShowViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) NSTimer *animationTimer;
@@ -31,8 +31,8 @@
   if (_imageArray == nil) {
     NSMutableArray *imgArray = [[NSMutableArray alloc] initWithCapacity:MAX_NUM_OF_IMAGE];
     for (int i = 0; i < MAX_NUM_OF_IMAGE; i++) {
-      UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"frontPhotoShow%d.png", i]];
-      NSLog(@"%@", [NSString stringWithFormat:@"frontPhotoShow%d.png",i]);
+      UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"TestPhotos%d.png", i]];
+      NSLog(@"%@", [NSString stringWithFormat:@"TestPhotos%d.png",i]);
       if (image) [imgArray addObject:image];
     }
     _imageArray = [[NSArray alloc] initWithArray:imgArray];

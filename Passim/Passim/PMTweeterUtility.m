@@ -7,23 +7,26 @@
 //
 
 #import "PMTweeterUtility.h"
-#import <Accounts/Accounts.h>
-#import <Twitter/Twitter.h>
 
+
+// k-v storage for plist
 #define PREFER_SCREEN_NAME @"prefer screen_name"
+
+// all the public tweeter api 
+#define TWAPI_PROFILE_IMAGE @"http://api.twitter.com/1/users/profile_image"
 
 @interface PMTweeterUtility() 
 @property (strong, nonatomic) ACAccountStore *accountStore;
 @property (strong, nonatomic) ACAccountType *accountType;
 @property (strong, nonatomic) ACAccount *userAccount;
-@property (strong, nonatomic) NSString *preferScreenName;
 @end
 
 @implementation PMTweeterUtility
+@synthesize delegate = _delegate;
+
 @synthesize accountStore = _accountStore;
 @synthesize accountType = _accountType;
 @synthesize userAccount = _userAccount;
-@synthesize preferScreenName = _preferScreenName;
 
 #pragma mark - Setter/Getter
 
@@ -32,6 +35,7 @@
   if (self = [super init]) {
     self.accountStore = [[ACAccountStore alloc] init];
     self.accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    self.userAccount = nil;
   }
   return self;
 }
@@ -46,9 +50,16 @@
         if ([accountArray count] == 0) {
         } else {
           self.userAccount = [accountArray objectAtIndex:0];
+          // always load from network 
+          NSLog(@"Load user %@'s profile throught Network", self.userAccount.username);
+          [self NTRequestForProfieImage:self.userAccount];
           if (![self.userAccount.username isEqualToString:[self getDefaultsScreenName]]) {
             [self updateDefaultsScreenName:self.userAccount.username];
+            // load image throught the newtwork
+
           }
+          //TODO(PHIL):need to check the timestamp of user profile image and possible reload it from network
+          
           handler(granted);
         }
       } else {
@@ -66,8 +77,10 @@
 
 - (NSString *)getDefaultsScreenName 
 {
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  return [defaults stringForKey:PREFER_SCREEN_NAME];
+  if (self.userAccount == nil)
+    return nil;
+  else 
+    return self.userAccount.username;
 }
 
 - (void) updateDefaultsScreenName:(NSString *)screen_name
@@ -75,5 +88,51 @@
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults setValue:screen_name forKey:PREFER_SCREEN_NAME];
   [defaults synchronize];
+}
+
+- (UIImage *)getCurrentUserProfile
+{
+  return [self getProfileImageFromUser:self.userAccount];
+}
+
+- (void)tweeter:(NSString *)tweet withURL:(NSURL *)url
+{
+  // tweeter the message with url
+}
+
+#pragma mark - Private function
+- (void)NTRequestForProfieImage:(ACAccount *) account;
+{
+  TWRequest *getRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:TWAPI_PROFILE_IMAGE] 
+                                              parameters: [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:account.username, @"bigger", nil] 
+                                                                                      forKeys: [NSArray arrayWithObjects:@"screen_name",@"size", nil]] 
+                                           requestMethod:TWRequestMethodGET];
+  [getRequest setAccount:account];
+  [getRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+    if (responseData != nil) {
+      [self updateUser:account withProfileImageData:responseData];
+    }
+  }];
+}
+
+- (UIImage *)getProfileImageFromUser:(ACAccount *)user
+{
+  if (user == nil) return nil;
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSData *imgData = [defaults valueForKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
+  if (imgData == nil) {
+    [self NTRequestForProfieImage:user];
+  }
+  return [UIImage imageWithData:imgData];
+}
+
+- (void)updateUser:(ACAccount *) user withProfileImageData:(NSData *) imgData
+{
+  NSLog(@"update User with ProfileImage Data");
+  if (user == nil) return;
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setValue:imgData forKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
+  [defaults synchronize];
+  [self.delegate tweeterUtil:self user:user updateProfileImage:[UIImage imageWithData:imgData]];
 }
 @end

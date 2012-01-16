@@ -24,8 +24,13 @@
 		E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */; };
 		E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CC14C0EEEB00CC8BFC /* CoreData.framework */; };
 		E45247D014C0F19700CC8BFC /* PMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E45247CF14C0F19600CC8BFC /* PMMapViewController.m */; };
+		E463AA5214C29AC000C9AAB5 /* PMListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E463AA5114C29AC000C9AAB5 /* PMListViewController.m */; };
 		E49AA02414C129DC00C504E3 /* PMTweeterUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */; };
 		E49AA02A14C12A6100C504E3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49AA02914C12A6100C504E3 /* Accounts.framework */; };
+		E4E5830514C368F2005AB7C1 /* TestPhotos0.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5830114C368F2005AB7C1 /* TestPhotos0.png */; };
+		E4E5830614C368F2005AB7C1 /* TestPhotos2.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5830214C368F2005AB7C1 /* TestPhotos2.png */; };
+		E4E5830714C368F2005AB7C1 /* TestPhotos3.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5830314C368F2005AB7C1 /* TestPhotos3.png */; };
+		E4E5830814C368F2005AB7C1 /* TestPhotos1.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5830414C368F2005AB7C1 /* TestPhotos1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,9 +61,15 @@
 		E45247CC14C0EEEB00CC8BFC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E45247CE14C0F19600CC8BFC /* PMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMMapViewController.h; sourceTree = "<group>"; };
 		E45247CF14C0F19600CC8BFC /* PMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMMapViewController.m; sourceTree = "<group>"; };
+		E463AA5014C29AC000C9AAB5 /* PMListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMListViewController.h; sourceTree = "<group>"; };
+		E463AA5114C29AC000C9AAB5 /* PMListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMListViewController.m; sourceTree = "<group>"; };
 		E49AA02214C129DB00C504E3 /* PMTweeterUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMTweeterUtility.h; sourceTree = "<group>"; };
 		E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMTweeterUtility.m; sourceTree = "<group>"; };
 		E49AA02914C12A6100C504E3 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		E4E5830114C368F2005AB7C1 /* TestPhotos0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestPhotos0.png; sourceTree = "<group>"; };
+		E4E5830214C368F2005AB7C1 /* TestPhotos2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestPhotos2.png; sourceTree = "<group>"; };
+		E4E5830314C368F2005AB7C1 /* TestPhotos3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestPhotos3.png; sourceTree = "<group>"; };
+		E4E5830414C368F2005AB7C1 /* TestPhotos1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestPhotos1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,10 +91,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E42875A214C2491B00357EFE /* Test Location */ = {
+			isa = PBXGroup;
+			children = (
+				E428759E14C242D300357EFE /* Union, Madison.gpx */,
+				E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */,
+			);
+			name = "Test Location";
+			sourceTree = "<group>";
+		};
 		E42A40FB14C14C7B009626C5 /* resource */ = {
 			isa = PBXGroup;
 			children = (
 				E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */,
+				E4E5830114C368F2005AB7C1 /* TestPhotos0.png */,
+				E4E5830214C368F2005AB7C1 /* TestPhotos2.png */,
+				E4E5830314C368F2005AB7C1 /* TestPhotos3.png */,
+				E4E5830414C368F2005AB7C1 /* TestPhotos1.png */,
 			);
 			name = resource;
 			path = Passim;
@@ -125,20 +149,16 @@
 		E45247AE14C0EEC200CC8BFC /* Passim */ = {
 			isa = PBXGroup;
 			children = (
+				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
+				E4D5AE8A14C2ACFE0064924C /* Utility */,
 				E40CF78614C1F19F00F0A0A0 /* PMNavigation.h */,
 				E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */,
-				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
-				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
-				E40AA91E14C10BE7005526D8 /* PMLocationUtility.h */,
-				E49AA02214C129DB00C504E3 /* PMTweeterUtility.h */,
-				E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */,
+				E463AA5014C29AC000C9AAB5 /* PMListViewController.h */,
+				E463AA5114C29AC000C9AAB5 /* PMListViewController.m */,
 				E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */,
 				E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */,
-				E40AA91F14C10BE8005526D8 /* PMLocationUtility.m */,
-				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
 				E45247CE14C0F19600CC8BFC /* PMMapViewController.h */,
 				E45247CF14C0F19600CC8BFC /* PMMapViewController.m */,
-				E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */,
 				E45247AF14C0EEC200CC8BFC /* Supporting Files */,
 			);
 			path = Passim;
@@ -147,14 +167,27 @@
 		E45247AF14C0EEC200CC8BFC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
+				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
+				E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */,
+				E42875A214C2491B00357EFE /* Test Location */,
 				E45247B014C0EEC200CC8BFC /* Passim-Info.plist */,
-				E428759E14C242D300357EFE /* Union, Madison.gpx */,
-				E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */,
 				E45247B114C0EEC200CC8BFC /* InfoPlist.strings */,
 				E45247B414C0EEC200CC8BFC /* main.m */,
 				E45247B614C0EEC200CC8BFC /* Passim-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E4D5AE8A14C2ACFE0064924C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				E40AA91E14C10BE7005526D8 /* PMLocationUtility.h */,
+				E40AA91F14C10BE8005526D8 /* PMLocationUtility.m */,
+				E49AA02214C129DB00C504E3 /* PMTweeterUtility.h */,
+				E49AA02314C129DB00C504E3 /* PMTweeterUtility.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +246,10 @@
 				E45247BC14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard in Resources */,
 				E45247BF14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard in Resources */,
 				E40CF77D14C1C9D300F0A0A0 /* frontPhotoShow0.png in Resources */,
+				E4E5830514C368F2005AB7C1 /* TestPhotos0.png in Resources */,
+				E4E5830614C368F2005AB7C1 /* TestPhotos2.png in Resources */,
+				E4E5830714C368F2005AB7C1 /* TestPhotos3.png in Resources */,
+				E4E5830814C368F2005AB7C1 /* TestPhotos1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +267,7 @@
 				E49AA02414C129DC00C504E3 /* PMTweeterUtility.m in Sources */,
 				E42A40F914C14B39009626C5 /* PMFrontPhotoShowViewController.m in Sources */,
 				E40CF78814C1F19F00F0A0A0 /* PMNavigation.m in Sources */,
+				E463AA5214C29AC000C9AAB5 /* PMListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
