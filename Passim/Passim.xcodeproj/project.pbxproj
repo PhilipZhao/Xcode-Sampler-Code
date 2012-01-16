@@ -12,6 +12,7 @@
 		E40CF78814C1F19F00F0A0A0 /* PMNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */; };
 		E42A40F914C14B39009626C5 /* PMFrontPhotoShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */; };
 		E436B96014C22F5700A8FF2F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E436B95F14C22F5700A8FF2F /* Twitter.framework */; };
+		E44441D014C3D6A4003C8A4F /* PMNewsAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E44441CF14C3D6A4003C8A4F /* PMNewsAnnotation.m */; };
 		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
 		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
 		E45247AD14C0EEC200CC8BFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AC14C0EEC200CC8BFC /* CoreGraphics.framework */; };
@@ -44,6 +45,8 @@
 		E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMFrontPhotoShowViewController.h; sourceTree = "<group>"; };
 		E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMFrontPhotoShowViewController.m; sourceTree = "<group>"; };
 		E436B95F14C22F5700A8FF2F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		E44441CE14C3D6A4003C8A4F /* PMNewsAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMNewsAnnotation.h; sourceTree = "<group>"; };
+		E44441CF14C3D6A4003C8A4F /* PMNewsAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMNewsAnnotation.m; sourceTree = "<group>"; };
 		E45247A414C0EEC200CC8BFC /* Passim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E45247A814C0EEC200CC8BFC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E45247AA14C0EEC200CC8BFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -113,6 +116,35 @@
 			path = Passim;
 			sourceTree = "<group>";
 		};
+		E44441C214C3D29A003C8A4F /* Map View */ = {
+			isa = PBXGroup;
+			children = (
+				E45247CE14C0F19600CC8BFC /* PMMapViewController.h */,
+				E45247CF14C0F19600CC8BFC /* PMMapViewController.m */,
+				E44441CE14C3D6A4003C8A4F /* PMNewsAnnotation.h */,
+				E44441CF14C3D6A4003C8A4F /* PMNewsAnnotation.m */,
+			);
+			name = "Map View";
+			sourceTree = "<group>";
+		};
+		E44441C414C3D2CB003C8A4F /* Launch View */ = {
+			isa = PBXGroup;
+			children = (
+				E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */,
+				E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */,
+			);
+			name = "Launch View";
+			sourceTree = "<group>";
+		};
+		E44441C514C3D2E2003C8A4F /* List View */ = {
+			isa = PBXGroup;
+			children = (
+				E463AA5014C29AC000C9AAB5 /* PMListViewController.h */,
+				E463AA5114C29AC000C9AAB5 /* PMListViewController.m */,
+			);
+			name = "List View";
+			sourceTree = "<group>";
+		};
 		E452479914C0EEC200CC8BFC = {
 			isa = PBXGroup;
 			children = (
@@ -150,15 +182,10 @@
 			isa = PBXGroup;
 			children = (
 				E45247BA14C0EEC200CC8BFC /* MainStoryboard_iPhone.storyboard */,
+				E44441C214C3D29A003C8A4F /* Map View */,
 				E4D5AE8A14C2ACFE0064924C /* Utility */,
-				E40CF78614C1F19F00F0A0A0 /* PMNavigation.h */,
-				E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */,
-				E463AA5014C29AC000C9AAB5 /* PMListViewController.h */,
-				E463AA5114C29AC000C9AAB5 /* PMListViewController.m */,
-				E42A40F714C14B39009626C5 /* PMFrontPhotoShowViewController.h */,
-				E42A40F814C14B39009626C5 /* PMFrontPhotoShowViewController.m */,
-				E45247CE14C0F19600CC8BFC /* PMMapViewController.h */,
-				E45247CF14C0F19600CC8BFC /* PMMapViewController.m */,
+				E44441C414C3D2CB003C8A4F /* Launch View */,
+				E44441C514C3D2E2003C8A4F /* List View */,
 				E45247AF14C0EEC200CC8BFC /* Supporting Files */,
 			);
 			path = Passim;
@@ -167,6 +194,8 @@
 		E45247AF14C0EEC200CC8BFC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E40CF78614C1F19F00F0A0A0 /* PMNavigation.h */,
+				E40CF78714C1F19F00F0A0A0 /* PMNavigation.m */,
 				E45247B714C0EEC200CC8BFC /* PMAppDelegate.h */,
 				E45247B814C0EEC200CC8BFC /* PMAppDelegate.m */,
 				E45247BD14C0EEC300CC8BFC /* MainStoryboard_iPad.storyboard */,
@@ -268,6 +297,7 @@
 				E42A40F914C14B39009626C5 /* PMFrontPhotoShowViewController.m in Sources */,
 				E40CF78814C1F19F00F0A0A0 /* PMNavigation.m in Sources */,
 				E463AA5214C29AC000C9AAB5 /* PMListViewController.m in Sources */,
+				E44441D014C3D6A4003C8A4F /* PMNewsAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

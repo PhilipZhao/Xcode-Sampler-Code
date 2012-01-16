@@ -24,10 +24,25 @@
                     <tabBarItem key="tabBarItem" title="Map" id="R6t-cr-MWb"/>
                     <connections>
                         <outlet property="mapView" destination="U74-Qr-oVA" id="ltZ-nV-tRE"/>
+                        <segue destination="AGr-Bk-JhT" kind="modal" identifier="showNewsDetail" id="8Xj-LP-hIH"/>
                     </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1196" y="-896"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="JXc-eE-TZc">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KbV-Ta-V7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="AGr-Bk-JhT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cZb-u7-fv4">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1845" y="-964"/>
         </scene>
         <!--View Controller - Post-->
         <scene sceneID="2ae-es-XxQ">

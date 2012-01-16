@@ -12,5 +12,8 @@
 
 @interface PMMapViewController : UIViewController<MKMapViewDelegate>
 
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;  // map view on the screen
+@property (strong, nonatomic) NSMutableDictionary *newsAnnotation;
+
+
 @end
