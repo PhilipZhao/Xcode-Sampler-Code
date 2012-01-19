@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E40CF77D14C1C9D300F0A0A0 /* frontPhotoShow0.png in Resources */ = {isa = PBXBuildFile; fileRef = E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */; };
 		E436B96014C22F5700A8FF2F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E436B95F14C22F5700A8FF2F /* Twitter.framework */; };
 		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
 		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
@@ -33,7 +32,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frontPhotoShow0.png; path = ../frontPhotoShow0.png; sourceTree = "<group>"; };
 		E428759E14C242D300357EFE /* Union, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Union, Madison.gpx"; sourceTree = "<group>"; };
 		E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kolch Center, Madison.gpx"; sourceTree = "<group>"; };
 		E436B95F14C22F5700A8FF2F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -106,7 +104,6 @@
 		E42A40FB14C14C7B009626C5 /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				E40CF77C14C1C9D300F0A0A0 /* frontPhotoShow0.png */,
 				E4E5830114C368F2005AB7C1 /* TestPhotos0.png */,
 				E4E5830214C368F2005AB7C1 /* TestPhotos2.png */,
 				E4E5830314C368F2005AB7C1 /* TestPhotos3.png */,
@@ -282,7 +279,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45247B314C0EEC200CC8BFC /* InfoPlist.strings in Resources */,
-				E40CF77D14C1C9D300F0A0A0 /* frontPhotoShow0.png in Resources */,
 				E4E5830514C368F2005AB7C1 /* TestPhotos0.png in Resources */,
 				E4E5830614C368F2005AB7C1 /* TestPhotos2.png in Resources */,
 				E4E5830714C368F2005AB7C1 /* TestPhotos3.png in Resources */,
