@@ -13,10 +13,10 @@
 @interface PMHerokCacheRequest : NSObject <NSURLConnectionDelegate>
 @property (strong, nonatomic) UIManagedDocument *passimDB;
 
-- (void)newsBoundedByUpperLocation:(CLLocationCoordinate2D) upper 
-                     lowerLocation:(CLLocationCoordinate2D) lower 
-                              from:(NSTimer *) pastTime
-           withCacheCompletedBlock:(void (^)()) cacheHandler
-                withCompletedBlock:(void (^)()) networkhandler;
+- (void)newsBoundedByOrigin:(CLLocationCoordinate2D) origin 
+                   withSpan:(MKCoordinateSpan) span
+                       from:(NSTimer *) pastTime
+    withCacheCompletedBlock:(void (^)()) cacheHandler
+         withCompletedBlock:(void (^)()) networkhandler;
 
 @end

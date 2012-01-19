@@ -74,14 +74,14 @@
 
 - (void)updateNewsWithCurrentRegion:(MKCoordinateRegion) region
 {
-  CLLocationCoordinate2D upper, lower;
-  upper.latitude = region.center.latitude - region.span.latitudeDelta/2;
-  upper.longitude = region.center.longitude - region.span.longitudeDelta/2;
-  lower.latitude = region.center.latitude + region.span.latitudeDelta/2;
-  lower.longitude = region.center.longitude + region.span.longitudeDelta/2;
-  [self.sharedHerokRequest newsBoundedByUpperLocation:upper lowerLocation:lower from:nil 
-                              withCacheCompletedBlock:^{}
-                                   withCompletedBlock:^{
+  CLLocationCoordinate2D origin;
+  origin.latitude = region.center.latitude - region.span.latitudeDelta/2;
+  origin.longitude = region.center.longitude - region.span.longitudeDelta/2;
+  [self.sharedHerokRequest newsBoundedByOrigin: origin 
+                                      withSpan:region.span
+                                          from:nil
+                       withCacheCompletedBlock:^{}
+                            withCompletedBlock:^{
     NSLog(@"Retrieve news completed");
     // need to show up the pin in the map
     NSMutableDictionary *annotation = [[NSMutableDictionary alloc] initWithCapacity:5];

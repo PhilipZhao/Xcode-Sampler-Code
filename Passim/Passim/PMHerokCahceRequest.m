@@ -10,7 +10,7 @@
 #import "ASIHTTPRequest.h"
 
 
-#define PASSIM_NEWS_AROUND @"http://passim1200.herokuapp.com/news_range?"
+#define PASSIM_WEB @"http://passim1200.herokuapp.com/"
 #define PASSIM_NEWS_FEED @""
 
 @implementation PMHerokCacheRequest
@@ -63,15 +63,15 @@
 
 // implement the network request
 #pragma mark - implement Network request
-- (void)newsBoundedByUpperLocation:(CLLocationCoordinate2D) upper 
-                     lowerLocation:(CLLocationCoordinate2D) lower 
-                              from:(NSTimer *) pastTime
-           withCacheCompletedBlock:(void (^)()) cacheHandler
-                withCompletedBlock:(void (^)()) networkhandler
+- (void)newsBoundedByOrigin:(CLLocationCoordinate2D) origin 
+                   withSpan:(MKCoordinateSpan) span
+                       from:(NSTimer *) pastTime
+    withCacheCompletedBlock:(void (^)()) cacheHandler
+         withCompletedBlock:(void (^)()) networkhandler;
 {
   // TODO: phil figure how to present these thing
   // db request to database.
-  NSURL *url = [NSURL URLWithString:[PASSIM_NEWS_AROUND stringByAppendingFormat:@"range_geo_lat_lower=%f&range_geo_long_lower=%f&range_geo_lat_higher=%f&range_geo_long_higher=%f", lower.latitude, lower.longitude, upper.latitude, upper.longitude]];
+  NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"news_around?origin_geo_lat=%f&origin_geo_long=%f&offset_geo_lat=%f&offset_geo_long=%f", origin.latitude, origin.longitude, span.latitudeDelta, span.longitudeDelta]];
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
@@ -79,9 +79,19 @@
     NSData *returnData = [request responseData];
     if (returnData != nil) {
       NSError *jsonParsingError;
-      NSDictionary *newsResult = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&jsonParsingError];
+      NSDictionary *newsResult = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
       // parsing the data
-      NSLog(@"news result: %@", newsResult);
+      NSLog(@"%@", newsResult);
+      if ([newsResult count] > 0) {
+        NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:[newsResult count]];
+        for (NSDictionary *key in newsResult) {
+          [result addObject:key];
+          NSLog(@"id=%@", [[key valueForKey:@"id"] stringValue]);
+          NSString *value = (NSString *)[key valueForKey:@"news_title"];
+          NSLog(@"news_title=%@", value);
+        }
+      }
+      
       // use retrive the data into 
       networkhandler();
       // set out notification for whose observing
