@@ -11,11 +11,19 @@
 @implementation PMComposeNewsViewController
 @synthesize completionHandler = _completionHandler;
 
+#pragma mark - Setter/Getter
+- (PMComposeViewControllerCompletionHandler) completionHandler
+{
+  if (_completionHandler == nil) {
+    _completionHandler = ^(PMComposeViewControllerResult rs){};
+  }
+  return _completionHandler;
+}
+#pragma mark - Life cycle
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   NSLog(@"Composite News View Load");
-  self.completionHandler = ^(PMComposeViewControllerResult result){};
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
