@@ -232,8 +232,8 @@
 		E45247AE14C0EEC200CC8BFC /* Passim */ = {
 			isa = PBXGroup;
 			children = (
-				E46A2D4214C7CE9000D57455 /* Compose News */,
 				E46A2D1514C7CDA500D57455 /* MainStoryboard_iPhone.storyboard */,
+				E46A2D4214C7CE9000D57455 /* Compose News */,
 				E44441C214C3D29A003C8A4F /* Map View */,
 				E4D5AE8A14C2ACFE0064924C /* Utility */,
 				E44441C414C3D2CB003C8A4F /* Launch View */,
@@ -246,13 +246,13 @@
 		E45247AF14C0EEC200CC8BFC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E46A2D0514C7CC8D00D57455 /* ASIHttp */,
+				E42875A214C2491B00357EFE /* Test Location */,
 				E46A2D2E14C7CE7800D57455 /* PMNotification.h */,
 				E46A2D2A14C7CE7800D57455 /* PMNavigation.h */,
 				E46A2D2B14C7CE7800D57455 /* PMNavigation.m */,
 				E46A2D1C14C7CE7700D57455 /* PMAppDelegate.h */,
 				E46A2D1D14C7CE7700D57455 /* PMAppDelegate.m */,
-				E46A2D0514C7CC8D00D57455 /* ASIHttp */,
-				E42875A214C2491B00357EFE /* Test Location */,
 				E45247B014C0EEC200CC8BFC /* Passim-Info.plist */,
 				E46A2D1414C7CDA500D57455 /* MainStoryboard_iPad.storyboard */,
 				E45247B114C0EEC200CC8BFC /* InfoPlist.strings */,

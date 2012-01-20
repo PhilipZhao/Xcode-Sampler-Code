@@ -67,7 +67,7 @@
                    withSpan:(MKCoordinateSpan) span
                        from:(NSTimer *) pastTime
     withCacheCompletedBlock:(void (^)()) cacheHandler
-         withCompletedBlock:(void (^)()) networkhandler;
+         withCompletedBlock:(void (^)(NSArray *newsData)) networkCompletedHandler;
 {
   // TODO: phil figure how to present these thing
   // db request to database.
@@ -82,18 +82,12 @@
       NSDictionary *newsResult = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
       // parsing the data
       NSLog(@"%@", newsResult);
+      NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:[newsResult count]];
       if ([newsResult count] > 0) {
-        NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:[newsResult count]];
-        for (NSDictionary *key in newsResult) {
-          [result addObject:key];
-          NSLog(@"id=%@", [[key valueForKey:@"id"] stringValue]);
-          NSString *value = (NSString *)[key valueForKey:@"news_title"];
-          NSLog(@"news_title=%@", value);
-        }
+        for (NSDictionary *key in newsResult) [result addObject:key];
       }
-      
       // use retrive the data into 
-      networkhandler();
+      networkCompletedHandler(result);
       // set out notification for whose observing
       // cache them into the database
     }

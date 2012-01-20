@@ -27,7 +27,7 @@
 
 #pragma mark - 
 @synthesize mapView = _mapView;
-@synthesize newsAnnotation = _newsAnnotation;
+@synthesize newsAnnotations = _newsAnnotations;
 @synthesize sharedUtilty = _sharedUtilty;
 @synthesize sharedHerokRequest = _sharedHerokRequest;
 
@@ -43,7 +43,7 @@
 - (void)updateNewsMap
 {
   if (self.mapView.annotations) [self.mapView removeAnnotations:self.mapView.annotations];
-  if (self.newsAnnotation) [self.mapView addAnnotations: [self.newsAnnotation allValues]];
+  if (self.newsAnnotations) [self.mapView addAnnotations: [self.newsAnnotations allValues]];
 }
 
 // Add one news pin to map
@@ -51,15 +51,27 @@
 {
   if ([annotation isKindOfClass:[PMNewsAnnotation class]]) {
     NSInteger news_id = [(PMNewsAnnotation *)annotation news_id];
-    id value = [self.newsAnnotation objectForKey:[NSNumber numberWithInt:news_id]];
+    id value = [self.newsAnnotations objectForKey:[NSNumber numberWithInt:news_id]];
     // check whehter it exist in the map
-    [self.newsAnnotation setObject:annotation forKey:[NSNumber numberWithInt:news_id]];
+    [self.newsAnnotations setObject:annotation forKey:[NSNumber numberWithInt:news_id]];
     if (!value) {
       // TODO: Pin drop animation. need more research on this.
       [self.mapView addAnnotation:annotation];
     }
   }
-  
+}
+
+- (void)addToNewsMapWithAnnotations:(NSArray *) annotations
+{
+  NSMutableArray *listToAdd = [[NSMutableArray alloc] init];
+  for (PMNewsAnnotation *annotation in annotations) {
+    NSInteger news_id = [(PMNewsAnnotation *)annotation news_id];
+    id value = [self.newsAnnotations objectForKey:[NSNumber numberWithInt:news_id]];
+    [self.newsAnnotations setObject:annotation forKey:[NSNumber numberWithInt:news_id]];
+    if (!value)
+      [listToAdd addObject:annotation];
+  }
+  if ([listToAdd count] > 0) [self.mapView addAnnotations:listToAdd];
 }
 
 // Remove one news pin from Map
@@ -67,7 +79,7 @@
 {
   if ([annotation isKindOfClass:[PMNewsAnnotation class]]) {
     NSInteger news_id = [(PMNewsAnnotation *)annotation news_id];
-    [self.newsAnnotation removeObjectForKey:[NSNumber numberWithInt:news_id]];
+    [self.newsAnnotations removeObjectForKey:[NSNumber numberWithInt:news_id]];
   }
   [self.mapView removeAnnotation:annotation];
 }
@@ -81,20 +93,27 @@
                                       withSpan:region.span
                                           from:nil
                        withCacheCompletedBlock:^{}
-                            withCompletedBlock:^{
+                            withCompletedBlock:^(NSArray *newsData){
     NSLog(@"Retrieve news completed");
     // need to show up the pin in the map
-    NSMutableDictionary *annotation = [[NSMutableDictionary alloc] initWithCapacity:5];
+    //NSMutableDictionary *annotations = [[NSMutableDictionary alloc] initWithCapacity:[newsData count]];
+    NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[newsData count]];
+    for (NSDictionary *singleNews in newsData) {
+      PMNewsAnnotation *annotation = [PMNewsAnnotation annotationForNews:singleNews];
+      //NSNumber *news_id = [singleNews objectForKey:@"id"];
+      //[annotations setObject:annotation forKey:news_id];
+      [annotations addObject:annotation];
+    }                          
     // put data into it
-    self.newsAnnotation = annotation;
+    [self addToNewsMapWithAnnotations:annotations];
   }];
 }
 
 
 #pragma mark - Setter/Getter
-- (void)setNewsAnnotation:(NSDictionary *)newsAnnotation
+- (void)setNewsAnnotations:(NSDictionary *)newsAnnotation
 {
-  _newsAnnotation = [newsAnnotation mutableCopy];
+  _newsAnnotations = [newsAnnotation mutableCopy];
   [self updateNewsMap];
 }
 
@@ -103,6 +122,14 @@
   _mapView = mapView;
   _mapView.delegate = self;
   [self updateNewsMap];
+}
+
+- (NSMutableDictionary *)newsAnnotations
+{
+  if (_newsAnnotations == nil) {
+    _newsAnnotations = [[NSMutableDictionary alloc] init];
+  }
+  return _newsAnnotations;
 }
 
 
@@ -141,6 +168,18 @@
   self.sharedUtilty = nil;
   [[NSNotificationCenter defaultCenter] removeObject:self];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  //[self updateNewsMap];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
+  [self.mapView addAnnotations: [self.newsAnnotations allValues]];
 }
 
 
@@ -224,7 +263,7 @@
   NSLog(@"news_id: %d", [(PMNewsAnnotation *)view.annotation news_id]);
   // TODO: need to get news image
 #warning Need to get news images
-  UIImage *news_img;  
+  UIImage *news_img;
   [(UIImageView *)view.leftCalloutAccessoryView setImage:news_img];
 }
 
@@ -238,22 +277,4 @@
 
 
 #pragma mark - Target/Action
-
-- (IBAction)composeNews:(UIButton *)sender 
-{
-  /*
-  PMComposeNewsViewController *vc = [[PMComposeNewsViewController alloc] init];
-  vc.completionHandler = ^(PMComposeViewControllerResult result) {
-    if (result == PMComposeViewControllerResultCancelled) {
-      
-    } else {
-      
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self dismissModalViewControllerAnimated:YES];
-    });
-  };
-  [self presentModalViewController:vc animated:YES];
-   */
-}
 @end

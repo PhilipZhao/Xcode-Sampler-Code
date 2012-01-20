@@ -17,6 +17,6 @@
                    withSpan:(MKCoordinateSpan) span
                        from:(NSTimer *) pastTime
     withCacheCompletedBlock:(void (^)()) cacheHandler
-         withCompletedBlock:(void (^)()) networkhandler;
+         withCompletedBlock:(void (^)(NSArray *newsData)) networkCompleteHandler;
 
 @end
