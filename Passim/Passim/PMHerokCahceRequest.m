@@ -16,6 +16,7 @@
 @implementation PMHerokCacheRequest
 
 @synthesize passimDB = _passimDB;
+@synthesize lastLoadFromNetworkData = _lastLoadFromNetworkData;
 
 #pragma mark - private function
 - (void)useDocumentWithBlock:(void (^)()) handler
@@ -60,6 +61,12 @@
   }
 }
 
+- (NSArray *)lastLoadFromNetworkData
+{
+  if (_lastLoadFromNetworkData == nil) 
+    _lastLoadFromNetworkData = [[NSArray alloc] init];
+  return _lastLoadFromNetworkData;
+}
 
 // implement the network request
 #pragma mark - implement Network request
@@ -89,7 +96,11 @@
       // use retrive the data into 
       networkCompletedHandler(result);
       // set out notification for whose observing
+      NSDictionary *info = [NSDictionary alloc];
+      [[NSNotificationCenter defaultCenter] postNotificationName:@"Need to figure it out" object:self userInfo:nil];
       // cache them into the database
+      // cache the data
+      self.lastLoadFromNetworkData = result;
     }
   }];
   [request setFailedBlock:^{

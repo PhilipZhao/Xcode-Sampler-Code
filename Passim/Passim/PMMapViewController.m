@@ -34,7 +34,9 @@
 #pragma mark - private function
 - (void)displayMapWithLocation:(CLLocationCoordinate2D) zoomLocation
 {
-  MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5 * METERS_PER_MILE, 0.5 * METERS_PER_MILE);
+  MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 
+                                                                     0.5 * METERS_PER_MILE, 
+                                                                     0.5 * METERS_PER_MILE);
   MKCoordinateRegion adjustRegion = [self.mapView regionThatFits:viewRegion];
   [self.mapView setRegion:adjustRegion animated:YES];
 }
@@ -72,6 +74,7 @@
       [listToAdd addObject:annotation];
   }
   if ([listToAdd count] > 0) [self.mapView addAnnotations:listToAdd];
+  else NSLog(@"it is empty arrary");
 }
 
 // Remove one news pin from Map
@@ -96,12 +99,9 @@
                             withCompletedBlock:^(NSArray *newsData){
     NSLog(@"Retrieve news completed");
     // need to show up the pin in the map
-    //NSMutableDictionary *annotations = [[NSMutableDictionary alloc] initWithCapacity:[newsData count]];
     NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[newsData count]];
     for (NSDictionary *singleNews in newsData) {
       PMNewsAnnotation *annotation = [PMNewsAnnotation annotationForNews:singleNews];
-      //NSNumber *news_id = [singleNews objectForKey:@"id"];
-      //[annotations setObject:annotation forKey:news_id];
       [annotations addObject:annotation];
     }                          
     // put data into it
@@ -152,7 +152,6 @@
   self.sharedUtilty.turnOnLocationUpdate = YES;
   CLLocation *userLocation = [self.sharedUtilty getUserCurrentLocationWithSender:self];
   if (userLocation != nil) {
-    NSLog(@"in View DidLoad");
     [self displayMapWithLocation:userLocation.coordinate];
     [self updateNewsWithCurrentRegion:self.mapView.region];
   }
@@ -199,6 +198,8 @@
       PMNewsAnnotation *annotation = (PMNewsAnnotation *)[(MKAnnotationView *)sender annotation];
       if ([segue.destinationViewController respondsToSelector:@selector(setNews_id:)])
         [segue.destinationViewController setNews_id:annotation.news_id];
+      // set up delegate
+      
     }
   } else if ([segue.identifier isEqualToString:SEGUE_COMPOSITE_NEWS]) {
     if ([segue.destinationViewController isKindOfClass:[PMComposeNewsViewController class]]) {
@@ -238,13 +239,19 @@
 #pragma mark - MKMapViewController Delegate
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
+  NSLog(@"mapViewForAnnotation");
   MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:MKANNOATIONVIEW_ID];
   if (!aView) {
     // TODO: maybe need to write a subclass or experience the image property in MKAnnoationView
     // to custome the point on map
     aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:MKANNOATIONVIEW_ID];
     aView.canShowCallout = YES;
+    [(MKPinAnnotationView *)aView setPinColor:MKPinAnnotationColorPurple];
+    // add leftCalloutAccessoryView
     aView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    // add rightCalloutAccessorView
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    aView.rightCalloutAccessoryView = rightButton;
   }
   aView.annotation = annotation;
   [(UIImageView *)aView.leftCalloutAccessoryView setImage: nil];
@@ -273,6 +280,8 @@
   NSLog(@"regionDidChangedAnimated");
   [self updateNewsWithCurrentRegion:mapView.region];
 }
+
+
 #pragma mark - Network 
 
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E418463F14CA23D10035A04F /* PMDetailNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */; };
 		E436B96014C22F5700A8FF2F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E436B95F14C22F5700A8FF2F /* Twitter.framework */; };
 		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
 		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
@@ -49,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E418463D14CA23D10035A04F /* PMDetailNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMDetailNewsViewController.h; sourceTree = "<group>"; };
+		E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDetailNewsViewController.m; sourceTree = "<group>"; };
 		E428759E14C242D300357EFE /* Union, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Union, Madison.gpx"; sourceTree = "<group>"; };
 		E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kolch Center, Madison.gpx"; sourceTree = "<group>"; };
 		E436B95F14C22F5700A8FF2F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -142,6 +145,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E418464114CA23D80035A04F /* Detail News View */ = {
+			isa = PBXGroup;
+			children = (
+				E418463D14CA23D10035A04F /* PMDetailNewsViewController.h */,
+				E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */,
+			);
+			name = "Detail News View";
+			sourceTree = "<group>";
+		};
 		E42875A214C2491B00357EFE /* Test Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				E46A2D1514C7CDA500D57455 /* MainStoryboard_iPhone.storyboard */,
+				E418464114CA23D80035A04F /* Detail News View */,
 				E46A2D4214C7CE9000D57455 /* Compose News */,
 				E44441C214C3D29A003C8A4F /* Map View */,
 				E4D5AE8A14C2ACFE0064924C /* Utility */,
@@ -402,6 +415,7 @@
 				E46A2D3C14C7CE7800D57455 /* PMNavigation.m in Sources */,
 				E46A2D3D14C7CE7800D57455 /* PMNewsAnnotation.m in Sources */,
 				E46A2D3F14C7CE7800D57455 /* PMTweeterUtility.m in Sources */,
+				E418463F14CA23D10035A04F /* PMDetailNewsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

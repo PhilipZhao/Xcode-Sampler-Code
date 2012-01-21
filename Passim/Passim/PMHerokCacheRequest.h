@@ -12,6 +12,7 @@
 
 @interface PMHerokCacheRequest : NSObject <NSURLConnectionDelegate>
 @property (strong, nonatomic) UIManagedDocument *passimDB;
+@property (strong, nonatomic) NSArray *lastLoadFromNetworkData;
 
 - (void)newsBoundedByOrigin:(CLLocationCoordinate2D) origin 
                    withSpan:(MKCoordinateSpan) span
