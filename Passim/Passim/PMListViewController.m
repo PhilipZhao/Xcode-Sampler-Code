@@ -8,35 +8,65 @@
 
 #import "PMListViewController.h"
 
-@interface PMListViewController ()
+#define SEGUE_SHOW_NEWS @"showNewsDetail"
 
+@interface PMListViewController ()
+@property (strong, nonatomic) EGORefreshTableHeaderView *refreshTableHeaderView;
+@property (nonatomic) BOOL reloadTable;
 @end
 
 @implementation PMListViewController
+@synthesize tableView = _tableView;
+@synthesize refreshTableHeaderView = _refreshTableHeaderView;
+@synthesize reloadTable = _reloadTable;
 
-- (id)initWithStyle:(UITableViewStyle)style
+#pragma mark - Setter/Getter
+- (EGORefreshTableHeaderView *)refreshTableHeaderView 
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+  if (_refreshTableHeaderView == nil) {
+    _refreshTableHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
+    _refreshTableHeaderView.delegate = self;
+  }
+  return _refreshTableHeaderView;
 }
 
+#pragma mark - Private Function
+- (void) reloadTableViewDataSource 
+{
+#warning incompleted implementation
+  // submit request to Server to reload data information
+  self.reloadTable = YES;
+}
+
+- (void)doneLoadingTableViewData
+{
+#warning incompleted implementation
+	//  model should call this when its done loading
+	self.reloadTable = NO;
+	[self.refreshTableHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];	
+}
+
+#pragma mark - Segue way
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  if ([segue.identifier isEqualToString:SEGUE_SHOW_NEWS]) {
+    // set up controller segue.destinationViewController
+  }
+}
+
+#pragma mark - Life Cycle
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  NSLog(@"view also load");
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  [self.tableView addSubview: self.refreshTableHeaderView];
+  [self.refreshTableHeaderView refreshLastUpdatedDate];
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+  [self setTableView:nil];
+  [self setRefreshTableHeaderView:nil];
+  [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -57,70 +87,57 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+  // Return the number of rows in the section.
+  return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    // Configure the cell...
-    
-    return cell;
+  static NSString *CellIdentifier = @"cell for news";
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (cell == nil) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    // add custom subclass into it
+  }
+  // Configure the cell...
+  return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+  // perform segue way
+  // set up the sender to be table cell
+  // [self performSegueWithIdentifier:SEGUE_SHOW_NEWS sender:indexPath];
 }
 
+#pragma mark - UIScrollViewDelegate Methods
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  NSLog(@"scrollViewDIDScroll");
+	[self.refreshTableHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{	
+  NSLog(@"scrollViewDidEndDragging");
+	[self.refreshTableHeaderView egoRefreshScrollViewDidEndDragging:scrollView];	
+}
+
+#pragma mark - EGORefreshTableHeaderViewDelegate method
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{	
+  NSLog(@"egoRefreshTableHeaderDidTriggerRefresh");
+	[self reloadTableViewDataSource];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
+{
+	return self.reloadTable;  // should return if data source model is reloading
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
+{
+  return [NSDate date];  // return the date for last load information
+}
 @end

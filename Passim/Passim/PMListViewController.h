@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGORefreshTableHeaderView.h"
 
-@interface PMListViewController : UITableViewController
+@interface PMListViewController : UIViewController <UITableViewDelegate, 
+                                                    UITableViewDataSource, 
+                                                    EGORefreshTableHeaderDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
