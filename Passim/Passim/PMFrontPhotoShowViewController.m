@@ -8,6 +8,7 @@
 
 #import "PMFrontPhotoShowViewController.h"
 #import "PMAppDelegate.h"
+#import "PMNavigation.h"
 
 #define SLIDE_SHOW_DURIATION 4
 #define ANIMATION_DURIATION 0.8
@@ -20,6 +21,7 @@
 @end
 
 @implementation PMFrontPhotoShowViewController
+@synthesize PMNaviController = _PMNaviController;
 @synthesize imageView = _imageView;
 @synthesize animationTimer = _animationTimer;
 @synthesize imageArray = _imageArray;
@@ -160,21 +162,32 @@
   }];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-  if ([segue.identifier isEqualToString:@"fromPhotoSlideToTabBar"]) {
-  } else {
-    // Something wrong with it.
-    NSLog(@"We need to crash here!");
-  }
-}
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   if (buttonIndex == 1) {
     // open Settings App
 #warning Need to test this part on a real device
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
+  }
+}
+
+#pragma mark - Segue way preparation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  if ([segue.identifier isEqualToString:@"fromPhotoSlideToTabBar"]) {
+    NSLog(@"%@", segue.destinationViewController);
+    NSLog(@"%@", self.PMNaviController);
+    if ([segue.destinationViewController isKindOfClass:[UITabBarController class]] 
+        && (self.PMNaviController != nil) 
+        && [self.PMNaviController isKindOfClass:[PMNavigation class]] ) {
+      // set up delegate, and link between Navi and TabBar controller
+      [segue.destinationViewController setValue:self.PMNaviController forKey:@"delegate"];
+      [self.PMNaviController setValue:segue.destinationViewController forKey:@"viewController"];
+      [self.PMNaviController tabBar:segue.destinationViewController addTabBarArrowFor:0]; 
+    }
+  } else {
+    // Something wrong with it.
+    NSLog(@"We need to crash here!");
   }
 }
 

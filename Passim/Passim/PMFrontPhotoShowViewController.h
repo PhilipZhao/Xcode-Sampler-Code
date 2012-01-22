@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PMFrontPhotoShowViewController : UIViewController
-
+@property (weak, nonatomic) id PMNaviController;
 @end

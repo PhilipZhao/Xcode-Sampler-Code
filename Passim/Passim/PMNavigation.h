@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PMNavigation : UIViewController
+@interface PMNavigation : UIViewController <UITabBarControllerDelegate>
 
+- (void) tabBar:(UITabBarController *) tabBar addTabBarArrowFor:(NSUInteger) tabIndex;
 @end
