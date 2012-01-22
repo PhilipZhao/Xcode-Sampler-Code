@@ -13,6 +13,7 @@
 @property (weak, nonatomic) id<PMUtilityDelegate> delegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLGeocoder *geocoder;
+@property (strong, nonatomic) CLPlacemark *currentAddress;
 @end
 
 @implementation PMLocationUtility
@@ -20,8 +21,9 @@
 @synthesize delegate = _delegate;
 @synthesize locationManager = _locationManager;
 @synthesize geocoder = _geocoder;
+@synthesize currentAddress = _currentAddress;
 
-- (id) init {
+- (id)init {
   if (self = [super init]) {
     // set self userLocation to no
   }
@@ -57,7 +59,7 @@
   return _locationManager;
 }
 
-- (CLGeocoder *)getGeocoder
+- (CLGeocoder *)geocoder
 {
   if (_geocoder == nil) {
     _geocoder = [[CLGeocoder alloc] init];
@@ -89,9 +91,11 @@
   if (abs(howRecent) < 15) {
     // stop the geolocation service
     //self.turnOnLocationUpdate = NO;
-    /* #warning method depricated
-    [self.delegate utility:self getUserLocationUpdate:self.locationManager.location]; // update its delegate
-     */
+    self.currentAddress = nil; // invalid current address
+    [self.geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placeMarkers, NSError *error) {
+      if (error == nil)
+        self.currentAddress = [placeMarkers objectAtIndex:0];
+    }];
     NSDictionary *postInfo = [NSDictionary dictionaryWithObject:self.locationManager.location 
                                                          forKey:PMInfoCLLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationLocationNewLocation 

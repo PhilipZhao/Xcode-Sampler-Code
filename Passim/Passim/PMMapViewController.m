@@ -7,7 +7,6 @@
 //
 
 #import "PMMapViewController.h"
-#import "PMLocationUtility.h"
 #import "PMAppDelegate.h"
 #import "PMNewsAnnotation.h"
 #import "PMNotification.h"
@@ -148,13 +147,15 @@
   [super viewDidLoad];
   id delegate = [[UIApplication sharedApplication] delegate];
   self.sharedUtilty = [delegate valueForKey:PMUTILITY_KEY];
-  [self.sharedUtilty setValue:self forKey:@"delegate"];
+#warning discard method for setting sharedUtillty delegate
+  [self.sharedUtilty setValue:self forKey:@"delegate"]; 
   self.sharedUtilty.turnOnLocationUpdate = YES;
   CLLocation *userLocation = [self.sharedUtilty getUserCurrentLocationWithSender:self];
   if (userLocation != nil) {
     [self displayMapWithLocation:userLocation.coordinate];
     [self updateNewsWithCurrentRegion:self.mapView.region];
   }
+#warning discard method for setting sharedHerokRequest delegate
   self.sharedHerokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
   // set up Notification
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewLocation:) name:PMNotificationLocationNewLocation object:self.sharedUtilty];

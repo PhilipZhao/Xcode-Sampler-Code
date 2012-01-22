@@ -6,19 +6,31 @@
 //  Copyright (c) 2012 University of Wisconsin-Madison. All rights reserved.
 //
 
+#import "PMAppDelegate.h"
 #import "PMListViewController.h"
+#import "PMHerokCacheRequest.h"
 
 #define SEGUE_SHOW_NEWS @"showNewsDetail"
+#define TAG_TITILE  1
+#define TAG_WHO     2
+#define TAG_AGO     3
+#define TAG_IMG     4
 
 @interface PMListViewController ()
 @property (strong, nonatomic) EGORefreshTableHeaderView *refreshTableHeaderView;
 @property (nonatomic) BOOL reloadTable;
+@property (strong, nonatomic) NSArray *tableData;
+@property (weak, nonatomic) PMLocationUtility *sharedUtility;
+@property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @end
 
 @implementation PMListViewController
 @synthesize tableView = _tableView;
 @synthesize refreshTableHeaderView = _refreshTableHeaderView;
 @synthesize reloadTable = _reloadTable;
+@synthesize tableData = _tableData;
+@synthesize sharedUtility = _sharedUtilty;
+@synthesize sharedHerokRequest = _sharedHerokRequest;
 
 #pragma mark - Setter/Getter
 - (EGORefreshTableHeaderView *)refreshTableHeaderView 
@@ -28,6 +40,14 @@
     _refreshTableHeaderView.delegate = self;
   }
   return _refreshTableHeaderView;
+}
+
+- (void) setTableData:(NSArray *)tableData
+{
+  if (_tableData != tableData) {
+    _tableData = tableData;
+    [self.tableView reloadData];
+  }
 }
 
 #pragma mark - Private Function
@@ -60,6 +80,13 @@
   [super viewDidLoad];
   [self.tableView addSubview: self.refreshTableHeaderView];
   [self.refreshTableHeaderView refreshLastUpdatedDate];
+  
+  id delegate = [[UIApplication sharedApplication] delegate];
+  self.sharedUtility = [delegate valueForKey:PMUTILITY_KEY];
+  self.sharedHerokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
+
+#warning need to set up location
+  // may need to set up location and need to send request to Server for location.
 }
 
 - (void)viewDidUnload
@@ -77,18 +104,9 @@
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-  // Return the number of rows in the section.
-  return 0;
+  return [self.tableData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -99,7 +117,15 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     // add custom subclass into it
   }
-  // Configure the cell...
+  UILabel *title = (UILabel *)[cell.contentView viewWithTag:TAG_TITILE];
+  UILabel *who = (UILabel *)[cell.contentView viewWithTag:TAG_WHO];
+  UILabel *when_ago = (UILabel *)[cell.contentView viewWithTag:TAG_AGO];
+  UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:TAG_IMG];
+  NSDictionary *single_news = [self.tableData objectAtIndex:indexPath.row];
+  title.text = [single_news objectForKey:HEROK_NEWS_TITLE];
+  who.text = [@"By " stringByAppendingFormat:@"%@", [single_news objectForKey:HEROK_NEWS_AUTHOR]];
+  //when_ago = [NSString stringWithFormat:@"%@"];
+  
   return cell;
 }
 
