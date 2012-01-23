@@ -16,15 +16,23 @@
 @interface PMNavigation()
 @property (weak, nonatomic) id viewController;
 @property (strong, nonatomic) UIImageView *tabBarArrow;
+@property (strong, nonatomic) NSMutableDictionary *glowNotificationArray;
 
 @end
 
 @implementation PMNavigation
 @synthesize viewController = _viewController;
 @synthesize tabBarArrow = _tabBarArrow;
+@synthesize glowNotificationArray = _glowNotificationArray;
 
 #pragma mark - private function
-- (CGFloat) tabBar:(UITabBarController *)tabBarController horizontalLocationFor:(NSUInteger)tabIndex
+- (NSInteger) tagForTabBarWithIndex:(NSUInteger) tabIndex
+{
+  NSInteger tagValue = tabIndex + 100;
+  return tagValue;
+}
+
+- (CGFloat)tabBar:(UITabBarController *)tabBarController horizontalLocationFor:(NSUInteger)tabIndex
 {
   // A single tab item's width is the entire width of the tab bar divided by number of items
   CGFloat tabItemWidth = tabBarController.tabBar.frame.size.width / TAB_ITEM_COUNT;
@@ -35,7 +43,7 @@
   return (tabIndex * tabItemWidth) + halfTabItemWidth;
 }
 
-- (void) tabBar:(UITabBarController *) tabBar addTabBarArrowFor:(NSUInteger) tabIndex;
+- (void)tabBar:(UITabBarController *) tabBar addTabBarArrowFor:(NSUInteger) tabIndex;
 {
   UIImage* tabBarArrowImage = [UIImage imageNamed:@"TabBarNipple.png"];
   self.tabBarArrow = [[UIImageView alloc] initWithImage:tabBarArrowImage];
@@ -52,6 +60,19 @@
                                       tabBarArrowImage.size.height);
   
   [tabBar.view addSubview:self.tabBarArrow];
+}
+
+- (void)tabBar:(UITabBarController *)tabBar addGlowingNotification:(NSUInteger)tabIndex
+{
+  if ([tabBar.view viewWithTag:[self tagForTabBarWithIndex:tabIndex]] == nil) {
+    UIImage *glowingImage = [UIImage imageNamed:@"TabBarGlow.png"];
+    UIImageView *glowingView = [[UIImageView alloc] initWithImage:glowingImage];
+    CGFloat verticalLocation = tabBar.view.frame.size.height - glowingImage.size.height;
+    glowingView.frame = CGRectMake([self tabBar:tabBar horizontalLocationFor:tabIndex], verticalLocation, glowingImage.size.width, glowingImage.size.height);
+    //[self.glowNotificationArray setObject:glowingView forKey:[NSNumber numberWithInt:tabIndex]];
+    glowingView.tag = [self tagForTabBarWithIndex:tabIndex];
+    [tabBar.view addSubview:glowingView];
+  }
 }
 
 #pragma mark - Life cycle
@@ -72,7 +93,7 @@
   }
   [self presentViewController:vc animated:NO completion:^{
     if ([vc isKindOfClass:[UITabBarController class]]) {
-      [vc setValue:self forKey:@"delegate"];
+      [vc setValue:self forKey:@"delegate"];  // set up tab bar delegatation
       // retrieve user information
       UITabBarController *tabBarController = (UITabBarController *)vc;
       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -108,6 +129,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Notification implementation
 - (void)saveCurrentStatus:(NSNotification *) notification
 {
   NSLog(@"%@", NSStringFromSelector(_cmd));
@@ -121,9 +143,18 @@
   }
 }
 
+- (void)notificationForTabBar:(NSNotification *) notification
+{
+  
+}
+
 #pragma mark - TabBar Delegatation implementation
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController
 {
+  // remove the glowing if it exist
+  if ([theTabBarController.view viewWithTag:[self tagForTabBarWithIndex:theTabBarController.selectedIndex]] != nil) {
+    [[theTabBarController.view viewWithTag:[self tagForTabBarWithIndex:theTabBarController.selectedIndex]] removeFromSuperview];
+  }
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.2];
   CGRect frame = self.tabBarArrow.frame;
@@ -131,4 +162,5 @@
   self.tabBarArrow.frame = frame;
   [UIView commitAnimations];  
 }
+
 @end

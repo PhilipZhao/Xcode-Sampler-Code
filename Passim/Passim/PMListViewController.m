@@ -9,6 +9,7 @@
 #import "PMAppDelegate.h"
 #import "PMListViewController.h"
 #import "PMHerokCacheRequest.h"
+#import "PMComposeNewsViewController.h"
 
 #define SEGUE_SHOW_NEWS @"showNewsDetail"
 #define TAG_TITILE  1
@@ -70,7 +71,19 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   if ([segue.identifier isEqualToString:SEGUE_SHOW_NEWS]) {
-    // set up controller segue.destinationViewController
+#warning need to implement
+  } else if ([segue.identifier isEqualToString:SEGUE_COMPOSITE_NEWS]) {
+    if ([segue.destinationViewController isKindOfClass:[PMComposeNewsViewController class]]) {
+      NSLog(@"segueway correct");
+      PMComposeNewsViewController *vc = (PMComposeNewsViewController *)segue.destinationViewController;
+      [vc setCompletionHandler:^(PMComposeViewControllerResult result) {
+        if (result == PMComposeViewControllerResultDone) NSLog(@"Done");
+        else NSLog(@"Cancel");
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [segue.destinationViewController dismissModalViewControllerAnimated:YES];
+        });
+      }];
+    }
   }
 }
 

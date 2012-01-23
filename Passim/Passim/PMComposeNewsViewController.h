@@ -22,5 +22,11 @@ typedef void (^PMComposeViewControllerCompletionHandler)(PMComposeViewController
 - (IBAction)submitNews:(UIButton *)sender;
 - (IBAction)cancelSumbit:(UIButton *)sender;
 
+@property (weak, nonatomic) IBOutlet UIView *utilView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIView *locationView;
+@property (weak, nonatomic) IBOutlet UIView *photoView;
+
+
 @property(nonatomic, copy) PMComposeViewControllerCompletionHandler completionHandler;
 @end
