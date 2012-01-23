@@ -6,15 +6,22 @@
 //  Copyright (c) 2012 University of Wisconsin-Madison. All rights reserved.
 //
 #define TAG_PHOTOVIEW_LIBRARY 1
-#define TAG_PHOTOVIEW_CAMERA 2
+#define TAG_PHOTOVIEW_CAMERA  2
+#define TAG_PHOTOVIEW_IMG     3
 #define TAG_UTILVIEW_TITLE 1
 #define TAG_UTILVIEW_SUMMARY 2
 #define TAG_UTILVIEW_PHOTO 3
+#define TAG_SUPERVIEW_DATEPICKER 100
 #define ALPHA_DISABLE 0.5
+#define ANIMATION_POPUP 0.3
+#define TEXT_TITLE @"@Title: "
+#define TEXT_SUMMARY @"@Summary: "
 
 #import "PMComposeNewsViewController.h"
 @interface PMComposeNewsViewController() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) UIButton *disEnableButton;
+@property (strong, nonatomic) NSString *titleText;
+@property (strong, nonatomic) NSString *summaryText;
 @end
 
 @implementation PMComposeNewsViewController
@@ -25,8 +32,11 @@
 @synthesize completionHandler = _completionHandler;
 @synthesize disEnableButton = _disEnableButton;
 
+@synthesize titleText = _titleText;
+@synthesize summaryText = _summaryText;
+
 #pragma mark - Setter/Getter
-- (PMComposeViewControllerCompletionHandler) completionHandler
+- (PMComposeViewControllerCompletionHandler)completionHandler
 {
   if (_completionHandler == nil) {
     _completionHandler = ^(PMComposeViewControllerResult rs){};
@@ -34,12 +44,28 @@
   return _completionHandler;
 }
 
-- (UIButton *) disEnableButton
+- (UIButton *)disEnableButton
 {
   if (_disEnableButton == nil) {
     _disEnableButton = (UIButton *)[self.utilView viewWithTag:TAG_UTILVIEW_TITLE];
   }
   return _disEnableButton;
+}
+
+- (NSString *)titleText
+{
+  if (_titleText == nil) {
+    _titleText = @"";
+  }
+  return _titleText;
+}
+
+- (NSString *)summaryText
+{
+  if (_summaryText == nil) {
+    _summaryText= @"";
+  }
+  return _summaryText;
 }
 
 #pragma mark - private function
@@ -128,23 +154,73 @@
 }
 
 - (IBAction)titleButton:(UIButton *)sender {
-  [self.textView becomeFirstResponder];
+  
   [self switchSelectedStateFrom:self.disEnableButton to:sender];
+  if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_SUMMARY]) {
+    NSLog(@"this is a summary tag before");
+    self.summaryText = self.textView.text;
+  }
+  self.textView.text = self.titleText;
+  
   self.disEnableButton = sender;
-  self.textView.text = @"@Title";
+  [self.textView becomeFirstResponder];
 }
 
 - (IBAction)summaryButton:(UIButton *)sender {
-  [self.textView becomeFirstResponder];
   [self switchSelectedStateFrom:self.disEnableButton to:sender];
+  if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_TITLE]) {
+    self.titleText = self.textView.text;
+  }
+  self.textView.text = self.summaryText;
+  
+  [self.textView becomeFirstResponder];
   self.disEnableButton = sender;
-  self.textView.text = @"@Summary";
 }
 
 - (IBAction)photoButton:(UIButton *)sender {
   [self switchSelectedStateFrom:self.disEnableButton to:sender];
-  self.disEnableButton = sender;
+  self.photoView.hidden = NO;
+  UIDatePicker *datepicker;
+  if ((datepicker = (UIDatePicker *)[self.view viewWithTag:TAG_SUPERVIEW_DATEPICKER]) != nil 
+      && !datepicker.hidden) {
+    [UIView animateWithDuration:ANIMATION_POPUP animations:^{
+      datepicker.frame = CGRectMake(0, self.view.frame.size.height, datepicker.frame.size.width, datepicker.frame.size.height);
+      //datepicker.hidden = YES;
+    } completion:^(BOOL completed) {
+      datepicker.hidden = YES;
+    }];
+  }
   [self.textView resignFirstResponder];
+  self.disEnableButton = sender;
+}
+
+- (IBAction)timeButton:(UIButton *)sender {
+  [self switchSelectedStateFrom:self.disEnableButton to:sender];
+ 
+  UIDatePicker *datepicker;
+  if ((datepicker = (UIDatePicker *)[self.view viewWithTag:TAG_SUPERVIEW_DATEPICKER]) == nil) {
+    datepicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 244, datepicker.frame.size.width, datepicker.frame.size.height)];
+    datepicker.tag = TAG_SUPERVIEW_DATEPICKER;
+    [self.view addSubview:datepicker];
+    self.photoView.hidden = YES;
+  } else {
+    CGRect frame = CGRectMake(0, 244, datepicker.frame.size.width, datepicker.frame.size.width);
+    if (![self.textView isFirstResponder]) {
+      [UIView animateWithDuration:ANIMATION_POPUP animations:^{
+        datepicker.frame = frame;
+      } completion:^(BOOL completed) {
+      self.photoView.hidden = YES;
+      }];
+    } else {
+      datepicker.frame = frame;
+      self.photoView.hidden = YES;
+    }
+  }
+  datepicker.hidden = NO;
+  [datepicker setDate:[NSDate date] animated:YES];
+  
+  [self.textView resignFirstResponder];
+  self.disEnableButton = sender;
 }
 
 - (IBAction)photoChooseFromLibrary:(UIButton *)sender {
@@ -153,6 +229,7 @@
   picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   [self presentModalViewController:picker animated:YES];
 }
+
 - (IBAction)photoChooseFromCamera:(UIButton *)sender {
   UIImagePickerController *picker = [[UIImagePickerController alloc] init];
   picker.delegate = self;
@@ -163,13 +240,21 @@
 
 #pragma mark - UIImagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-  NSLog(@"didFinishPickingMediaWithInfor");
+#warning test under the device
+  NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
+  // check sourceType isEqual to kUTTypeImage
+  UIImage *choosedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+  // need to shrink the image to the right ratio
+#warning unfinished implementation
+  UIImageView *uploadImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 8, 241, 136)];
+  // init the image from selection
+  uploadImageView.tag = TAG_PHOTOVIEW_IMG;
+  [self.photoView addSubview:uploadImageView];
   [picker dismissModalViewControllerAnimated:YES];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-  NSLog(@"did cancel it");
   [picker dismissModalViewControllerAnimated:YES];
 }
 
