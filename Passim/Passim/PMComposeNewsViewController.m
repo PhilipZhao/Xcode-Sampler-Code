@@ -22,6 +22,7 @@
 @property (weak, nonatomic) UIButton *disEnableButton;
 @property (strong, nonatomic) NSString *titleText;
 @property (strong, nonatomic) NSString *summaryText;
+@property (strong, nonatomic) NSDate *eventDateTime;
 @end
 
 @implementation PMComposeNewsViewController
@@ -34,6 +35,7 @@
 
 @synthesize titleText = _titleText;
 @synthesize summaryText = _summaryText;
+@synthesize eventDateTime = _eventDateTime;
 
 #pragma mark - Setter/Getter
 - (PMComposeViewControllerCompletionHandler)completionHandler
@@ -66,6 +68,14 @@
     _summaryText= @"";
   }
   return _summaryText;
+}
+
+- (NSDate *)eventDateTime
+{
+  if (_eventDateTime == nil) {
+    _eventDateTime = [NSDate date];
+  }
+  return _eventDateTime;
 }
 
 #pragma mark - private function
@@ -125,6 +135,12 @@
     photoButton.enabled = NO;
     photoButton.alpha = ALPHA_DISABLE;
   }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
+  // free all the resource that is holding
 }
 
 - (void)viewDidUnload
@@ -201,6 +217,7 @@
   if ((datepicker = (UIDatePicker *)[self.view viewWithTag:TAG_SUPERVIEW_DATEPICKER]) == nil) {
     datepicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 244, datepicker.frame.size.width, datepicker.frame.size.height)];
     datepicker.tag = TAG_SUPERVIEW_DATEPICKER;
+    [datepicker addTarget:self action:@selector(datePickerValueChange:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:datepicker];
     self.photoView.hidden = YES;
   } else {
@@ -217,7 +234,7 @@
     }
   }
   datepicker.hidden = NO;
-  [datepicker setDate:[NSDate date] animated:YES];
+  [datepicker setDate:self.eventDateTime animated:YES];
   
   [self.textView resignFirstResponder];
   self.disEnableButton = sender;
@@ -237,6 +254,10 @@
   [self presentModalViewController:picker animated:YES];
 }
 
+- (IBAction)datePickerValueChange:(UIDatePicker *)sender {
+  NSLog(@"%@",sender.date);
+  self.eventDateTime = sender.date;
+}
 
 #pragma mark - UIImagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
