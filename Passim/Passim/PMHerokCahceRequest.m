@@ -11,7 +11,7 @@
 #import "PMNotification.h"
 
 
-#define PASSIM_WEB @"http://passim1200.herokuapp.com/"
+#define PASSIM_WEB @"http://passim1201.herokuapp.com/"
 #define PASSIM_NEWS_FEED @""
 
 typedef void (^newsHandler)(NSArray *newsData);
@@ -110,7 +110,7 @@ typedef void (^newsHandler)(NSArray *newsData);
 {
   // TODO: phil figure how to present these thing
   // db request to database.
-  NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"news_around?origin_geo_lat=%f&origin_geo_long=%f&offset_geo_lat=%f&offset_geo_long=%f", origin.latitude, origin.longitude, span.latitudeDelta, span.longitudeDelta]];
+  NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"news_around_basic?origin_geo_lat=%f&origin_geo_long=%f&offset_geo_lat=%f&offset_geo_long=%f", origin.latitude, origin.longitude, span.latitudeDelta, span.longitudeDelta]];
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;

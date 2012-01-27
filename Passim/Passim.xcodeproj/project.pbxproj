@@ -64,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A75B0DC14CE82DF008E56BE /* Kolch Center, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Kolch Center, Madison.gpx"; path = "Passim/Kolch Center, Madison.gpx"; sourceTree = "<group>"; };
 		E406640E14CC89730020235D /* TabBarNipple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarNipple.png; sourceTree = "<group>"; };
 		E406640F14CC89730020235D /* TabBarNipple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarNipple@2x.png"; sourceTree = "<group>"; };
 		E418463D14CA23D10035A04F /* PMDetailNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMDetailNewsViewController.h; sourceTree = "<group>"; };
@@ -248,6 +249,7 @@
 		E452479914C0EEC200CC8BFC = {
 			isa = PBXGroup;
 			children = (
+				9A75B0DC14CE82DF008E56BE /* Kolch Center, Madison.gpx */,
 				E45247AE14C0EEC200CC8BFC /* Passim */,
 				E45247A714C0EEC200CC8BFC /* Frameworks */,
 				E45247A514C0EEC200CC8BFC /* Products */,
@@ -560,7 +562,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Passim/Passim-Prefix.pch";
 				INFOPLIST_FILE = "Passim/Passim-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -571,7 +575,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Passim/Passim-Prefix.pch";
 				INFOPLIST_FILE = "Passim/Passim-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
