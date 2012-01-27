@@ -152,6 +152,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"MapView viewDidLoad");
   [super viewDidLoad];
   id delegate = [[UIApplication sharedApplication] delegate];
   self.sharedUtilty = [delegate valueForKey:PMUTILITY_KEY];
