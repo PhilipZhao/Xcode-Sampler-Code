@@ -27,4 +27,6 @@
          withCompletedBlock:(void (^)(NSArray *newsData)) networkCompleteHandler;
 // Array of newsData with each one is Dictionary with key
 
+- (void)newsRestrictInRegion:(NSDictionary *)address
+           withCompleteBlock:(void (^)(NSArray *newsData)) handler;
 @end

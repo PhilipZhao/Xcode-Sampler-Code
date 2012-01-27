@@ -13,7 +13,13 @@
 @end
 
 #define PMNotificationLocationNewLocation @"PMNotificationLocationNewLocation"
+#define PMNotificationLocationNewAddress @"PMNotificationLocationNewAddress"
+#define PMNotificationHerokCacheNewsData @"PMNotificationHerokCacheNewsData"
+
 #define PMInfoCLLocation @"PMInfoCLLocation"
+#define PMInfoAddress @"PMAddressBook"
+#define PMNewsData @"PMNewsDate"
+
 @protocol PMNotificationLocation <NSObject>
 @optional
 - (void)notificationReceiveNewLocation:(NSNotification *)notification;

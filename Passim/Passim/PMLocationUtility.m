@@ -77,6 +77,14 @@
   return self.locationManager.location;
 }
 
+- (NSDictionary *)getUserAddressInformationWithSender:(id)sender
+{
+  if (self.currentAddress == nil) {
+    self.turnOnLocationUpdate = YES; // turn on the location service
+  }
+  return self.currentAddress.addressDictionary;
+}
+
 #pragma mark - Location delegate
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
@@ -93,14 +101,21 @@
     //self.turnOnLocationUpdate = NO;
     self.currentAddress = nil; // invalid current address
     [self.geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placeMarkers, NSError *error) {
-      if (error == nil)
+      if (error == nil) {
         self.currentAddress = [placeMarkers objectAtIndex:0];
+        NSDictionary *addressInfo = [NSDictionary dictionaryWithObject:self.currentAddress.addressDictionary
+                                                                forKey:PMInfoAddress];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationLocationNewAddress 
+                                                            object:self 
+                                                          userInfo:addressInfo];
+      }
     }];
     NSDictionary *postInfo = [NSDictionary dictionaryWithObject:self.locationManager.location 
                                                          forKey:PMInfoCLLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationLocationNewLocation 
                                                         object:self 
                                                       userInfo:postInfo];
+    
   }
 }
 @end

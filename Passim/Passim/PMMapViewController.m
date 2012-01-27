@@ -108,6 +108,14 @@
   }];
 }
 
+- (void)updateNewsWithCurrentAddress:(NSDictionary *)newAddress
+{
+  [self.sharedHerokRequest newsRestrictInRegion: newAddress
+                              withCompleteBlock:^(NSArray *newsData) {
+#warning need to implement this
+  }];
+  
+}
 
 #pragma mark - Setter/Getter
 - (void)setNewsAnnotations:(NSDictionary *)newsAnnotation
@@ -159,6 +167,7 @@
   self.sharedHerokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
   // set up Notification
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewLocation:) name:PMNotificationLocationNewLocation object:self.sharedUtilty];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtilty];
 }
 
 - (void)viewDidUnload
@@ -233,9 +242,15 @@
   NSLog(@"Notificiation For new location");
   CLLocation *location = [notification.userInfo valueForKey:PMInfoCLLocation];
   [self displayMapWithLocation:location.coordinate];
-  [self updateNewsWithCurrentRegion:self.mapView.region];
+  //[self updateNewsWithCurrentRegion:self.mapView.region];
 }
 
+- (void)notificationReceiveNewAddress:(NSNotification *)notification
+{
+  NSLog(@"receive new location");
+  NSDictionary *location = [notification.userInfo valueForKey:PMInfoAddress];
+  [self updateNewsWithCurrentAddress: location];
+}
 
 #pragma mark - MKMapViewController Delegate
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation

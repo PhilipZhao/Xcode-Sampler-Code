@@ -86,6 +86,7 @@
   wasHighlighted.highlighted = NO;
   willBeHighlighted.highlighted = YES;
   willBeHighlighted.enabled = NO;
+  willBeHighlighted.backgroundColor = [UIColor blueColor];
 }
 
 - (void) respositionUitlView:(NSNotification *)notification

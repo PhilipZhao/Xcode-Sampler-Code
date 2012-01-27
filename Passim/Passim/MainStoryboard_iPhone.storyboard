@@ -107,7 +107,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ub6-Uc-l9J">
-                                        <rect key="frame" x="158" y="7" width="71" height="27"/>
+                                        <rect key="frame" x="222" y="7" width="71" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="tintColor" red="0.35083779659999997" green="0.56551379830000004" blue="0.95442000680000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -123,7 +123,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="exu-dr-sFv">
-                                        <rect key="frame" x="237" y="7" width="56" height="27"/>
+                                        <rect key="frame" x="158" y="8" width="56" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Time">
@@ -483,46 +483,6 @@
             <point key="canvasLocation" x="-351" y="45"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="PMComposeNewsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PMComposeNewsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelSumbit:" candidateClass="UIButton"/>
-                <relationship kind="action" name="submitNews:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="locationView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="photoView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="utilView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="PMDetailNewsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PMDetailNewsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBackPreviousView:"/>
-            </relationships>
-        </class>
-        <class className="PMFrontPhotoShowViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PMFrontPhotoShowViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PMListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PMListViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="PMMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PMMapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="PMNavigation" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PMNavigation.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
@@ -530,6 +490,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="8Xj-LP-hIH"/>
-        <segue reference="I6O-9f-vSi"/>
+        <segue reference="C7Z-Ka-qVi"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -23,4 +23,9 @@
  *  request again when it avaialble 
  */
 - (CLLocation *)getUserCurrentLocationWithSender:(id) sender;
+
+/**
+ *
+ */
+- (NSDictionary *)getUserAddressInformationWithSender:(id) sender;
 @end
