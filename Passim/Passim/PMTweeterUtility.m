@@ -46,9 +46,9 @@
   NSData *imgData = [defaults valueForKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
   if (imgData == nil) {
       //FIXME: the following line produces errors in xcode 4.2 - borui
-   /* [PMTweeterUtility NTRequestForProfieImage:user.username withCompletedHandler:^(NSData *imgData) {
+    [PMTweeterUtility NTRequestForProfieImage:user.username withCompletedHandler:^(NSData *imgData) {
       [self updateUser:user withProfileImageData:imgData];
-    }];*/
+    }];
   }
   return [UIImage imageWithData:imgData];
 }
