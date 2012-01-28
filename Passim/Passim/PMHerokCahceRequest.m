@@ -131,7 +131,6 @@ typedef void (^newsHandler)(NSArray *newsData);
       NSDictionary *info = [NSDictionary alloc];
       [[NSNotificationCenter defaultCenter] postNotificationName:@"Need to figure it out" object:self userInfo:nil];
       // cache them into the database
-      // cache the data
       self.lastLoadFromNetworkData = result;
     }
   }];
