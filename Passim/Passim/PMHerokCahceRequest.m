@@ -141,13 +141,16 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request startAsynchronous];
 }
 
-- (void)newsRestrictInRegion:(NSDictionary *)address withCompleteBlock:(void (^)(NSArray *))handler
+- (void)newsBasedOnRegion:(NSDictionary *)address 
+                   option:(PMHerokCacheOption)option
+        withCompleteBlock:(void (^)(NSArray *))handler
 {
-  self.newsInRegionHandler = handler;
-  if ([self comparedAddress:address]) {
+  self.newsInRegionHandler = handler;  // update to latest handler
+  if ([self comparedAddress:address] && option == PMHerokCacheFromCache) {
     self.newsInRegionHandler(self.lastLoadFromNetworkData);
     return;
   } 
+
   self.addressBook = address;
   self.lastLoadFromNetworkData = nil;
   NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"city=%@&&state=%@&&country=%@", [address objectForKey:@"City"], [address objectForKey:@"State"], [address objectForKey:@"Country"]]];
@@ -167,13 +170,20 @@ typedef void (^newsHandler)(NSArray *newsData);
       }
       self.lastLoadFromNetworkData = result;
       self.newsInRegionHandler(self.lastLoadFromNetworkData);
+
+      if (option == PMHerokCacheForceToStoreToDB || option == PMHerokCacheFromNetworkButFailedFromDB) {
+#warning store to db        
+      }
     }
   }];
+
   [request setFailedBlock:^{
-    // Set out notification for failure
+    if (option == PMHerokCacheFromNetworkButFailedFromDB) {
+#warning load from DB
+    }
   }];
-  [request startAsynchronous];
-  
+
+  [request startAsynchronous];  
 }
 
 - (void)newsFeedForPeopleWhoseIFollowedWith:(NSString *) screen_name

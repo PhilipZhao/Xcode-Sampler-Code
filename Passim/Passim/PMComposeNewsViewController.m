@@ -18,6 +18,7 @@
 #define TEXT_SUMMARY @"@Summary: "
 
 #import "PMComposeNewsViewController.h"
+#import "PMHerokCacheRequest.h"
 @interface PMComposeNewsViewController() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) UIButton *disEnableButton;
 @property (strong, nonatomic) NSString *titleText;

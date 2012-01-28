@@ -13,7 +13,7 @@
 @property (weak, nonatomic) id<PMUtilityDelegate> delegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLGeocoder *geocoder;
-@property (strong, nonatomic) CLPlacemark *currentAddress;
+//@property (strong, nonatomic) CLPlacemark *currentAddress;
 @end
 
 @implementation PMLocationUtility
@@ -21,7 +21,7 @@
 @synthesize delegate = _delegate;
 @synthesize locationManager = _locationManager;
 @synthesize geocoder = _geocoder;
-@synthesize currentAddress = _currentAddress;
+//@synthesize currentAddress = _currentAddress;
 
 - (id)init {
   if (self = [super init]) {
@@ -77,12 +77,14 @@
   return self.locationManager.location;
 }
 
-- (NSDictionary *)getUserAddressInformationWithSender:(id)sender
+- (void)addressInformationBaseOnLocation:(CLLocation *)location 
+                                               sender:(id)sender
+                                       completedBlock:(void (^)(NSDictionary *address)) handler
 {
-  if (self.currentAddress == nil) {
-    self.turnOnLocationUpdate = YES; // turn on the location service
-  }
-  return self.currentAddress.addressDictionary;
+  [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placeMarkers, NSError *error) {
+    if (error == nil && [placeMarkers count] > 0)
+      handler(((CLPlacemark *)[placeMarkers objectAtIndex:0]).addressDictionary);
+  }];
 }
 
 #pragma mark - Location delegate
@@ -99,11 +101,11 @@
   if (abs(howRecent) < 15) {
     // stop the geolocation service
     //self.turnOnLocationUpdate = NO;
-    self.currentAddress = nil; // invalid current address
+    //self.currentAddress = nil; // invalid current address
     [self.geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placeMarkers, NSError *error) {
       if (error == nil) {
-        self.currentAddress = [placeMarkers objectAtIndex:0];
-        NSDictionary *addressInfo = [NSDictionary dictionaryWithObject:self.currentAddress.addressDictionary
+        //self.currentAddress = [placeMarkers objectAtIndex:0];
+        NSDictionary *addressInfo = [NSDictionary dictionaryWithObject:((CLPlacemark *)[placeMarkers objectAtIndex:0]).addressDictionary
                                                                 forKey:PMInfoAddress];
         [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationLocationNewAddress 
                                                             object:self 

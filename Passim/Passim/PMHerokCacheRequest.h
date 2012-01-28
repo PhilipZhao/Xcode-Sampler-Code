@@ -16,6 +16,13 @@
 #define HEROK_LAT         @"news_geo_lat"
 #define HEROK_LON         @"news_geo_long"
 
+typedef enum {
+  PMHerokCacheFromCache,         // get from current cache, if not, from network
+  PMHerokCacheForceToReload,     // get from server, not to db
+  PMHerokCacheForceToStoreToDB,  // get from server and to db
+  PMHerokCacheFromNetworkButFailedFromDB // get from server and to db, but network failure will load from db.
+} PMHerokCacheOption;
+
 @interface PMHerokCacheRequest : NSObject <NSURLConnectionDelegate>
 @property (strong, nonatomic) UIManagedDocument *passimDB;
 @property (strong, nonatomic) NSArray *lastLoadFromNetworkData;
@@ -27,6 +34,13 @@
          withCompletedBlock:(void (^)(NSArray *newsData)) networkCompleteHandler;
 // Array of newsData with each one is Dictionary with key
 
-- (void)newsRestrictInRegion:(NSDictionary *)address
-           withCompleteBlock:(void (^)(NSArray *newsData)) handler;
+/**
+ * Load a news based on the current address. Option to help speed thing up
+ * address: with key City, State, Country
+ * option:  either load from current cache, db or network
+ 
+ */
+- (void)newsBasedOnRegion:(NSDictionary *)address
+                   option:(PMHerokCacheOption) option
+        withCompleteBlock:(void (^)(NSArray *newsData)) handler;
 @end
