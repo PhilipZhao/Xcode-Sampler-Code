@@ -43,4 +43,7 @@ typedef enum {
 - (void)newsBasedOnRegion:(NSDictionary *)address
                    option:(PMHerokCacheOption) option
         withCompleteBlock:(void (^)(NSArray *newsData)) handler;
+
+- (void) postNews:(NSDictionary *)news
+withCompleteBlock:(void (^)(BOOL completed)) handler;
 @end

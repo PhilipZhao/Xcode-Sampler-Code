@@ -10,6 +10,7 @@
 		E406641014CC89730020235D /* TabBarNipple.png in Resources */ = {isa = PBXBuildFile; fileRef = E406640E14CC89730020235D /* TabBarNipple.png */; };
 		E406641114CC89730020235D /* TabBarNipple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E406640F14CC89730020235D /* TabBarNipple@2x.png */; };
 		E418463F14CA23D10035A04F /* PMDetailNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */; };
+		E42E72EF14D3952900F876AE /* PMNews.m in Sources */ = {isa = PBXBuildFile; fileRef = E42E72EE14D3952900F876AE /* PMNews.m */; };
 		E436B96014C22F5700A8FF2F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E436B95F14C22F5700A8FF2F /* Twitter.framework */; };
 		E45247A914C0EEC200CC8BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247A814C0EEC200CC8BFC /* UIKit.framework */; };
 		E45247AB14C0EEC200CC8BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247AA14C0EEC200CC8BFC /* Foundation.framework */; };
@@ -70,6 +71,8 @@
 		E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDetailNewsViewController.m; sourceTree = "<group>"; };
 		E428759E14C242D300357EFE /* Union, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Union, Madison.gpx"; sourceTree = "<group>"; };
 		E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kolch Center, Madison.gpx"; sourceTree = "<group>"; };
+		E42E72ED14D3952900F876AE /* PMNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMNews.h; sourceTree = "<group>"; };
+		E42E72EE14D3952900F876AE /* PMNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMNews.m; sourceTree = "<group>"; };
 		E436B95F14C22F5700A8FF2F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		E45247A414C0EEC200CC8BFC /* Passim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E45247A814C0EEC200CC8BFC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -82,6 +85,7 @@
 		E45247C814C0EEDA00CC8BFC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E45247CC14C0EEEB00CC8BFC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E458AD7A14D6EECC00AD8747 /* PMStandKeyConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMStandKeyConstant.h; sourceTree = "<group>"; };
 		E46A2CE814C7CC8800D57455 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		E46A2CE914C7CC8800D57455 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		E46A2CEA14C7CC8800D57455 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -248,7 +252,6 @@
 		E452479914C0EEC200CC8BFC = {
 			isa = PBXGroup;
 			children = (
-				9A75B0DC14CE82DF008E56BE /* Kolch Center, Madison.gpx */,
 				E45247AE14C0EEC200CC8BFC /* Passim */,
 				E45247A714C0EEC200CC8BFC /* Frameworks */,
 				E45247A514C0EEC200CC8BFC /* Products */,
@@ -309,6 +312,9 @@
 				E46A2D2E14C7CE7800D57455 /* PMNotification.h */,
 				E46A2D2A14C7CE7800D57455 /* PMNavigation.h */,
 				E46A2D2B14C7CE7800D57455 /* PMNavigation.m */,
+				E458AD7A14D6EECC00AD8747 /* PMStandKeyConstant.h */,
+				E42E72ED14D3952900F876AE /* PMNews.h */,
+				E42E72EE14D3952900F876AE /* PMNews.m */,
 				E46A2D1C14C7CE7700D57455 /* PMAppDelegate.h */,
 				E46A2D1D14C7CE7700D57455 /* PMAppDelegate.m */,
 				E45247B014C0EEC200CC8BFC /* Passim-Info.plist */,
@@ -491,6 +497,7 @@
 				E46A2D3D14C7CE7800D57455 /* PMNewsAnnotation.m in Sources */,
 				E46A2D3F14C7CE7800D57455 /* PMTweeterUtility.m in Sources */,
 				E418463F14CA23D10035A04F /* PMDetailNewsViewController.m in Sources */,
+				E42E72EF14D3952900F876AE /* PMNews.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

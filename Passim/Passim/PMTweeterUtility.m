@@ -19,6 +19,7 @@
 @property (strong, nonatomic) ACAccountStore *accountStore;
 @property (strong, nonatomic) ACAccountType *accountType;
 @property (strong, nonatomic) ACAccount *userAccount;
+@property (strong, nonatomic) NSMutableDictionary *profileDic;
 @end
 
 @implementation PMTweeterUtility
@@ -27,6 +28,7 @@
 @synthesize accountStore = _accountStore;
 @synthesize accountType = _accountType;
 @synthesize userAccount = _userAccount;
+@synthesize profileDic = _profileDic;
 
 #pragma mark - private function
 - (void)updateUser:(ACAccount *) user withProfileImageData:(NSData *) imgData
@@ -69,11 +71,15 @@
   }];
 }
 
-#pragma mark - class Method
-+ (void)loadUserProfile:(NSString *)screen_name withCompleteHandler:(void (^)(UIImage *))handler
+
+- (void)loadUserProfile:(NSString *)screen_name withCompleteHandler:(void (^)(UIImage *))handler
 {
+  if ([self.profileDic objectForKey:screen_name] != nil) {
+    handler((UIImage *)[self.profileDic objectForKey:screen_name]);
+  }
   [PMTweeterUtility NTRequestForProfieImage:screen_name withCompletedHandler:^(NSData *imgData){
     UIImage *profile = [UIImage imageWithData:imgData];
+    [self.profileDic setObject:profile forKey:screen_name];
     handler(profile);
   }];
 }

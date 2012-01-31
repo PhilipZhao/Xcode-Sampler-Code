@@ -53,7 +53,6 @@
   CGFloat verticalLocation = tabBar.view.frame.size.height - 
                              tabBar.tabBar.frame.size.height - 
                              tabBarArrowImage.size.height + 2;
-  NSLog(@"Position %f", [self tabBar:tabBar horizontalLocationFor:tabIndex]);
   self.tabBarArrow.frame = CGRectMake([self tabBar:tabBar horizontalLocationFor:tabIndex], 
                                       verticalLocation, 
                                       tabBarArrowImage.size.width, 
@@ -79,7 +78,6 @@
 - (void) viewDidLoad
 {
   [super viewDidLoad];
-  NSLog(@"Navigation: viewDidLoad");
   UIViewController *vc;
   UIApplication *app = [UIApplication sharedApplication];
   id appDelegate = app.delegate;
@@ -113,19 +111,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  NSLog(@"Navigation: viewWillAppear");
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  NSLog(@"Naviagtion: viewWillDisappar");
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  NSLog(@"Navigation: viewDidUnload");
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

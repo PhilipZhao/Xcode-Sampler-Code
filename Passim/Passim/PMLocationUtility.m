@@ -79,11 +79,14 @@
 
 - (void)addressInformationBaseOnLocation:(CLLocation *)location 
                                                sender:(id)sender
-                                       completedBlock:(void (^)(NSDictionary *address)) handler
+                                       completedBlock:(void (^)(NSDictionary *)) handler
 {
   [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placeMarkers, NSError *error) {
-    if (error == nil && [placeMarkers count] > 0)
-      handler(((CLPlacemark *)[placeMarkers objectAtIndex:0]).addressDictionary);
+    if (error == nil && [placeMarkers count] > 0) {
+      CLPlacemark *address = [placeMarkers objectAtIndex:0];
+      NSLog(@"%@", address.addressDictionary);
+      handler(address.addressDictionary);
+    }
   }];
 }
 

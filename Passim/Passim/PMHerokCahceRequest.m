@@ -9,6 +9,7 @@
 #import "PMHerokCacheRequest.h"
 #import "ASIHTTPRequest.h"
 #import "PMNotification.h"
+#import "PMStandKeyConstant.h"
 
 
 #define PASSIM_WEB @"http://passim1201.herokuapp.com/"
@@ -144,6 +145,9 @@ typedef void (^newsHandler)(NSArray *newsData);
                    option:(PMHerokCacheOption)option
         withCompleteBlock:(void (^)(NSArray *))handler
 {
+  if ([(NSString *)[address objectForKey:@"City"] isEqualToString:@"McFarland"]) {
+    [address setValue:@"Madison" forKey:@"City"];  // fix the bug by CoreData
+  }
   self.newsInRegionHandler = handler;  // update to latest handler
   if ([self comparedAddress:address] && option == PMHerokCacheFromCache) {
     self.newsInRegionHandler(self.lastLoadFromNetworkData);
@@ -152,8 +156,11 @@ typedef void (^newsHandler)(NSArray *newsData);
 
   self.addressBook = address;
   self.lastLoadFromNetworkData = nil;
-  NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"city=%@&&state=%@&&country=%@", [address objectForKey:@"City"], [address objectForKey:@"State"], [address objectForKey:@"Country"]]];
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news_match_basic?news_city=%@&&news_state=%@&&news_country=%@",
+                        [address objectForKey:@"City"], [address objectForKey:@"State"], [address objectForKey:@"Country"]];
   
+  NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+  NSLog(@"url %@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
   [request setCompletionBlock:^{
@@ -183,6 +190,20 @@ typedef void (^newsHandler)(NSArray *newsData);
   }];
 
   [request startAsynchronous];  
+}
+
+- (void) postNews:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler {
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news/do?screen_name=@%&&news_title=%@&&news_geo_lat=%f&&news_geo_long=%f&&news_date_time=%@&&news_city=%@&&news_country=%@&&news_state=%@&&news_summary=%@", (NSString *) [news objectForKey:PASSIM_USER_NAME], (NSString *)[news objectForKey:PASSIM_NEWS_TITLE], [[news objectForKey:PASSIM_LATITIUDE] doubleValue], [[news objectForKey:PASSIM_LONGTITUDE] doubleValue], (NSString *)[news objectForKey:PASSIM_DATE_TIME], (NSString *)[news objectForKey:PASSIM_CITY], (NSString *)[news objectForKey:PASSIM_COUNTRY], (NSString *)[news objectForKey:PASSIM_STATE], (NSString *)[news objectForKey:PASSIM_NEWS_SUMMARY]];
+  NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+  ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
+  __weak ASIHTTPRequest *request = _request;
+  [request setCompletionBlock:^{
+    handler(YES);
+  }];
+  [request setFailedBlock:^{
+    handler(NO);
+  }];
+  [request startSynchronous];
 }
 
 - (void)newsFeedForPeopleWhoseIFollowedWith:(NSString *) screen_name

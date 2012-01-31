@@ -20,7 +20,7 @@
 @interface PMTweeterUtility : NSObject
 @property (weak, nonatomic) id<PMTweeterUtilityDelegate> delegate;
 
-+ (void) loadUserProfile:(NSString *)screen_name withCompleteHandler:(void (^)(UIImage *)) handler;
+- (void) loadUserProfile:(NSString *)screen_name withCompleteHandler:(void (^)(UIImage *)) handler;
 
 /**
  * To get defaults screen name of particular user

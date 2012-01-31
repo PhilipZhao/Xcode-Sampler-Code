@@ -7,13 +7,7 @@
 //
 
 #import "PMNewsAnnotation.h"
-
-// need to redefine somewhere else
-#define PASSIM_NEWS_TITLE @"news_title"
-#define PASSIM_NEWS_AUTHOR @"news_uploader_screen_name"
-#define PASSIM_NEWS_ID @"id"
-#define PASSIM_LATITIUDE @"news_geo_lat"
-#define PASSIM_LONGTITUDE @"news_geo_long"
+#import "PMStandKeyConstant.h"
 
 @implementation PMNewsAnnotation
 @synthesize news = _news;

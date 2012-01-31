@@ -120,8 +120,8 @@
     }
     [self addToNewsMapWithAnnotations:annotations];
   };
-  [self.sharedHerokRequest newsBasedOnRegion: newAddress
-                                      option:PMHerokCacheFromCache 
+  [self.sharedHerokRequest newsBasedOnRegion:newAddress
+                                      option:PMHerokCacheFromCache
                            withCompleteBlock:completeBlock];
 }
 
@@ -160,7 +160,7 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"MapView viewDidLoad");
+  NSLog(@"MapView viewDidLoad");
   [super viewDidLoad];
   id delegate = [[UIApplication sharedApplication] delegate];
   self.sharedUtilty = [delegate valueForKey:PMUTILITY_KEY];
@@ -173,7 +173,7 @@
       [self updateNewsWithCurrentAddress:address];
     }];
   }
-
+  self.sharedHerokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
   // set up Notification
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewLocation:) name:PMNotificationLocationNewLocation object:self.sharedUtilty];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtilty];
@@ -248,15 +248,16 @@
 
 - (void)notificationReceiveNewLocation:(NSNotification *)notification
 {
-  NSLog(@"Notificiation For new location");
+  //NSLog(@"Notificiation For new location");
   CLLocation *location = [notification.userInfo valueForKey:PMInfoCLLocation];
   [self displayMapWithLocation:location.coordinate];
   // need to wait for the address to come in
+  //[self updateNewsWithCurrentRegion:self.mapView.region];
 }
 
 - (void)notificationReceiveNewAddress:(NSNotification *)notification
 {
-  NSLog(@"receive new location");
+  //NSLog(@"receive new location");
   NSDictionary *location = [notification.userInfo valueForKey:PMInfoAddress];
   [self updateNewsWithCurrentAddress: location];
 }
@@ -302,10 +303,10 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
   // send network request to new location
-  NSLog(@"regionDidChangedAnimated and need to implement");
+  //NSLog(@"regionDidChangedAnimated and need to implement");
   CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.region.center.latitude longitude:mapView.region.center.longitude];
   [self.sharedUtilty addressInformationBaseOnLocation:location sender:self completedBlock:^(NSDictionary *address){
-    [self updateNewsWithCurrentAddress:address];
+      [self updateNewsWithCurrentAddress:address];
   }];
   //[self updateNewsWithCurrentRegion:mapView.region];
 }
