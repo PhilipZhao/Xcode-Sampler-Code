@@ -10,9 +10,9 @@
 #import "PMHerokCacheRequest.h"
 
 @implementation PMNews
-
 @synthesize newsData = _newsData;
 @synthesize frontPhoto = _frontPhoto;
+@synthesize newsComments = _newsComments;
 
 + (PMNews *) newsToObject:(NSDictionary *)newsData
 {
@@ -77,6 +77,15 @@
     }];
   } else {
     handler(self.frontPhoto);
+  }
+}
+
+- (void)getNewsComment:(void (^)(NSArray *))handler
+{
+  if (self.newsComments == nil) {
+     
+  } else {
+    handler(self.newsComments);
   }
 }
 

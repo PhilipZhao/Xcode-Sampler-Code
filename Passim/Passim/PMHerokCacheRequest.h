@@ -54,4 +54,7 @@ withCompleteBlock:(void (^)(BOOL completed)) handler;
                        option:(PMHerokPhotoOption) option
             withCompleteBlock:(void (^)(NSArray *)) handler;
 
++ (void) fetchNewsCommentWithNewsId:(NSInteger) new_id
+                  withCompleteBlock:(void (^)(NSArray *)) handler;
+
 @end

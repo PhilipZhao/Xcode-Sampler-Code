@@ -13,11 +13,13 @@
 @interface PMNews : NSObject
 @property (strong, nonatomic) NSDictionary *newsData;
 @property (strong, nonatomic) UIImage *frontPhoto;
+@property (strong, nonatomic) NSArray *newsComments;
 
 + (PMNews *) newsToObject: (NSDictionary *) newsData;
 
 - (void) getNewsFrontPhotoWithBlock:(void (^)(UIImage *)) handler;
 - (void) getNewsAllPhotoWithBlock:(void (^)(NSArray *)) handler;
+- (void) getNewsComment:(void (^)(NSArray *)) handler;
 
 - (NSString *) newsTitle;
 - (NSString *) newsSummary;
@@ -26,4 +28,5 @@
 - (NSInteger)  newsId;
 - (CLLocationCoordinate2D) newsCoordinate;
 - (UIImage *) newsFrontPhoto;
+- (NSArray *) newsComment;
 @end

@@ -59,7 +59,7 @@
 
 - (void)compositeForNewsCell:(UITableViewCell *) cell {
   UILabel* summary = (UILabel *)[cell viewWithTag:TAG_SUMMARY];
-  
+  summary.text = [self.newsData newsSummary];
 }
 
 - (void)compositeForCommentCell:(UITableViewCell *) cell {
@@ -101,6 +101,8 @@
 {
   [super viewWillAppear:animated];
   self.goBackPreviousViewButton.title = self.barItemTitle;
+  // load news
+  
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -122,7 +124,7 @@
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   if (section == 0) {
-    return 1;
+    return 2;
   } else {
     return 10; // need to changed
   }

@@ -55,6 +55,24 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request startAsynchronous]; */
 }
 
++ (void) fetchNewsCommentWithNewsId:(NSInteger)new_id withCompleteBlock:(void (^)(NSArray *))handler
+{
+  NSURL *url =[NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"news/%d/comments", new_id]];
+  NSLog(@"comment url: %@", url);
+  ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
+  __weak ASIHTTPRequest *request = _request;
+  [request setCompletionBlock:^{
+    NSData *returnData = [request responseData];
+    if (returnData != nil) {
+      NSError *jsonParsingError;
+      NSDictionary *newsResult = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&jsonParsingError];
+      // how to handle the news request
+    }
+  }];
+  [request setFailedBlock:^{}];
+  [request startAsynchronous];
+}
+
 #pragma mark - private function
 - (BOOL) comparedAddress:(NSDictionary *) newAddr
 {
