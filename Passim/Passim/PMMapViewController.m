@@ -232,8 +232,8 @@
     // init the detail news controller about which news need fetch
     if ([sender isKindOfClass:[MKAnnotationView class]]) {
       PMNewsAnnotation *annotation = (PMNewsAnnotation *)[(MKAnnotationView *)sender annotation];
-      if ([segue.destinationViewController respondsToSelector:@selector(setNews_id:)])
-        [segue.destinationViewController setNews_id:annotation.news_id];
+      if ([segue.destinationViewController respondsToSelector:@selector(setNewsData:)])
+        [segue.destinationViewController setNewsData:annotation.news];
       if ([segue.destinationViewController respondsToSelector:@selector(setBarItemTitle:)])
         [segue.destinationViewController setBarItemTitle:@"Map view"];
       // set up delegate

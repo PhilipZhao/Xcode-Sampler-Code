@@ -109,8 +109,8 @@
   if ([segue.identifier isEqualToString:SEGUE_SHOW_NEWS]) {
     if ([segue.destinationViewController respondsToSelector:@selector(setBarItemTitle:)])
       [segue.destinationViewController setBarItemTitle:@"List view"];
-    if ([segue.destinationViewController respondsToSelector:@selector(setNews_id:)] && [sender isKindOfClass:[NSDictionary class]])
-      [segue.destinationViewController setNews_id:[[sender objectForKey:PASSIM_NEWS_ID] integerValue]];
+    if ([segue.destinationViewController respondsToSelector:@selector(setNewsData:)] && [sender isKindOfClass:[PMNews class]])
+      [segue.destinationViewController setNewsData:sender];
   } else if ([segue.identifier isEqualToString:SEGUE_COMPOSITE_NEWS]) {
     if ([segue.destinationViewController isKindOfClass:[PMComposeNewsViewController class]]) {
       PMComposeNewsViewController *vc = (PMComposeNewsViewController *)segue.destinationViewController;

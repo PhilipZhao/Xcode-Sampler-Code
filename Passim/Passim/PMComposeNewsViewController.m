@@ -215,31 +215,48 @@
   self.completionHandler(PMComposeViewControllerResultCancelled);
 }
 
-- (IBAction)titleButton:(UIButton *)sender {
-  [self switchSelectedStateFrom:self.disEnableButton to:sender];
+- (IBAction)selectedSegment:(UISegmentedControl *)sender {
+  switch ([sender selectedSegmentIndex]) {
+    case 0:
+      [self titleButton:nil];
+      break;
+    case 1:
+      [self summaryButton:nil];
+      break;
+    case 2:
+      [self timeButton:nil];
+      break;
+    case 3:
+      [self photoButton:nil];
+      break;
+  }
+}
+
+- (void)titleButton:(UIButton *)sender {
+  //[self switchSelectedStateFrom:self.disEnableButton to:sender];
   if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_SUMMARY]) {
     //NSLog(@"this is a summary tag before");
     self.summaryText = self.textView.text;
   }
   self.textView.text = self.titleText;
   
-  self.disEnableButton = sender;
+  //self.disEnableButton = sender;
   [self.textView becomeFirstResponder];
 }
 
-- (IBAction)summaryButton:(UIButton *)sender {
-  [self switchSelectedStateFrom:self.disEnableButton to:sender];
+- (void)summaryButton:(UIButton *)sender {
+  //[self switchSelectedStateFrom:self.disEnableButton to:sender];
   if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_TITLE]) {
     self.titleText = self.textView.text;
   }
   self.textView.text = self.summaryText;
   
   [self.textView becomeFirstResponder];
-  self.disEnableButton = sender;
+  //self.disEnableButton = sender;
 }
 
-- (IBAction)photoButton:(UIButton *)sender {
-  [self switchSelectedStateFrom:self.disEnableButton to:sender];
+- (void)photoButton:(UIButton *)sender {
+  //[self switchSelectedStateFrom:self.disEnableButton to:sender];
   self.photoView.hidden = NO;
   UIDatePicker *datepicker;
   if ((datepicker = (UIDatePicker *)[self.view viewWithTag:TAG_SUPERVIEW_DATEPICKER]) != nil 
@@ -252,11 +269,11 @@
     }];
   }
   [self.textView resignFirstResponder];
-  self.disEnableButton = sender;
+  //self.disEnableButton = sender;
 }
 
-- (IBAction)timeButton:(UIButton *)sender {
-  [self switchSelectedStateFrom:self.disEnableButton to:sender];
+- (void)timeButton:(UIButton *)sender {
+  //[self switchSelectedStateFrom:self.disEnableButton to:sender];
  
   UIDatePicker *datepicker;
   if ((datepicker = (UIDatePicker *)[self.view viewWithTag:TAG_SUPERVIEW_DATEPICKER]) == nil) {
@@ -282,7 +299,7 @@
   [datepicker setDate:self.eventDateTime animated:YES];
   
   [self.textView resignFirstResponder];
-  self.disEnableButton = sender;
+  //self.disEnableButton = sender;
 }
 
 - (IBAction)photoChooseFromLibrary:(UIButton *)sender {

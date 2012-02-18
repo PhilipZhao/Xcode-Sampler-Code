@@ -68,7 +68,9 @@
     NSMutableDictionary *commentInfo = [NSMutableDictionary dictionaryWithCapacity:3];
     [self packedCommentWithInfo:commentInfo];
     NSLog(@"%@", commentInfo);
+    [request postComment:commentInfo withCompleteBlock:^(BOOL completed) {
     
+    }];
   }
 }
 

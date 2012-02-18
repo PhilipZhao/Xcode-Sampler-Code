@@ -80,7 +80,7 @@
   [PMTweeterUtility NTRequestForProfieImage:screen_name withCompletedHandler:^(NSData *imgData){
     UIImage *profile = [UIImage imageWithData:imgData];
     [self.profileDic setObject:profile forKey:screen_name];
-    handler(profile);
+    dispatch_async(dispatch_get_main_queue(), ^{handler(profile);});
   }];
 }
 
