@@ -102,7 +102,9 @@
   [super viewWillAppear:animated];
   self.goBackPreviousViewButton.title = self.barItemTitle;
   // load news
+  [self.newsData getNewsComment:^(NSArray *data) {
   
+  }];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -126,7 +128,10 @@
   if (section == 0) {
     return 2;
   } else {
-    return 10; // need to changed
+    if (self.newsData.newsComments == nil)
+      return 1;
+    else 
+      return [self.newsData.newsComments count]; // need to changed
   }
 }
 

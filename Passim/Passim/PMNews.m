@@ -83,7 +83,15 @@
 - (void)getNewsComment:(void (^)(NSArray *))handler
 {
   if (self.newsComments == nil) {
-     
+     [PMHerokCacheRequest fetchNewsCommentWithNewsId:[self newsId] 
+                                   withCompleteBlock:^(NSArray *comments) {
+     dispatch_async(dispatch_get_main_queue(), ^{
+       if ([comments count] == 0) handler(nil);
+       else {
+         self.newsComments = comments;
+         handler(self.newsComments);
+       }
+     });}];
   } else {
     handler(self.newsComments);
   }
