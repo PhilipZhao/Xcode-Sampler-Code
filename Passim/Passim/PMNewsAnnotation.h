@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-
+#import "PMNews.h"
 @interface PMNewsAnnotation : NSObject <MKAnnotation>
 
-+ (PMNewsAnnotation *)annotationForNews:(NSDictionary *)news;  // passim news data input.
+//+ (PMNewsAnnotation *)annotationForNews:(NSDictionary *)news;  // passim news data input.
++ (PMNewsAnnotation *)annotationForNewsObject:(PMNews *)news;
 
-@property (nonatomic) NSInteger news_id;
-@property (strong, nonatomic) NSDictionary *news;  // news store min amount news information
+@property (strong, nonatomic) PMNews *news;
+
+- (NSInteger) news_id;
+//@property (nonatomic) NSInteger news_id;
+//@property (strong, nonatomic) NSDictionary *news;  // news store min amount news information
 @end

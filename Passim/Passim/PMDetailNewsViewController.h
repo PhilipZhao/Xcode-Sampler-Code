@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface PMDetailNewsViewController : UIViewController
 
+@interface PMDetailNewsViewController : UIViewController
+@property (nonatomic) id detailNewsViewControllerDelegate;
 @property (nonatomic) NSInteger news_id;
+@property (strong, nonatomic) NSString *barItemTitle;
 
 - (IBAction)goBackPreviousView:(id)sender;
-
 @end

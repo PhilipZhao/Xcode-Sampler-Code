@@ -11,6 +11,7 @@
 #import "PMNewsAnnotation.h"
 #import "PMNotification.h"
 #import "PMComposeNewsViewController.h"
+#import "PMDetailNewsViewController.h"
 
 #define METERS_PER_MILE 1609.344
 #define MKANNOATIONVIEW_ID @"MapAnnoationView_reuseID"
@@ -18,8 +19,13 @@
 
 
 @interface PMMapViewController () <PMUtilityDelegate, PMNotificationLocation>
+
 @property (weak, nonatomic) PMLocationUtility *sharedUtilty;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
+@property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
+
+@property (strong, nonatomic) NSDictionary *curr_address;
+@property (nonatomic) BOOL viewIsDisappear;
 @end
 
 @implementation PMMapViewController
@@ -29,6 +35,9 @@
 @synthesize newsAnnotations = _newsAnnotations;
 @synthesize sharedUtilty = _sharedUtilty;
 @synthesize sharedHerokRequest = _sharedHerokRequest;
+@synthesize tweeterUtil = _tweeterUtil;
+@synthesize curr_address = _curr_address;
+@synthesize viewIsDisappear = _viewIsDisappear;
 
 #pragma mark - private function
 - (void)displayMapWithLocation:(CLLocationCoordinate2D) zoomLocation
@@ -68,9 +77,10 @@
   for (PMNewsAnnotation *annotation in annotations) {
     NSInteger news_id = [(PMNewsAnnotation *)annotation news_id];
     id value = [self.newsAnnotations objectForKey:[NSNumber numberWithInt:news_id]];
-    [self.newsAnnotations setObject:annotation forKey:[NSNumber numberWithInt:news_id]];
-    if (!value)
+    if (!value) {
       [listToAdd addObject:annotation];
+      [self.newsAnnotations setObject:annotation forKey:[NSNumber numberWithInt:news_id]];
+    }  
   }
   if ([listToAdd count] > 0) [self.mapView addAnnotations:listToAdd];
   else NSLog(@"it is empty arrary");
@@ -101,8 +111,8 @@
     NSLog(@"Retrieve news completed");
     // need to show up the pin in the map
     NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[newsData count]];
-    for (NSDictionary *singleNews in newsData) {
-      PMNewsAnnotation *annotation = [PMNewsAnnotation annotationForNews:singleNews];
+    for (PMNews *singleNews in newsData) {
+      PMNewsAnnotation *annotation = [PMNewsAnnotation annotationForNewsObject:singleNews];
       [annotations addObject:annotation];
     }                          
     // put data into it
@@ -112,10 +122,12 @@
 
 - (void)updateNewsWithCurrentAddress:(NSDictionary *)newAddress
 {
+  self.curr_address = newAddress;
   void (^completeBlock)(NSArray *) = ^(NSArray *newsData) {
+    NSLog(@"updateNewsWithCurrentAddress");
     NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[newsData count]];
-    for (NSDictionary *singleNews in newsData) {
-      PMNewsAnnotation *annotation = [PMNewsAnnotation annotationForNews:singleNews];
+    for (PMNews *singleNews in newsData) {
+      PMNewsAnnotation *annotation = [PMNewsAnnotation annotationForNewsObject: singleNews];
       [annotations addObject:annotation];
     }
     [self addToNewsMapWithAnnotations:annotations];
@@ -174,9 +186,12 @@
     }];
   }
   self.sharedHerokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
+  self.tweeterUtil = [delegate valueForKey:PMTWEETERUTILITY_KEY];
   // set up Notification
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewLocation:) name:PMNotificationLocationNewLocation object:self.sharedUtilty];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtilty];
+  
+  self.viewIsDisappear = YES;
 }
 
 - (void)viewDidUnload
@@ -190,12 +205,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  self.viewIsDisappear = NO;
   [super viewWillAppear:animated];
   //[self updateNewsMap];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+  self.viewIsDisappear = YES;
   [super viewDidDisappear:animated];
   [self.mapView addAnnotations: [self.newsAnnotations allValues]];
 }
@@ -217,6 +234,8 @@
       PMNewsAnnotation *annotation = (PMNewsAnnotation *)[(MKAnnotationView *)sender annotation];
       if ([segue.destinationViewController respondsToSelector:@selector(setNews_id:)])
         [segue.destinationViewController setNews_id:annotation.news_id];
+      if ([segue.destinationViewController respondsToSelector:@selector(setBarItemTitle:)])
+        [segue.destinationViewController setBarItemTitle:@"Map view"];
       // set up delegate
       
     }
@@ -224,6 +243,12 @@
     if ([segue.destinationViewController isKindOfClass:[PMComposeNewsViewController class]]) {
       NSLog(@"segueway correct");
       PMComposeNewsViewController *vc = (PMComposeNewsViewController *)segue.destinationViewController;
+      // init the setting
+      [vc setValue:self.curr_address forKey:POST_ADDRESS];
+      NSString *screen_name = [self.tweeterUtil getDefaultsScreenName];
+      [vc setValue:screen_name forKey:POST_AUTHOR];
+      CLLocation * location = [self.sharedUtilty getUserCurrentLocationWithSender:self];
+      [vc setValue:location forKey:POST_LOCATION];
       [vc setCompletionHandler:^(PMComposeViewControllerResult result) {
         if (result == PMComposeViewControllerResultDone) NSLog(@"Done");
         else NSLog(@"Cancel");
@@ -257,9 +282,12 @@
 
 - (void)notificationReceiveNewAddress:(NSNotification *)notification
 {
-  //NSLog(@"receive new location");
   NSDictionary *location = [notification.userInfo valueForKey:PMInfoAddress];
-  [self updateNewsWithCurrentAddress: location];
+  if (self.viewIsDisappear ) {
+    self.curr_address = location;
+    return;
+  }  // not do any update
+  [self updateNewsWithCurrentAddress:location];
 }
 
 #pragma mark - MKMapViewController Delegate

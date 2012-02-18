@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#define SEGUE_COMPOSITE_NEWS @"composeNews"
+#import <CoreLocation/CoreLocation.h>
+#import "PMStandKeyConstant.h"
 
-enum PMComposeViewControllerResult {
-  PMComposeViewControllerResultCancelled,
-  PMComposeViewControllerResultDone
-};
-typedef enum PMComposeViewControllerResult PMComposeViewControllerResult;
+#define SEGUE_COMPOSITE_NEWS @"composeNews"
 
 typedef void (^PMComposeViewControllerCompletionHandler)(PMComposeViewControllerResult result);
 
 @interface PMComposeNewsViewController : UIViewController
+
+@property (strong, nonatomic) NSString *author_screen_name;
+@property (strong, nonatomic) NSDictionary *address;
+@property (strong, nonatomic) CLLocation *location;
 
 - (IBAction)submitNews:(UIButton *)sender;
 - (IBAction)cancelSumbit:(UIButton *)sender;

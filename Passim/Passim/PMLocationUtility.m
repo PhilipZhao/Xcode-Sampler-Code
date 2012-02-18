@@ -84,7 +84,8 @@
   [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placeMarkers, NSError *error) {
     if (error == nil && [placeMarkers count] > 0) {
       CLPlacemark *address = [placeMarkers objectAtIndex:0];
-      NSLog(@"%@", address.addressDictionary);
+#warning a potential bug from ios
+      //NSLog(@"%@", address.addressDictionary);
       handler(address.addressDictionary);
     }
   }];

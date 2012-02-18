@@ -88,8 +88,6 @@
   } else {
     [tweeterUtil requireAccessUserAccountWithCompleteHandler:^(BOOL granted, BOOL hasAccountInSystem){}];
     vc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
-  }
-  [self presentViewController:vc animated:NO completion:^{
     if ([vc isKindOfClass:[UITabBarController class]]) {
       [vc setValue:self forKey:@"delegate"];  // set up tab bar delegatation
       // retrieve user information
@@ -99,8 +97,8 @@
       tabBarController.selectedIndex = value;
       [self tabBar:tabBarController addTabBarArrowFor:value];
     }
-    // init to set up delegate?
-  }];
+  }
+  [self presentViewController:vc animated:NO completion:^{}];
 
   self.viewController = vc;
   [[NSNotificationCenter defaultCenter] addObserver:self 

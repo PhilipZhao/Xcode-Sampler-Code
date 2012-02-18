@@ -19,6 +19,9 @@
 
 #import "PMComposeNewsViewController.h"
 #import "PMHerokCacheRequest.h"
+#import "PMAppDelegate.h"
+#import "PMStandKeyConstant.h"
+
 @interface PMComposeNewsViewController() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) UIButton *disEnableButton;
 @property (strong, nonatomic) NSString *titleText;
@@ -27,6 +30,10 @@
 @end
 
 @implementation PMComposeNewsViewController
+@synthesize author_screen_name = _author_screen_name;
+@synthesize address = _address;
+@synthesize location = _location;
+
 @synthesize utilView = _utilView;
 @synthesize textView = _textView;
 @synthesize locationView = _locationView;
@@ -85,9 +92,10 @@
   // change the image
   wasHighlighted.enabled = YES;
   wasHighlighted.highlighted = NO;
+  wasHighlighted.alpha = 1.0;
   willBeHighlighted.highlighted = YES;
   willBeHighlighted.enabled = NO;
-  willBeHighlighted.backgroundColor = [UIColor blueColor];
+  willBeHighlighted.alpha = 0.5;
 }
 
 - (void) respositionUitlView:(NSNotification *)notification
@@ -98,6 +106,18 @@
                                    self.utilView.frame.size.height);
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   // get the frame value and reposition the utilView.
+}
+
+- (void) packedNewsWithInfor:(NSDictionary *) news {
+  [news setValue:self.author_screen_name forKey:PASSIM_USER_NAME];
+  [news setValue:self.titleText forKey:PASSIM_NEWS_TITLE];
+  [news setValue:[NSString stringWithFormat:@"%f", self.location.coordinate.latitude] forKey:PASSIM_LATITIUDE];
+  [news setValue:[NSString stringWithFormat:@"%f", self.location.coordinate.longitude] forKey:PASSIM_LONGTITUDE];
+  [news setValue:self.eventDateTime forKey:PASSIM_DATE_TIME];
+  [news setValue:[self.address valueForKey:@"City"] forKey:PASSIM_CITY];
+  [news setValue:[self.address valueForKey:@"Country"] forKey:PASSIM_COUNTRY];
+  [news setValue:[self.address valueForKey:@"State"] forKey:PASSIM_STATE];
+  [news setValue:self.summaryText forKey:PASSIM_NEWS_SUMMARY];
 }
 
 #pragma mark - Life cycle
@@ -163,8 +183,32 @@
 
 #pragma mark - Target Action
 - (IBAction)submitNews:(id)sender {
+  if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_TITLE])
+    self.titleText = self.textView.text;
+  else if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_SUMMARY])
+    self.summaryText = self.textView.text;
+
   // error checking and make sure it is OK.
-  self.completionHandler(PMComposeViewControllerResultDone);
+  if (self.location != nil && [self.author_screen_name length] > 0 && self.address != nil && [self.titleText length] > 0) {
+    id delegate = [[UIApplication sharedApplication] delegate];
+    PMHerokCacheRequest *request = [delegate valueForKey:PMHEROKREQUEST_KEY];
+    NSMutableDictionary *news = [NSMutableDictionary dictionaryWithCapacity:9];
+    [self packedNewsWithInfor:news];
+    NSLog(@"%@", news); 
+    // animation
+    [request postNews:news withCompleteBlock:^(BOOL finished) {
+      if (finished) {
+        NSLog(@"Result Done");
+        self.completionHandler(PMComposeViewControllerResultDone);
+      } else {
+        NSLog(@"Result Failure");
+        self.completionHandler(PMComposeViewControllerResultFailure);
+      }
+      // dismiss the animation
+    }];
+  } else {
+    self.completionHandler(PMComposeViewControllerResultCancelled);
+  }
 }
 
 - (IBAction)cancelSumbit:(id)sender {
@@ -172,10 +216,9 @@
 }
 
 - (IBAction)titleButton:(UIButton *)sender {
-  
   [self switchSelectedStateFrom:self.disEnableButton to:sender];
   if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_SUMMARY]) {
-    NSLog(@"this is a summary tag before");
+    //NSLog(@"this is a summary tag before");
     self.summaryText = self.textView.text;
   }
   self.textView.text = self.titleText;
