@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *goBackPreviousViewButton;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
+
 @end
 
 @implementation PMDetailNewsViewController
@@ -102,8 +103,7 @@
   [super viewWillAppear:animated];
   self.goBackPreviousViewButton.title = self.barItemTitle;
   // load news
-  [self.newsData getNewsComment:^(NSArray *data) {
-  
+  [self.newsData getNewsCommentWithHandler:^(NSArray *data) {
   }];
 }
 

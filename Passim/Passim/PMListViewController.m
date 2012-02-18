@@ -114,6 +114,11 @@
   } else if ([segue.identifier isEqualToString:SEGUE_COMPOSITE_NEWS]) {
     if ([segue.destinationViewController isKindOfClass:[PMComposeNewsViewController class]]) {
       PMComposeNewsViewController *vc = (PMComposeNewsViewController *)segue.destinationViewController;
+      [vc setValue:self.curr_address forKey:POST_ADDRESS];
+      NSString *screen_name = [self.tweeterUtil getDefaultsScreenName];
+      [vc setValue:screen_name forKey:POST_AUTHOR];
+      CLLocation *location = [self.sharedUtility getUserCurrentLocationWithSender:self];
+      [vc setValue:location forKey:POST_LOCATION];
       [vc setCompletionHandler:^(PMComposeViewControllerResult result) {
         if (result == PMComposeViewControllerResultDone) NSLog(@"Done");
         else NSLog(@"Cancel");

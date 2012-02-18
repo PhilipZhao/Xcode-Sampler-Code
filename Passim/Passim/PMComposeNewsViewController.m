@@ -23,7 +23,7 @@
 #import "PMStandKeyConstant.h"
 
 @interface PMComposeNewsViewController() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-@property (weak, nonatomic) UIButton *disEnableButton;
+@property (nonatomic) int enableButtonIndex;
 @property (strong, nonatomic) NSString *titleText;
 @property (strong, nonatomic) NSString *summaryText;
 @property (strong, nonatomic) NSDate *eventDateTime;
@@ -39,7 +39,7 @@
 @synthesize locationView = _locationView;
 @synthesize photoView = _photoView;
 @synthesize completionHandler = _completionHandler;
-@synthesize disEnableButton = _disEnableButton;
+@synthesize enableButtonIndex = _enableButtonIndex;
 
 @synthesize titleText = _titleText;
 @synthesize summaryText = _summaryText;
@@ -52,14 +52,6 @@
     _completionHandler = ^(PMComposeViewControllerResult rs){};
   }
   return _completionHandler;
-}
-
-- (UIButton *)disEnableButton
-{
-  if (_disEnableButton == nil) {
-    _disEnableButton = (UIButton *)[self.utilView viewWithTag:TAG_UTILVIEW_TITLE];
-  }
-  return _disEnableButton;
 }
 
 - (NSString *)titleText
@@ -183,9 +175,9 @@
 
 #pragma mark - Target Action
 - (IBAction)submitNews:(id)sender {
-  if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_TITLE])
+  if (self.enableButtonIndex == 0)
     self.titleText = self.textView.text;
-  else if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_SUMMARY])
+  else if (self.enableButtonIndex == 1)
     self.summaryText = self.textView.text;
 
   // error checking and make sure it is OK.
@@ -219,22 +211,26 @@
   switch ([sender selectedSegmentIndex]) {
     case 0:
       [self titleButton:nil];
+      self.enableButtonIndex = 0;
       break;
     case 1:
       [self summaryButton:nil];
+      self.enableButtonIndex = 1;
       break;
     case 2:
       [self timeButton:nil];
+      self.enableButtonIndex = 2;
       break;
     case 3:
       [self photoButton:nil];
+      self.enableButtonIndex = 3;
       break;
   }
 }
 
 - (void)titleButton:(UIButton *)sender {
   //[self switchSelectedStateFrom:self.disEnableButton to:sender];
-  if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_SUMMARY]) {
+  if (self.enableButtonIndex == 1) {
     //NSLog(@"this is a summary tag before");
     self.summaryText = self.textView.text;
   }
@@ -246,7 +242,7 @@
 
 - (void)summaryButton:(UIButton *)sender {
   //[self switchSelectedStateFrom:self.disEnableButton to:sender];
-  if (self.disEnableButton == [self.utilView viewWithTag:TAG_UTILVIEW_TITLE]) {
+  if (self.enableButtonIndex == 0) {
     self.titleText = self.textView.text;
   }
   self.textView.text = self.summaryText;

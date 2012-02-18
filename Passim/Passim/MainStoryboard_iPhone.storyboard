@@ -80,10 +80,10 @@
                                         <segments>
                                             <segment title="Title"/>
                                             <segment title="Summary"/>
-                                            <segment title="Time"/>
+                                            <segment title="Date"/>
                                             <segment title="Photo"/>
                                         </segments>
-                                        <color key="tintColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.29759991488337489" green="0.47969990650872024" blue="0.80959154211956519" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="selectedSegment:" destination="8vx-CA-FJn" eventType="valueChanged" id="Ywa-mM-cvJ"/>
                                         </connections>
@@ -158,7 +158,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2215" y="-777"/>
+            <point key="canvasLocation" x="2244" y="-777"/>
         </scene>
         <!--Comment Composer View Controller-->
         <scene sceneID="qi5-Ji-xmL">
@@ -340,7 +340,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2066" y="-96"/>
+            <point key="canvasLocation" x="2054" y="-131"/>
         </scene>
         <!--View Controller - Profile-->
         <scene sceneID="Sqt-Vy-CfZ">
@@ -661,6 +661,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ohY-QU-B4k"/>
-        <segue reference="I6O-9f-vSi"/>
+        <segue reference="vLu-gW-jEb"/>
     </inferredMetricsTieBreakers>
 </document>

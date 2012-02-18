@@ -80,7 +80,7 @@
   }
 }
 
-- (void)getNewsComment:(void (^)(NSArray *))handler
+- (void)getNewsCommentWithHandler:(void (^)(NSArray *))handler
 {
   if (self.newsComments == nil) {
      [PMHerokCacheRequest fetchNewsCommentWithNewsId:[self newsId] 

@@ -247,7 +247,7 @@
       [vc setValue:self.curr_address forKey:POST_ADDRESS];
       NSString *screen_name = [self.tweeterUtil getDefaultsScreenName];
       [vc setValue:screen_name forKey:POST_AUTHOR];
-      CLLocation * location = [self.sharedUtilty getUserCurrentLocationWithSender:self];
+      CLLocation *location = [self.sharedUtilty getUserCurrentLocationWithSender:self];
       [vc setValue:location forKey:POST_LOCATION];
       [vc setCompletionHandler:^(PMComposeViewControllerResult result) {
         if (result == PMComposeViewControllerResultDone) NSLog(@"Done");
