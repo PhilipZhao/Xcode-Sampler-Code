@@ -24,7 +24,9 @@
 - (NSString *) newsTitle;
 - (NSString *) newsSummary;
 - (NSString *) newsAuthor;
-- (NSString *) newsDate;
+- (NSDate *) newsDate;
+- (float)  newsDateTimeByAgo;
+- (NSString *) newsAddress;
 - (NSInteger)  newsId;
 - (CLLocationCoordinate2D) newsCoordinate;
 - (UIImage *) newsFrontPhoto;

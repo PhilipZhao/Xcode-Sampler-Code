@@ -19,11 +19,14 @@
 #define PASSIM_USER_NAME    @"screen_name"
 #define PASSIM_ERROR        @"error"
 #define PASSIM_COMMENT      @"comment_content"
+#define PASSIM_NEWS_ADDRESS @"news_short_address"
 
 #define POST_AUTHOR @"author_screen_name"
 #define POST_ADDRESS @"address"
 #define POST_LOCATION @"location"
 #define POST_NEWS_ID @"news_id"
+
+#define PASSIM_DATE_TIME_FORMAT @"yyyy-MM-dd HH:mm:ss"
 /**
  * Other constant across the VC
  */

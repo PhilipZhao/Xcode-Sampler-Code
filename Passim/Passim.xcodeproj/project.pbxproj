@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E403B4DF14F0CAEF00B03CF2 /* NSDate+StringParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = E403B4DE14F0CAEF00B03CF2 /* NSDate+StringParsing.m */; };
 		E406641014CC89730020235D /* TabBarNipple.png in Resources */ = {isa = PBXBuildFile; fileRef = E406640E14CC89730020235D /* TabBarNipple.png */; };
 		E406641114CC89730020235D /* TabBarNipple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E406640F14CC89730020235D /* TabBarNipple@2x.png */; };
 		E418463F14CA23D10035A04F /* PMDetailNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */; };
@@ -82,6 +83,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E403B4DD14F0CAEF00B03CF2 /* NSDate+StringParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+StringParsing.h"; sourceTree = "<group>"; };
+		E403B4DE14F0CAEF00B03CF2 /* NSDate+StringParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+StringParsing.m"; sourceTree = "<group>"; };
 		E406640E14CC89730020235D /* TabBarNipple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarNipple.png; sourceTree = "<group>"; };
 		E406640F14CC89730020235D /* TabBarNipple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarNipple@2x.png"; sourceTree = "<group>"; };
 		E418463D14CA23D10035A04F /* PMDetailNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMDetailNewsViewController.h; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 				E46A2D0514C7CC8D00D57455 /* ASIHttp */,
 				E42875A214C2491B00357EFE /* Test Location */,
 				E46A2D2E14C7CE7800D57455 /* PMNotification.h */,
+				E403B4DD14F0CAEF00B03CF2 /* NSDate+StringParsing.h */,
+				E403B4DE14F0CAEF00B03CF2 /* NSDate+StringParsing.m */,
 				E46A2D2A14C7CE7800D57455 /* PMNavigation.h */,
 				E46A2D2B14C7CE7800D57455 /* PMNavigation.m */,
 				E458AD7A14D6EECC00AD8747 /* PMStandKeyConstant.h */,
@@ -592,6 +597,7 @@
 				E418463F14CA23D10035A04F /* PMDetailNewsViewController.m in Sources */,
 				E42E72EF14D3952900F876AE /* PMNews.m in Sources */,
 				E4B2A7B314EE322E00D302EC /* PMCommentComposerViewController.m in Sources */,
+				E403B4DF14F0CAEF00B03CF2 /* NSDate+StringParsing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,7 +668,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Passim/Passim-Prefix.pch";
 				INFOPLIST_FILE = "Passim/Passim-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -675,7 +681,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Passim/Passim-Prefix.pch";
 				INFOPLIST_FILE = "Passim/Passim-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

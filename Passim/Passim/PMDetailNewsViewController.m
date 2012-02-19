@@ -14,17 +14,20 @@
 #define TAG_SCREEN_NAME 2
 #define TAG_BY_WHEN 3
 #define TAG_COMMENT 5
-#define TAG_SUMMARY 6
+#define TAG_TITLE 6
+#define TAG_SUMMARY 7
+#define TAG_SPINNER 8
 
 @interface PMDetailNewsViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *goBackPreviousViewButton;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
-
 @end
 
 @implementation PMDetailNewsViewController
+@synthesize tableView = _tableView;
 @synthesize barItemTitle = _barItemTitle;
+
 @synthesize goBackPreviousViewButton = _goBackPreviousViewButton;
 @synthesize sharedHerokRequest = _sharedHerokRequest;
 @synthesize tweeterUtil = _tweeterUtil;
@@ -59,8 +62,11 @@
 }
 
 - (void)compositeForNewsCell:(UITableViewCell *) cell {
+  UILabel* title  = (UILabel *)[cell viewWithTag:TAG_TITLE];
   UILabel* summary = (UILabel *)[cell viewWithTag:TAG_SUMMARY];
+  title.text = [self.newsData newsTitle];
   summary.text = [self.newsData newsSummary];
+  
 }
 
 - (void)compositeForCommentCell:(UITableViewCell *) cell {
@@ -93,7 +99,7 @@
 - (void)viewDidUnload
 {
   [self setGoBackPreviousViewButton:nil];
-  [self setGoBackPreviousViewButton:nil];
+  [self setTableView:nil];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
 }
@@ -104,6 +110,8 @@
   self.goBackPreviousViewButton.title = self.barItemTitle;
   // load news
   [self.newsData getNewsCommentWithHandler:^(NSArray *data) {
+    NSLog(@"finish data");
+    [self.tableView reloadData];
   }];
 }
 
@@ -114,7 +122,11 @@
 
 #pragma mark - Target action
 - (IBAction)goBackPreviousView:(id)sender {
-  [self dismissModalViewControllerAnimated:YES];
+  if (self.navigationController != nil){
+    [self.navigationController popViewControllerAnimated:YES];
+  } else {
+    [self dismissModalViewControllerAnimated:YES];
+  }
 }
 
 #pragma mark - Table View implementation
@@ -131,7 +143,7 @@
     if (self.newsData.newsComments == nil)
       return 1;
     else 
-      return [self.newsData.newsComments count]; // need to changed
+      return [self.newsData.newsComments count];
   }
 }
 
@@ -154,13 +166,17 @@
   static NSString *CellIdentifierForAuthor = @"cell for author";
   static NSString *CellIdentifierForNews = @"cell for news";
   static NSString *CellIdentifierForComment = @"cell for comment";
+  static NSString *CellIdentifierForLoading = @"cell for loading comment";
   NSString *cellID;
   if (indexPath.row == 0 && indexPath.section == 0)
     cellID = CellIdentifierForAuthor;
   else if (indexPath.row == 1 && indexPath.section == 0) 
     cellID = CellIdentifierForNews;
+  else if (self.newsData.newsComments == nil) 
+    cellID = CellIdentifierForLoading;
   else
     cellID = CellIdentifierForComment;
+
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
   if (cell == nil) {
     NSLog(@"What is going here, cell==nil: %@", cellID);
@@ -170,6 +186,8 @@
     [self compositeForAuthorCell:cell];
   else if (indexPath.row == 1 && indexPath.section == 0)
     [self compositeForNewsCell:cell];
+  else if (self.newsData.newsComments == nil) 
+    ;  // do nothing
   else 
     [self compositeForCommentCell:cell];
   return cell;
@@ -178,9 +196,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.row == 0 && indexPath.section == 0) {
-    return 64;
+    return 64; // header
   } else if (indexPath.row == 1 && indexPath.section == 0) {
-    return 100;
+    return 100; // news detail, need to changed
+  } else if (indexPath.row == 0 && indexPath.section == 1 && self.newsData.newsComments == nil) {
+    return 42; // for loading comment
   } else {
     return 62;
   }

@@ -10,8 +10,10 @@
 #import "PMNews.h"
 
 @interface PMDetailNewsViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic) id detailNewsViewControllerDelegate;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (strong, nonatomic) NSString *barItemTitle;
 @property (strong, nonatomic) PMNews * newsData;
+
 - (IBAction)goBackPreviousView:(id)sender;
 @end

@@ -7,7 +7,9 @@
 //
 
 #import "PMNews.h"
+#import "PMStandKeyConstant.h"
 #import "PMHerokCacheRequest.h"
+#import "NSDate+StringParsing.h"
 
 @implementation PMNews
 @synthesize newsData = _newsData;
@@ -37,9 +39,25 @@
   return [self.newsData objectForKey:PASSIM_NEWS_AUTHOR];
 }
 
-- (NSString *) newsDate
+- (NSDate *) newsDate
 {
-  return @"need to format the date";
+  NSString* date_time = [self.newsData objectForKey:PASSIM_DATE_TIME];
+  NSDate* newsDateTime = [NSDate dateWithISO8601String:date_time];
+  return newsDateTime;
+}
+
+- (float) newsDateTimeByAgo
+{
+  NSString* date_time = [self.newsData objectForKey:PASSIM_DATE_TIME];
+  NSDate* newsDateTime = [NSDate dateWithISO8601String:date_time];
+  NSTimeInterval interval = [newsDateTime timeIntervalSinceNow];
+  float intervalInMinutes = (float)abs(interval)/60.0;
+  return intervalInMinutes;
+}
+
+- (NSString *) newsAddress
+{
+  return [self.newsData objectForKey:PASSIM_NEWS_ADDRESS];
 }
 
 - (NSInteger) newsId
@@ -80,21 +98,24 @@
   }
 }
 
+- (void)getNewsAllPhotoWithBlock:(void (^)(NSArray *))handler
+{
+  
+}
+
 - (void)getNewsCommentWithHandler:(void (^)(NSArray *))handler
 {
   if (self.newsComments == nil) {
      [PMHerokCacheRequest fetchNewsCommentWithNewsId:[self newsId] 
                                    withCompleteBlock:^(NSArray *comments) {
+     self.newsComments = comments;
      dispatch_async(dispatch_get_main_queue(), ^{
        if ([comments count] == 0) handler(nil);
-       else {
-         self.newsComments = comments;
+       else
          handler(self.newsComments);
-       }
      });}];
-  } else {
+  } else 
     handler(self.newsComments);
-  }
 }
 
 @end

@@ -105,7 +105,10 @@
   [news setValue:self.titleText forKey:PASSIM_NEWS_TITLE];
   [news setValue:[NSString stringWithFormat:@"%f", self.location.coordinate.latitude] forKey:PASSIM_LATITIUDE];
   [news setValue:[NSString stringWithFormat:@"%f", self.location.coordinate.longitude] forKey:PASSIM_LONGTITUDE];
-  [news setValue:self.eventDateTime forKey:PASSIM_DATE_TIME];
+  NSDateFormatter* formmater = [[NSDateFormatter alloc] init];
+  [formmater setDateFormat:PASSIM_DATE_TIME_FORMAT];
+  NSString* eventDateTime = [formmater stringFromDate:self.eventDateTime];
+  [news setValue:eventDateTime forKey:PASSIM_DATE_TIME];
   [news setValue:[self.address valueForKey:@"City"] forKey:PASSIM_CITY];
   [news setValue:[self.address valueForKey:@"Country"] forKey:PASSIM_COUNTRY];
   [news setValue:[self.address valueForKey:@"State"] forKey:PASSIM_STATE];

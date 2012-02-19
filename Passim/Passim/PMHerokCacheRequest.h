@@ -50,6 +50,9 @@ withCompleteBlock:(void (^)(BOOL completed)) handler;
 - (void) postComment:(NSDictionary *)comment
    withCompleteBlock:(void (^)(BOOL completed)) handler;
 
+- (void) registerAnUser:(NSString *) screen_name
+      withCompleteBlock:(void (^)(BOOL completed)) handler;
+
 + (void) fetchPhotoWithNewsId:(NSInteger) news_id 
                        option:(PMHerokPhotoOption) option
             withCompleteBlock:(void (^)(NSArray *)) handler;

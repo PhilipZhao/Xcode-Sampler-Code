@@ -65,8 +65,15 @@ typedef void (^newsHandler)(NSArray *newsData);
     NSData *returnData = [request responseData];
     if (returnData != nil) {
       NSError *jsonParsingError;
-      NSDictionary *newsResult = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&jsonParsingError];
-      // how to handle the news request
+      NSDictionary *commentResult = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&jsonParsingError];
+      NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:[commentResult count]];
+      if ([commentResult count] > 0) {
+        for (NSDictionary *key in commentResult) {
+          [result addObject:key];
+          NSLog(@"Comment: %@", key);
+        }
+      }
+      handler(result);
     }
   }];
   [request setFailedBlock:^{}];
@@ -206,7 +213,7 @@ typedef void (^newsHandler)(NSArray *newsData);
 
   self.addressBook = address;
   self.lastLoadFromNetworkData = nil;
-  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news_match_basic?news_city=%@&&news_state=%@&&news_country=%@",
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news_match_full?news_city=%@&&news_state=%@&&news_country=%@",
                         [address objectForKey:@"City"], [address objectForKey:@"State"], [address objectForKey:@"Country"]];
   
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
@@ -221,8 +228,10 @@ typedef void (^newsHandler)(NSArray *newsData);
       // parsing the data
       NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:[newsResult count]];
       if ([newsResult count] > 0) {
-        for (NSDictionary *key in newsResult)
+        for (NSDictionary *key in newsResult) {
           [result addObject: [PMNews newsToObject:key]];
+          NSLog(@"%@", key);
+        }
       }
       NSLog(@"finished Parse the return data %@", result);
       self.lastLoadFromNetworkData = result;
@@ -310,6 +319,27 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request setFailedBlock:^{
     // 
   }];
+  [request startAsynchronous];
+}
+
+- (void) registerAnUser:(NSString *)screen_name withCompleteBlock:(void (^)(BOOL))handler
+{
+  NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"user/do?screen_name=%@", screen_name]];
+  ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
+  __weak ASIHTTPRequest *request = _request;
+  [request setCompletionBlock:^{
+    NSData *returnData = request.responseData;
+    if (returnData != nil) {
+      NSError *jsonParsingError;
+      NSDictionary *create_user = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
+      if ([create_user objectForKey:@"error"] == nil) {
+        handler(YES);
+      } else {
+        handler(NO);
+      }
+    }
+  }];
+  [request setFailedBlock:^{handler(NO);}];
   [request startAsynchronous];
 }
 @end

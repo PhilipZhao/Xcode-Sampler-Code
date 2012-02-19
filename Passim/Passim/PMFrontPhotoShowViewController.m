@@ -141,8 +141,14 @@
   // send requires to tweeter and decide which way to go on based there
   id delegate =[UIApplication sharedApplication].delegate;
   PMTweeterUtility *tweeter = [delegate valueForKey: PMTWEETERUTILITY_KEY];
+  PMHerokCacheRequest *herokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
   [tweeter requireAccessUserAccountWithCompleteHandler:^(BOOL granted, BOOL hasAccountInSystem){
     if (granted && hasAccountInSystem) {
+      dispatch_queue_t registerUser = dispatch_queue_create("register twitter user", nil);
+      dispatch_async(registerUser, ^{
+        [herokRequest registerAnUser:[tweeter getDefaultsScreenName] withCompleteBlock:^(BOOL completed) {}];
+      });
+      dispatch_release(registerUser);
       dispatch_async(dispatch_get_main_queue(), ^{
         [self performSegueWithIdentifier:@"fromPhotoSlideToTabBar" sender:self];
       });

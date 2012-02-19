@@ -241,9 +241,11 @@
     imageView.image = img;
   }
   who.text = [@"By " stringByAppendingFormat:@"%@", [single_news newsAuthor]];
-  //NSDate * date = [single_news objectForKey:PASSIM_DATE_TIME];
-  //[NSDate now];
-  
+  float minutesAgo = [single_news newsDateTimeByAgo];
+  if (minutesAgo < 1)
+    when_ago.text = [@"few seconds ago at " stringByAppendingFormat:@"%@", [single_news newsAddress]];
+  else 
+    when_ago.text = [NSString stringWithFormat:@"%d minutes ago at %@", (NSInteger)minutesAgo, [single_news newsAddress]];
   return cell;
 }
 
@@ -270,6 +272,7 @@
 {	
 	[self.refreshTableHeaderView egoRefreshScrollViewDidEndDragging:scrollView];	
 }
+
 
 #pragma mark - EGORefreshTableHeaderViewDelegate method
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
