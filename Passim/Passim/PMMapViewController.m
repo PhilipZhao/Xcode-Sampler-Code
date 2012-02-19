@@ -283,7 +283,7 @@
 - (void)notificationReceiveNewAddress:(NSNotification *)notification
 {
   NSDictionary *location = [notification.userInfo valueForKey:PMInfoAddress];
-  if (self.viewIsDisappear ) {
+  if (self.viewIsDisappear) {
     self.curr_address = location;
     return;
   }  // not do any update

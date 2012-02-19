@@ -91,6 +91,7 @@
 		E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDetailNewsViewController.m; sourceTree = "<group>"; };
 		E428759E14C242D300357EFE /* Union, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Union, Madison.gpx"; sourceTree = "<group>"; };
 		E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kolch Center, Madison.gpx"; sourceTree = "<group>"; };
+		E42E1B4014F1544E0035AB70 /* Kronshage Dr.gpx */ = {isa = PBXFileReference; path = "Kronshage Dr.gpx"; sourceTree = "<group>"; };
 		E42E72ED14D3952900F876AE /* PMNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMNews.h; sourceTree = "<group>"; };
 		E42E72EE14D3952900F876AE /* PMNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMNews.m; sourceTree = "<group>"; };
 		E436B95F14C22F5700A8FF2F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -242,6 +243,7 @@
 			children = (
 				E428759E14C242D300357EFE /* Union, Madison.gpx */,
 				E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */,
+				E42E1B4014F1544E0035AB70 /* Kronshage Dr.gpx */,
 			);
 			name = "Test Location";
 			sourceTree = "<group>";
@@ -261,6 +263,15 @@
 			);
 			name = resource;
 			path = Passim;
+			sourceTree = "<group>";
+		};
+		E42E1B3E14F1485D0035AB70 /* Catogory */ = {
+			isa = PBXGroup;
+			children = (
+				E403B4DD14F0CAEF00B03CF2 /* NSDate+StringParsing.h */,
+				E403B4DE14F0CAEF00B03CF2 /* NSDate+StringParsing.m */,
+			);
+			name = Catogory;
 			sourceTree = "<group>";
 		};
 		E44441C214C3D29A003C8A4F /* Map View */ = {
@@ -348,13 +359,12 @@
 		E45247AF14C0EEC200CC8BFC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E42E1B3E14F1485D0035AB70 /* Catogory */,
 				E406640C14CC89580020235D /* tabBarUtil */,
 				E473FBD114CB1AF500F58FC4 /* Pull to refresh */,
 				E46A2D0514C7CC8D00D57455 /* ASIHttp */,
 				E42875A214C2491B00357EFE /* Test Location */,
 				E46A2D2E14C7CE7800D57455 /* PMNotification.h */,
-				E403B4DD14F0CAEF00B03CF2 /* NSDate+StringParsing.h */,
-				E403B4DE14F0CAEF00B03CF2 /* NSDate+StringParsing.m */,
 				E46A2D2A14C7CE7800D57455 /* PMNavigation.h */,
 				E46A2D2B14C7CE7800D57455 /* PMNavigation.m */,
 				E458AD7A14D6EECC00AD8747 /* PMStandKeyConstant.h */,

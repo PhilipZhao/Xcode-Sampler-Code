@@ -112,6 +112,9 @@
   [news setValue:[self.address valueForKey:@"City"] forKey:PASSIM_CITY];
   [news setValue:[self.address valueForKey:@"Country"] forKey:PASSIM_COUNTRY];
   [news setValue:[self.address valueForKey:@"State"] forKey:PASSIM_STATE];
+  NSLog(@"%@", self.address);
+  [news setValue:[self.address valueForKey:@"Name"] forKey:PASSIM_NEWS_ADDRESS];
+  NSLog(@"name: %@", [news valueForKey:PASSIM_NEWS_ADDRESS]);
   [news setValue:self.summaryText forKey:PASSIM_NEWS_SUMMARY];
 }
 

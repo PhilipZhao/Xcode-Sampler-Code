@@ -78,8 +78,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "92"
          endingLineNumber = "92"
-         landmarkName = "-updateNewsWithCurrentAddress:option:withCompleteBlock:"
-         landmarkType = "5">
+         landmarkName = "@interface PMListViewController()"
+         landmarkType = "2">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -91,47 +91,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "75"
          endingLineNumber = "75"
-         landmarkName = "-reloadTableViewDataSource"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351309092.680613"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "327"
-         endingLineNumber = "327"
-         landmarkName = "-registerAnUser:withCompleteBlock:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351309092.680613"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "332"
-         endingLineNumber = "332"
-         landmarkName = "-registerAnUser:withCompleteBlock:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Passim/PMNews.m"
-         timestampString = "351325069.321864"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51"
-         landmarkName = "-newsDateTimeByAgo"
-         landmarkType = "5">
+         landmarkName = "@interface PMListViewController()"
+         landmarkType = "2">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

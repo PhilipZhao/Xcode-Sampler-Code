@@ -16,7 +16,7 @@
 @synthesize frontPhoto = _frontPhoto;
 @synthesize newsComments = _newsComments;
 
-+ (PMNews *) newsToObject:(NSDictionary *)newsData
++ (PMNews *) newsFromObject:(NSDictionary *)newsData
 {
   PMNews *news = [[PMNews alloc] init];
   news.newsData = newsData;
@@ -46,13 +46,26 @@
   return newsDateTime;
 }
 
-- (float) newsDateTimeByAgo
+- (PMNewsDateTime) newsDateTimeByAgo
 {
   NSString* date_time = [self.newsData objectForKey:PASSIM_DATE_TIME];
   NSDate* newsDateTime = [NSDate dateWithISO8601String:date_time];
-  NSTimeInterval interval = [newsDateTime timeIntervalSinceNow];
-  float intervalInMinutes = (float)abs(interval)/60.0;
-  return intervalInMinutes;
+  NSTimeInterval interval = abs([newsDateTime timeIntervalSinceNow]);
+  PMNewsDateTime dateTime;
+  if (interval < 60) {
+    dateTime.timeSinceNow = (NSInteger) abs(interval);
+    dateTime.ago = PMSecondAgo;
+  } else if (interval < 60*60) {
+    dateTime.timeSinceNow = (NSInteger) (abs(interval)/(60));
+    dateTime.ago = PMMinuteAgo;
+  } else if (interval < 60*60*24) {
+    dateTime.timeSinceNow = (NSInteger) (abs(interval)/(60*60));
+    dateTime.ago = PMHourAgo;
+  } else {
+    dateTime.timeSinceNow = (NSInteger) (abs(interval)/(60*60*24));
+    dateTime.ago = PMDayAgo;
+  }
+  return dateTime;
 }
 
 - (NSString *) newsAddress

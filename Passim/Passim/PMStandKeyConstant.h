@@ -36,3 +36,12 @@ enum PMComposeViewControllerResult {
   PMComposeViewControllerResultFailure
 };
 typedef enum PMComposeViewControllerResult PMComposeViewControllerResult;
+
+enum _PMDateTimeAgo {
+  PMSecondAgo,
+  PMMinuteAgo,
+  PMHourAgo,
+  PMDayAgo,
+  PMAccurateDate
+};
+typedef enum _PMDateTimeAgo PMDateTimeAgo;

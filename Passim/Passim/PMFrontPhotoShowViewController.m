@@ -161,7 +161,6 @@
                                             otherButtonTitles:@"Open Settings", nil];
       [alert show];
       // TODO: show open up Setting App
-#warning Need to test this part
     } else {
       // not granted
     }
@@ -172,7 +171,6 @@
 {
   if (buttonIndex == 1) {
     // open Settings App
-#warning Need to test this part on a real device
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
   }
 }

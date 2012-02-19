@@ -229,7 +229,7 @@ typedef void (^newsHandler)(NSArray *newsData);
       NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:[newsResult count]];
       if ([newsResult count] > 0) {
         for (NSDictionary *key in newsResult) {
-          [result addObject: [PMNews newsToObject:key]];
+          [result addObject: [PMNews newsFromObject:key]];
           NSLog(@"%@", key);
         }
       }
@@ -266,10 +266,13 @@ typedef void (^newsHandler)(NSArray *newsData);
       NSLog(@"%@", newsResult);
       if ([newsResult count] > 0 && [newsResult objectForKey:@"error"] == nil) {
         if ([self comparedAddress:newsResult]) {
-          [self.lastLoadFromNetworkData addObject:newsResult];
+          [self.lastLoadFromNetworkData insertObject:[PMNews newsFromObject: newsResult] atIndex:0];
         }
         handler(YES);
 #warning need to notification the update version
+        [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationHerokCacheRequestNewData 
+                                                            object:self 
+                                                          userInfo:nil];
         return;
       }
     }

@@ -14,7 +14,7 @@
 
 #define PMNotificationLocationNewLocation @"PMNotificationLocationNewLocation"
 #define PMNotificationLocationNewAddress @"PMNotificationLocationNewAddress"
-#define PMNotificationHerokCacheNewsData @"PMNotificationHerokCacheNewsData"
+#define PMNotificationHerokCacheRequestNewData @"PMNotificationHerokCacheRequestNewData"
 
 #define PMInfoCLLocation @"PMInfoCLLocation"
 #define PMInfoAddress @"PMAddressBook"

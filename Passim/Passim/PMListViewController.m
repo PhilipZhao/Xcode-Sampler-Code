@@ -150,6 +150,7 @@
     }];
   }
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtility];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewsData:) name:PMNotificationHerokCacheRequestNewData object:self.sharedHerokRequest];
   self.viewIsDisappear = YES;
 }
 
@@ -159,8 +160,6 @@
   [self setRefreshTableHeaderView:nil];
   [super viewDidUnload];
   [[NSNotificationCenter defaultCenter] removeObject:self];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated 
@@ -195,6 +194,15 @@
     return;
   }
   [self updateNewsWithCurrentAddress:location option:PMHerokCacheFromCache withCompleteBlock:^(){}];
+}
+
+- (void)notificationReceiveNewsData:(NSNotification *)notification
+{
+  //if (self.viewIsDisappear) return;
+  if (notification.userInfo == nil) {
+    [self updateNewsWithCurrentAddress:self.curr_address option:PMHerokCacheFromCache withCompleteBlock: ^(){
+    }];
+  }
 }
 
 #pragma mark - Table view data source
@@ -241,11 +249,26 @@
     imageView.image = img;
   }
   who.text = [@"By " stringByAppendingFormat:@"%@", [single_news newsAuthor]];
-  float minutesAgo = [single_news newsDateTimeByAgo];
-  if (minutesAgo < 1)
-    when_ago.text = [@"few seconds ago at " stringByAppendingFormat:@"%@", [single_news newsAddress]];
-  else 
-    when_ago.text = [NSString stringWithFormat:@"%d minutes ago at %@", (NSInteger)minutesAgo, [single_news newsAddress]];
+  NSString* address = [single_news newsAddress];
+  address = (address == nil) ? @"": [@"at " stringByAppendingString: address];
+  PMNewsDateTime dateTime = [single_news newsDateTimeByAgo];
+  NSString* singluar = (dateTime.timeSinceNow == 1) ? @"": @"s";
+  switch (dateTime.ago) {
+    case PMSecondAgo:
+      when_ago.text = [NSString stringWithFormat:@"A few seconds ago %@", address];
+      break;
+    case PMMinuteAgo:
+      when_ago.text = [NSString stringWithFormat:@"%d minute%@ ago %@", dateTime.timeSinceNow, singluar, address];
+      break;
+    case PMHourAgo:
+      when_ago.text = [NSString stringWithFormat:@"%d hour%@ ago %@", dateTime.timeSinceNow, singluar, address];
+      break;
+    case PMDayAgo:
+      when_ago.text = [NSString stringWithFormat:@"%d day%@ ago %@", dateTime.timeSinceNow, singluar, address];
+      break;
+    default:
+      break;
+  }
   return cell;
 }
 

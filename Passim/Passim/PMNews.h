@@ -10,12 +10,18 @@
 #import <MapKit/MapKit.h>
 #import "PMStandKeyConstant.h"
 
+struct _PMNewsDateTime {
+  NSInteger timeSinceNow;
+  PMDateTimeAgo ago;
+};
+typedef struct _PMNewsDateTime PMNewsDateTime;
+
 @interface PMNews : NSObject
 @property (strong, nonatomic) NSDictionary *newsData;
 @property (strong, nonatomic) UIImage *frontPhoto;
 @property (strong, nonatomic) NSArray *newsComments;
 
-+ (PMNews *) newsToObject: (NSDictionary *) newsData;
++ (PMNews *) newsFromObject: (NSDictionary *) newsData;
 
 - (void) getNewsFrontPhotoWithBlock:(void (^)(UIImage *)) handler;
 - (void) getNewsAllPhotoWithBlock:(void (^)(NSArray *)) handler;
@@ -25,7 +31,7 @@
 - (NSString *) newsSummary;
 - (NSString *) newsAuthor;
 - (NSDate *) newsDate;
-- (float)  newsDateTimeByAgo;
+- (PMNewsDateTime)  newsDateTimeByAgo;
 - (NSString *) newsAddress;
 - (NSInteger)  newsId;
 - (CLLocationCoordinate2D) newsCoordinate;
