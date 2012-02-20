@@ -187,10 +187,11 @@
   }
   self.sharedHerokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
   self.tweeterUtil = [delegate valueForKey:PMTWEETERUTILITY_KEY];
+  
   // set up Notification
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewLocation:) name:PMNotificationLocationNewLocation object:self.sharedUtilty];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtilty];
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewsData:) name:PMNotificationHerokCacheRequestNewData object:self.sharedHerokRequest];
   self.viewIsDisappear = YES;
 }
 
@@ -207,7 +208,8 @@
 {
   self.viewIsDisappear = NO;
   [super viewWillAppear:animated];
-  //[self updateNewsMap];
+  if (self.curr_address != nil) 
+    [self updateNewsWithCurrentAddress:self.curr_address];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -232,7 +234,8 @@
     // init the detail news controller about which news need fetch
     if ([sender isKindOfClass:[MKAnnotationView class]]) {
       PMNewsAnnotation *annotation = (PMNewsAnnotation *)[(MKAnnotationView *)sender annotation];
-      if ([segue.destinationViewController respondsToSelector:@selector(setNewsData:)])
+      if ([segue.destinationViewController respondsToSelector:@selector(setNewsData:)] && 
+          [segue.destinationViewController isKindOfClass:[PMDetailNewsViewController class]])
         [segue.destinationViewController setNewsData:annotation.news];
       if ([segue.destinationViewController respondsToSelector:@selector(setBarItemTitle:)])
         [segue.destinationViewController setBarItemTitle:@"Map view"];
@@ -288,6 +291,13 @@
     return;
   }  // not do any update
   [self updateNewsWithCurrentAddress:location];
+}
+
+- (void)notificationReceiveNewsData:(NSNotification *)notification
+{
+  if (self.viewIsDisappear) return;
+  if (notification.userInfo == nil) 
+    [self updateNewsWithCurrentAddress:self.curr_address];
 }
 
 #pragma mark - MKMapViewController Delegate

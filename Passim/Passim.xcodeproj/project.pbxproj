@@ -91,7 +91,7 @@
 		E418463E14CA23D10035A04F /* PMDetailNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDetailNewsViewController.m; sourceTree = "<group>"; };
 		E428759E14C242D300357EFE /* Union, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Union, Madison.gpx"; sourceTree = "<group>"; };
 		E42875A114C248AE00357EFE /* Kolch Center, Madison.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kolch Center, Madison.gpx"; sourceTree = "<group>"; };
-		E42E1B4014F1544E0035AB70 /* Kronshage Dr.gpx */ = {isa = PBXFileReference; path = "Kronshage Dr.gpx"; sourceTree = "<group>"; };
+		E42E1B4014F1544E0035AB70 /* Kronshage Dr.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kronshage Dr.gpx"; sourceTree = "<group>"; };
 		E42E72ED14D3952900F876AE /* PMNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMNews.h; sourceTree = "<group>"; };
 		E42E72EE14D3952900F876AE /* PMNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMNews.m; sourceTree = "<group>"; };
 		E436B95F14C22F5700A8FF2F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };

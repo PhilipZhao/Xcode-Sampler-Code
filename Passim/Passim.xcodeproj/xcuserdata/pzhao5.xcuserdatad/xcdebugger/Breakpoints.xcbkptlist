@@ -78,8 +78,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "92"
          endingLineNumber = "92"
-         landmarkName = "@interface PMListViewController()"
-         landmarkType = "2">
+         landmarkName = "-updateNewsWithCurrentAddress:option:withCompleteBlock:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -91,8 +91,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "75"
          endingLineNumber = "75"
-         landmarkName = "@interface PMListViewController()"
-         landmarkType = "2">
+         landmarkName = "-reloadTableViewDataSource"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
