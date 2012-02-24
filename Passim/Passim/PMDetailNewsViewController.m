@@ -18,6 +18,13 @@
 #define TAG_SUMMARY 7
 #define TAG_SPINNER 8
 
+#define NEWS_TITLE_WIDE 281
+#define NEWS_SUMMARY_WIDE 281
+#define NEWS_COMMENT_WIDE 220
+#define MAX_HEIGH 300
+#define PADDING 5
+
+
 @interface PMDetailNewsViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *goBackPreviousViewButton;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
@@ -66,7 +73,12 @@
   UILabel* summary = (UILabel *)[cell viewWithTag:TAG_SUMMARY];
   title.text = [self.newsData newsTitle];
   summary.text = [self.newsData newsSummary];
-  
+  CGRect bound = title.frame;
+  bound.size.height = [[self.newsData newsTitle] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_TITLE_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
+  title.frame = bound;
+  bound = summary.frame;
+  bound.size.height = [[self.newsData newsSummary] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_SUMMARY_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
+  summary.frame = bound;
 }
 
 - (void)compositeForCommentCell:(UITableViewCell *) cell {
@@ -74,6 +86,23 @@
   UILabel* by_when = (UILabel *)[cell viewWithTag:TAG_BY_WHEN];
   UILabel* comment = (UILabel *)[cell viewWithTag:TAG_COMMENT];
   UIImageView *profile = (UIImageView *)[cell viewWithTag:TAG_PROFILE];
+  
+}
+
+- (CGFloat) tableViewHeightForNews
+{
+  NSString *newsTitle = [self.newsData newsTitle];
+  NSString *newsSummary = [self.newsData newsSummary];
+  CGFloat tableHeigh = 0;
+  tableHeigh += [newsTitle sizeWithFont: [UIFont boldSystemFontOfSize:15] constrainedToSize:CGSizeMake(NEWS_TITLE_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height ;
+  tableHeigh += [newsSummary sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(NEWS_SUMMARY_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
+  tableHeigh += PADDING * 4;
+  NSLog(@"tableHeight %f", tableHeigh);
+  return tableHeigh;
+}
+
+- (GLfloat) tableViewHeightForComment:(NSInteger) commentIndex
+{
   
 }
 
@@ -198,7 +227,8 @@
   if (indexPath.row == 0 && indexPath.section == 0) {
     return 64; // header
   } else if (indexPath.row == 1 && indexPath.section == 0) {
-    return 100; // news detail, need to changed
+    //return 100;
+    return [self tableViewHeightForNews];
   } else if (indexPath.row == 0 && indexPath.section == 1 && self.newsData.newsComments == nil) {
     return 42; // for loading comment
   } else {

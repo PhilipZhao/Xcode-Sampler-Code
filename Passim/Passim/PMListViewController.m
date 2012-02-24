@@ -16,11 +16,18 @@
 #import "PMNews.h"
 
 #define SEGUE_SHOW_NEWS @"showNewsDetail"
-#define TAG_TITILE  1
-#define TAG_WHO     2
-#define TAG_AGO     3
-#define TAG_IMG     4
-#define TAG_SPINNER 5
+#define TAG_TITILE      1
+#define TAG_WHO         2
+#define TAG_AGO         3
+#define TAG_IMG         4
+#define TAG_SPINNER     5
+#define TAG_SCREEN_NAME 6
+#define TAG_NUM_COMMENT 7
+#define TAG_IMG_COMMENT 8
+#define TAG_NUM_LIKE    9
+#define TAG_IMG_LIKE    10
+
+#define PADDING 5
 
 @interface PMListViewController ()
 @property (strong, nonatomic) EGORefreshTableHeaderView *refreshTableHeaderView;
@@ -232,23 +239,40 @@
   }
   UILabel *title = (UILabel *)[cell.contentView viewWithTag:TAG_TITILE];
   UILabel *who = (UILabel *)[cell.contentView viewWithTag:TAG_WHO];
+  UILabel *screen_name = (UILabel *)[cell.contentView viewWithTag:TAG_SCREEN_NAME];
   UILabel *when_ago = (UILabel *)[cell.contentView viewWithTag:TAG_AGO];
+  UILabel *numComment = (UILabel *)[cell.contentView viewWithTag:TAG_NUM_COMMENT];
+  UILabel *numLike = (UILabel *)[cell.contentView viewWithTag:TAG_NUM_LIKE];
   UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:TAG_IMG];
-  UIActivityIndicatorView *spinner = (UIActivityIndicatorView *)[cell.contentView viewWithTag:TAG_SPINNER];
   PMNews *single_news = [self.tableData objectAtIndex:indexPath.row];
+  CGRect frame = title.frame;
+  frame.size = [[single_news newsTitle] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(240, 49)];
   title.text = [single_news newsTitle];
+  title.frame = frame;
   UIImage * img = [single_news newsFrontPhoto];
   if (img == nil) {
-    [spinner startAnimating];
     [single_news getNewsFrontPhotoWithBlock:^(UIImage *image) {
       // test code, for demo not recommend
       imageView.image = image;
-      [spinner stopAnimating];
     }];
   } else {
     imageView.image = img;
   }
-  who.text = [@"By " stringByAppendingFormat:@"%@", [single_news newsAuthor]];
+  // get the count. Need to update later
+  numLike.text = @"10";
+  numComment.text = @"21";
+  who.text = [single_news newsAuthor];
+  frame = who.frame;
+  CGSize who_bound = [who.text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(300, 300)];
+  frame.size = who_bound;
+  who.frame = frame;
+  CGSize screen_name_bound = [[single_news newsScreenName] sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(300, 300)];
+  frame = screen_name.frame;
+  //frame.size = screen_name_bound;
+  frame.origin.x = who_bound.width + who.frame.origin.x;
+  frame.origin.y = who.frame.origin.y - 2;
+  screen_name.frame = frame;
+  screen_name.text = [@"@" stringByAppendingString:[single_news newsScreenName]];
   NSString* address = [single_news newsAddress];
   address = (address == nil) ? @"": [@"at " stringByAppendingString: address];
   PMNewsDateTime dateTime = [single_news newsDateTimeByAgo];
@@ -282,7 +306,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return 91;
+  return 101;
 }
 
 #pragma mark - UIScrollViewDelegate Methods

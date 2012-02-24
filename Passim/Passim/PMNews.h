@@ -30,6 +30,7 @@ typedef struct _PMNewsDateTime PMNewsDateTime;
 - (NSString *) newsTitle;
 - (NSString *) newsSummary;
 - (NSString *) newsAuthor;
+- (NSString *) newsScreenName;
 - (NSDate *) newsDate;
 - (PMNewsDateTime)  newsDateTimeByAgo;
 - (NSString *) newsAddress;

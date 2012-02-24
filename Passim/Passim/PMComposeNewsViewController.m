@@ -101,7 +101,7 @@
 }
 
 - (void) packedNewsWithInfor:(NSDictionary *) news {
-  [news setValue:self.author_screen_name forKey:PASSIM_USER_NAME];
+  [news setValue:self.author_screen_name forKey:PASSIM_SCREEN_NAME];
   [news setValue:self.titleText forKey:PASSIM_NEWS_TITLE];
   [news setValue:[NSString stringWithFormat:@"%f", self.location.coordinate.latitude] forKey:PASSIM_LATITIUDE];
   [news setValue:[NSString stringWithFormat:@"%f", self.location.coordinate.longitude] forKey:PASSIM_LONGTITUDE];
@@ -169,7 +169,6 @@
   [self setTextView:nil];
   [self setLocationView:nil];
   [self setPhotoView:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
 }
@@ -207,10 +206,12 @@
   } else {
     self.completionHandler(PMComposeViewControllerResultCancelled);
   }
+  [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (IBAction)cancelSumbit:(id)sender {
   self.completionHandler(PMComposeViewControllerResultCancelled);
+  [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (IBAction)selectedSegment:(UISegmentedControl *)sender {
@@ -326,6 +327,7 @@
 #pragma mark - UIImagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 #warning test under the device
+  NSLog(@"imagePickerController: %@", info);
   NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
   // check sourceType isEqual to kUTTypeImage
   UIImage *choosedImage = [info objectForKey:UIImagePickerControllerEditedImage];

@@ -36,4 +36,6 @@
 - (UIImage *) getCurrentUserProfile;
 - (void) tweeter:(NSString *)tweet withURL:(NSURL *)url;
 
+- (void) followOnTwitter:(NSString *) follow_screen_name withCompleteHandler:(void (^)(NSData *responseData)) handler;
+- (void) unfollowOnTwitter:(NSString *) unfollow_screen_name withCompleteHandler:(void (^)(NSData *responseData)) handler;
 @end

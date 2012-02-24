@@ -47,6 +47,8 @@ typedef enum {
 - (void) postNews:(NSDictionary *)news
 withCompleteBlock:(void (^)(BOOL completed)) handler;
 
+- (void) postNews:(NSDictionary *)news withImage:(UIImage *) image withCompleteBlock:(void (^)(BOOL))handler;
+
 - (void) postComment:(NSDictionary *)comment
    withCompleteBlock:(void (^)(BOOL completed)) handler;
 

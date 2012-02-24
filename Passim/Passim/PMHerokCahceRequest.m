@@ -8,6 +8,7 @@
 
 #import "PMHerokCacheRequest.h"
 #import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 #import "PMNotification.h"
 #import "PMStandKeyConstant.h"
 #import "PMNews.h"
@@ -115,6 +116,15 @@ typedef void (^newsHandler)(NSArray *newsData);
   }
 }
 
+- (NSDictionary *) handleJsonReturnData:(ASIHTTPRequest *) request {
+  if (request == nil) return nil;
+  NSData *data = [request responseData];
+  if (data == nil) return nil;
+  NSError *jsonParsingError;
+  NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
+  if ([result count] > 0 && [result objectForKey:@"error"] == nil) return result;
+  return nil;
+}
 
 - (id)init 
 {
@@ -253,7 +263,7 @@ typedef void (^newsHandler)(NSArray *newsData);
 }
 
 - (void) postNews:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler {
-  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news/do?screen_name=%@&&news_title=%@&&news_geo_lat=%f&&news_geo_long=%f&&news_date_time=%@&&news_city=%@&&news_country=%@&&news_state=%@&&news_summary=%@", (NSString *) [news objectForKey:PASSIM_USER_NAME], (NSString *)[news objectForKey:PASSIM_NEWS_TITLE], [[news objectForKey:PASSIM_LATITIUDE] doubleValue], [[news objectForKey:PASSIM_LONGTITUDE] doubleValue], (NSString *)[news objectForKey:PASSIM_DATE_TIME], (NSString *)[news objectForKey:PASSIM_CITY], (NSString *)[news objectForKey:PASSIM_COUNTRY], (NSString *)[news objectForKey:PASSIM_STATE], (NSString *)[news objectForKey:PASSIM_NEWS_SUMMARY]];
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news/do?screen_name=%@&&news_title=%@&&news_geo_lat=%f&&news_geo_long=%f&&news_date_time=%@&&news_city=%@&&news_country=%@&&news_state=%@&&news_summary=%@&&news_short_address=%@", (NSString *) [news objectForKey:PASSIM_SCREEN_NAME], (NSString *)[news objectForKey:PASSIM_NEWS_TITLE], [[news objectForKey:PASSIM_LATITIUDE] doubleValue], [[news objectForKey:PASSIM_LONGTITUDE] doubleValue], (NSString *)[news objectForKey:PASSIM_DATE_TIME], (NSString *)[news objectForKey:PASSIM_CITY], (NSString *)[news objectForKey:PASSIM_COUNTRY], (NSString *)[news objectForKey:PASSIM_STATE], (NSString *)[news objectForKey:PASSIM_NEWS_SUMMARY], (NSString *)[news objectForKey:PASSIM_NEWS_ADDRESS]];
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
@@ -267,6 +277,7 @@ typedef void (^newsHandler)(NSArray *newsData);
       if ([newsResult count] > 0 && [newsResult objectForKey:@"error"] == nil) {
         if ([self comparedAddress:newsResult]) {
           [self.lastLoadFromNetworkData insertObject:[PMNews newsFromObject: newsResult] atIndex:0];
+          [news setValue:[newsResult objectForKey:PASSIM_NEWS_ID] forKey:PASSIM_NEWS_ID];
         }
         handler(YES);
 #warning need to notification the update version
@@ -284,9 +295,69 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request startAsynchronous];
 }
 
+- (void) postNews:(NSDictionary *)news withImage:(UIImage *)image withCompleteBlock:(void (^)(BOOL))handler
+{
+  NSString *urlString = @"http://ipassim.com/www/barrio_pic/imageUpload.php";
+  NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+  ASIFormDataRequest *_request = [ASIFormDataRequest requestWithURL:url];
+  __weak ASIFormDataRequest *request = _request;
+  [request setPostValue:[news objectForKey:PASSIM_NEWS_AUTHOR] forKey:@"screen_name"];
+  [request setCompletionBlock:^() {
+    NSData *returnData = [request responseData];
+    if (returnData != nil) {
+      NSError *jsonParsingError;
+      NSDictionary *passimServerResult = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
+      NSLog(@"Passim Return %@", passimServerResult);
+      if ([passimServerResult count] > 0 && [passimServerResult objectForKey:@"error"] == nil) {
+        [news setValue:[passimServerResult objectForKey:POST_PASSIM_PHOTO] forKey:PASSIM_NEWS_PHOTO];
+        // submit data to Barrio to create news
+        [self postNews:news withCompleteBlock:^(BOOL finished){
+          if (finished) {
+            NSLog(@"%@", news);
+            // submit data to Barrio to create iphoto
+            [self postNewsImage:news withCompleteBlock:handler];
+          } else {
+            handler(NO);
+          }
+        }];
+      } else {
+        handler(NO);
+      }
+    }
+  }];
+  [request setFailedBlock:^(){ handler(NO);}];
+  [request startAsynchronous];
+}
+
+- (void) postNewsImage:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler
+{
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"photo/do?news_id=%d&&photo_url=%@&&screen_name=%@", [news objectForKey:PASSIM_NEWS_ID], [news objectForKey:PASSIM_NEWS_PHOTO], [news objectForKey:PASSIM_NEWS_AUTHOR]];
+  NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+  NSLog(@"%@", url);
+  ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
+  __weak ASIHTTPRequest *request = _request;
+  [request setCompletionBlock:^(){
+    NSData *returnData = [request responseData];
+    if (returnData != nil) {
+      NSError *jsonParsingError;
+      NSDictionary *photoCreate = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
+      NSLog(@"%@", photoCreate);
+      if ([photoCreate count] > 0 && [photoCreate objectForKey:@"error"] == nil) {
+        handler(YES);
+        return;
+      }
+    }
+    handler(NO);
+  }];
+  [request setFailedBlock:^{
+    handler(NO);
+  }];
+  [request startAsynchronous];
+}
+
 - (void)postComment:(NSDictionary *)comment withCompleteBlock:(void (^)(BOOL))handler 
 {
-  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"comment/do?screen_name=%@&&news_id=%d&&comment_content=%@&&commenter_screen_name=%@", [comment objectForKey:PASSIM_USER_NAME], [[comment objectForKey:PASSIM_NEWS_ID] integerValue], [comment objectForKey:PASSIM_COMMENT], [comment objectForKey:PASSIM_USER_NAME]];
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"comment/do?screen_name=%@&&news_id=%d&&comment_content=%@&&commenter_screen_name=%@", [comment objectForKey:PASSIM_SCREEN_NAME], [[comment objectForKey:PASSIM_NEWS_ID] integerValue], [comment objectForKey:PASSIM_COMMENT], [comment objectForKey:PASSIM_SCREEN_NAME]];
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];

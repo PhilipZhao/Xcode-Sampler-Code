@@ -21,7 +21,7 @@
 
 #pragma mark - private function
 - (void) packedCommentWithInfo:(NSDictionary *) comment {
-  [comment setValue:self.author_screen_name forKey:PASSIM_USER_NAME];
+  [comment setValue:self.author_screen_name forKey:PASSIM_SCREEN_NAME];
   [comment setValue:[NSNumber numberWithInt:self.news_id] forKey:PASSIM_NEWS_ID];
   [comment setValue:self.commentTextView.text forKey:PASSIM_COMMENT];
 }

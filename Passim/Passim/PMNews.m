@@ -36,6 +36,11 @@
 
 - (NSString *) newsAuthor
 {
+  return [self.newsData objectForKey:PASSIM_USERNAME];
+}
+
+- (NSString *) newsScreenName
+{
   return [self.newsData objectForKey:PASSIM_NEWS_AUTHOR];
 }
 
@@ -70,6 +75,7 @@
 
 - (NSString *) newsAddress
 {
+  if ([[self.newsData objectForKey:PASSIM_NEWS_ADDRESS] length] == 0) return nil;
   return [self.newsData objectForKey:PASSIM_NEWS_ADDRESS];
 }
 

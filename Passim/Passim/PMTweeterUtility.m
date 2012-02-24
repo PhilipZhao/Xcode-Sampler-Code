@@ -109,6 +109,7 @@
           self.userAccount = [accountArray objectAtIndex:0];
           // always load from network 
           NSLog(@"Load user %@'s profile throught Network", self.userAccount.username);
+          NSLog(@"%@, %@", self.userAccount.identifier, self.userAccount.accountDescription);
           [PMTweeterUtility NTRequestForProfieImage:self.userAccount.username withCompletedHandler:^(NSData *imgData){
             [self updateUser:self.userAccount withProfileImageData:imgData];
           }];
@@ -158,5 +159,42 @@
   // tweeter the message with url
 }
 
+- (void)followOnTwitter:(NSString *)follow_screen_name withCompleteHandler:(void (^)(NSData *))handler
+{
+  NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] initWithCapacity:2]; 
+  [requestDict setValue:follow_screen_name forKey:@"screen_name"];
+  [requestDict setValue:@"true" forKey:@"follow"];
+  TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/friendships/create.json"] 
+                                               parameters:requestDict 
+                                            requestMethod:TWRequestMethodPOST];
+  [postRequest setAccount:self.userAccount];
+  [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+    NSLog(@"%@", output);
+    if (responseData != nil) handler(responseData);
+  }];
+}
+
+- (void)unfollowOnTwitter:(NSString *)unfollow_screen_name withCompleteHandler:(void (^)(NSData *))handler
+{
+  NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] initWithCapacity:2]; 
+  [requestDict setValue:unfollow_screen_name forKey:@"screen_name"];
+  TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/friendships/destroy.json"] 
+                                               parameters:requestDict 
+                                            requestMethod:TWRequestMethodPOST];
+  [postRequest setAccount:self.userAccount];
+  [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+    NSLog(@"%@", output);
+    NSString *response = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    NSLog(@"%@", response);
+    if (responseData != nil) handler(responseData);
+  }];
+}
+
+- (void)getUserFullName:(NSString *) screen_name
+{
+  
+}
 
 @end

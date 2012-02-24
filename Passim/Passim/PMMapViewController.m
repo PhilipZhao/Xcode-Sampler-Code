@@ -255,9 +255,6 @@
       [vc setCompletionHandler:^(PMComposeViewControllerResult result) {
         if (result == PMComposeViewControllerResultDone) NSLog(@"Done");
         else NSLog(@"Cancel");
-        dispatch_async(dispatch_get_main_queue(), ^{
-          [segue.destinationViewController dismissModalViewControllerAnimated:YES];
-        });
       }];
       // set the completeHandler
     }
@@ -348,4 +345,5 @@
   }];
   //[self updateNewsWithCurrentRegion:mapView.region];
 }
+
 @end
