@@ -21,6 +21,7 @@
 		E45247C914C0EEDA00CC8BFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247C814C0EEDA00CC8BFC /* MapKit.framework */; };
 		E45247CB14C0EEE100CC8BFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */; };
 		E45247CD14C0EEEB00CC8BFC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45247CC14C0EEEB00CC8BFC /* CoreData.framework */; };
+		E458D64A14F94A13006930D0 /* PMRoundedFloatingPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E458D64914F94A13006930D0 /* PMRoundedFloatingPanel.m */; };
 		E464219214F7634900A7C8A6 /* UIImage+imageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E464219114F7634900A7C8A6 /* UIImage+imageUtil.m */; };
 		E46A2CFC14C7CC8800D57455 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E46A2CE914C7CC8800D57455 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E46A2CFD14C7CC8800D57455 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = E46A2CEC14C7CC8800D57455 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -108,6 +109,8 @@
 		E45247CA14C0EEE100CC8BFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E45247CC14C0EEEB00CC8BFC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E458AD7A14D6EECC00AD8747 /* PMStandKeyConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMStandKeyConstant.h; sourceTree = "<group>"; };
+		E458D64814F94A13006930D0 /* PMRoundedFloatingPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMRoundedFloatingPanel.h; sourceTree = "<group>"; };
+		E458D64914F94A13006930D0 /* PMRoundedFloatingPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMRoundedFloatingPanel.m; sourceTree = "<group>"; };
 		E464219014F7634900A7C8A6 /* UIImage+imageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageUtil.h"; sourceTree = "<group>"; };
 		E464219114F7634900A7C8A6 /* UIImage+imageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageUtil.m"; sourceTree = "<group>"; };
 		E46A2CE814C7CC8800D57455 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
@@ -369,6 +372,8 @@
 				E473FBD114CB1AF500F58FC4 /* Pull to refresh */,
 				E46A2D0514C7CC8D00D57455 /* ASIHttp */,
 				E42875A214C2491B00357EFE /* Test Location */,
+				E458D64814F94A13006930D0 /* PMRoundedFloatingPanel.h */,
+				E458D64914F94A13006930D0 /* PMRoundedFloatingPanel.m */,
 				E46A2D2E14C7CE7800D57455 /* PMNotification.h */,
 				E46A2D2A14C7CE7800D57455 /* PMNavigation.h */,
 				E46A2D2B14C7CE7800D57455 /* PMNavigation.m */,
@@ -614,6 +619,7 @@
 				E4B2A7B314EE322E00D302EC /* PMCommentComposerViewController.m in Sources */,
 				E403B4DF14F0CAEF00B03CF2 /* NSDate+StringParsing.m in Sources */,
 				E464219214F7634900A7C8A6 /* UIImage+imageUtil.m in Sources */,
+				E458D64A14F94A13006930D0 /* PMRoundedFloatingPanel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

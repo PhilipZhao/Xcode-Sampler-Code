@@ -24,6 +24,8 @@
 #import "PMHerokCacheRequest.h"
 #import "PMAppDelegate.h"
 #import "PMStandKeyConstant.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface PMComposeNewsViewController() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic) int enableButtonIndex;
@@ -220,8 +222,8 @@
 }
 
 - (IBAction)cancelSumbit:(id)sender {
-  self.completionHandler(PMComposeViewControllerResultCancelled);
   [self dismissViewControllerAnimated:YES completion:^{}];
+  self.completionHandler(PMComposeViewControllerResultCancelled);
 }
 
 - (IBAction)selectedSegment:(UISegmentedControl *)sender {
