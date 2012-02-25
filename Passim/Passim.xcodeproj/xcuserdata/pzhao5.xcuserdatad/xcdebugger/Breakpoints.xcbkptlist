@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351840886.254648"
+         timestampString = "351876429.736073"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "444"
-         endingLineNumber = "444"
+         startingLineNumber = "450"
+         endingLineNumber = "450"
          landmarkName = "-registerAnUser:withCompleteBlock:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,63 +177,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351840886.254648"
+         timestampString = "351842501.431077"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "286"
-         endingLineNumber = "286"
-         landmarkName = "-postNews:withCompleteBlock:"
+         startingLineNumber = "299"
+         endingLineNumber = "299"
+         landmarkName = "-postNewsOnHerok:flag:withCompleteBlock:"
          landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351840886.254648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "281"
-         endingLineNumber = "281"
-         landmarkName = "-postNews:withCompleteBlock:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351840886.254648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "304"
-         endingLineNumber = "304"
-         landmarkName = "@implementation PMHerokCacheRequest"
-         landmarkType = "3">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351840886.254648"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "342"
-         endingLineNumber = "342"
-         landmarkName = "@implementation PMHerokCacheRequest"
-         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMComposeNewsViewController.m"
-         timestampString = "351829992.563886"
+         timestampString = "351877801.6147"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "199"
-         endingLineNumber = "199"
+         startingLineNumber = "207"
+         endingLineNumber = "207"
          landmarkName = "-submitNews:"
          landmarkType = "5">
       </FileBreakpoint>

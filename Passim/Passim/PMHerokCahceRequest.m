@@ -267,21 +267,16 @@ typedef void (^newsHandler)(NSArray *newsData);
   if ([news objectForKey:PASSIM_NEWS_PHOTO_UI] == nil) {
     [self postNewsOnHerok:news flag:PMNetworkFlagAsync withCompleteBlock:handler];
   } else {
-    dispatch_queue_t concur = dispatch_queue_create("submit news request concurrent", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_queue_t concur = dispatch_queue_create("submit news request with photo", nil);
     __block BOOL herokCompleted = NO, passimCompleted = NO;
-    dispatch_sync(concur, ^{
+    dispatch_async(concur, ^{
       [self postNewsOnHerok:news flag:PMNetworkFlagSync
           withCompleteBlock:^(BOOL finished){
         herokCompleted = finished;
       }];
-    });
-    dispatch_sync(concur, ^{
-      [self postNews:news withImage:[news objectForKey:PASSIM_NEWS_PHOTO_UI] flag:PMNetworkFlagSync 
-   withCompleteBlock:^(BOOL finished){
+      [self postNews:news withImage:[news objectForKey:PASSIM_NEWS_PHOTO_UI] flag:PMNetworkFlagSync withCompleteBlock:^(BOOL finished){
         passimCompleted = finished;
       }];
-    });
-    dispatch_sync(concur, ^{
       NSLog(@"Update news: %@", news);
       if (herokCompleted && passimCompleted) {
         [self postNewsImage:news flag:PMNetworkFlagSync withCompleteBlock:handler];
@@ -337,6 +332,17 @@ typedef void (^newsHandler)(NSArray *newsData);
   ASIFormDataRequest *_request = [ASIFormDataRequest requestWithURL:url];
   __weak ASIFormDataRequest *request = _request;
   [request setPostValue:[news objectForKey:PASSIM_NEWS_AUTHOR] forKey:@"screen_name"];
+  
+  UIGraphicsBeginImageContext(CGSizeMake(320,480)); 
+  [image drawInRect:CGRectMake(0, 0,320,480)];
+  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext(); 
+  UIGraphicsEndImageContext();
+  NSData *imageData = UIImageJPEGRepresentation(newImage, 0.5);
+  NSString *imageFileName = [(NSString *)[news objectForKey:PASSIM_SCREEN_NAME] 
+                              stringByAppendingFormat:@"%@.jpg",(NSString *)
+                              [news objectForKey:PASSIM_DATE_TIME]];
+  imageFileName = [imageFileName stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+  [request setData:imageData withFileName:imageFileName andContentType:@"image/jpeg" forKey:@"file"];
   [request setCompletionBlock:^() {
     NSData *returnData = [request responseData];
     if (returnData != nil) {
@@ -360,7 +366,7 @@ typedef void (^newsHandler)(NSArray *newsData);
 
 - (void) postNewsImage:(NSDictionary *)news flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler
 {
-  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"photo/do?news_id=%d&&photo_url=%@&&screen_name=%@", [news objectForKey:PASSIM_NEWS_ID], [news objectForKey:PASSIM_NEWS_PHOTO_URL], [news objectForKey:PASSIM_NEWS_AUTHOR]];
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"photo/do?news_id=%d&&photo_url=%@&&screen_name=%@", [[news objectForKey:PASSIM_NEWS_ID] intValue], [news objectForKey:PASSIM_NEWS_PHOTO_URL], [news objectForKey:PASSIM_SCREEN_NAME]];
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
