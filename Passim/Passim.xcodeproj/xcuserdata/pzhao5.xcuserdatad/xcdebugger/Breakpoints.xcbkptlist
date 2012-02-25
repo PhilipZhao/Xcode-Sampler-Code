@@ -98,12 +98,64 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Passim/PMHerokCahceRequest.m"
-         timestampString = "351742863.184675"
+         filePath = "Passim/PMTweeterUtility.m"
+         timestampString = "351825469.435686"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "401"
-         endingLineNumber = "401"
+         startingLineNumber = "212"
+         endingLineNumber = "212"
+         landmarkName = "-followOnTwitter:withCompleteHandler:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMTweeterUtility.m"
+         timestampString = "351825469.435686"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "213"
+         endingLineNumber = "213"
+         landmarkName = "-followOnTwitter:withCompleteHandler:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMFrontPhotoShowViewController.m"
+         timestampString = "351824092.021456"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
+         landmarkName = "-twitterSignIn:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMFrontPhotoShowViewController.m"
+         timestampString = "351824370.390466"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "152"
+         endingLineNumber = "152"
+         landmarkName = "-twitterSignIn:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMHerokCahceRequest.m"
+         timestampString = "351840886.254648"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "444"
+         endingLineNumber = "444"
          landmarkName = "-registerAnUser:withCompleteBlock:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,38 +164,77 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMTweeterUtility.m"
-         timestampString = "351756065.248201"
+         timestampString = "351825454.329546"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "171"
-         endingLineNumber = "171"
-         landmarkName = "-followOnTwitter:withCompleteHandler:"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
+         landmarkName = "-getDefaultsUserNameWithCompleteHandler:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Passim/PMTweeterUtility.m"
-         timestampString = "351756065.248201"
+         filePath = "Passim/PMHerokCahceRequest.m"
+         timestampString = "351840886.254648"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "172"
-         endingLineNumber = "172"
-         landmarkName = "-followOnTwitter:withCompleteHandler:"
+         startingLineNumber = "286"
+         endingLineNumber = "286"
+         landmarkName = "-postNews:withCompleteBlock:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Passim/PMTweeterUtility.m"
-         timestampString = "351756065.248201"
+         filePath = "Passim/PMHerokCahceRequest.m"
+         timestampString = "351840886.254648"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "180"
-         endingLineNumber = "180"
-         landmarkName = "-unfollowOnTwitter:withCompleteHandler:"
+         startingLineNumber = "281"
+         endingLineNumber = "281"
+         landmarkName = "-postNews:withCompleteBlock:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMHerokCahceRequest.m"
+         timestampString = "351840886.254648"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "304"
+         endingLineNumber = "304"
+         landmarkName = "@implementation PMHerokCacheRequest"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMHerokCahceRequest.m"
+         timestampString = "351840886.254648"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "342"
+         endingLineNumber = "342"
+         landmarkName = "@implementation PMHerokCacheRequest"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMComposeNewsViewController.m"
+         timestampString = "351829992.563886"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "199"
+         endingLineNumber = "199"
+         landmarkName = "-submitNews:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

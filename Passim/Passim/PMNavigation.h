@@ -10,5 +10,5 @@
 
 @interface PMNavigation : UIViewController <UITabBarControllerDelegate>
 
-- (void) tabBar:(UITabBarController *) tabBar addTabBarArrowFor:(NSUInteger) tabIndex;
+- (void)tabBar:(UITabBarController *) tabBar addTabBarArrowFor:(NSUInteger) tabIndex;
 @end

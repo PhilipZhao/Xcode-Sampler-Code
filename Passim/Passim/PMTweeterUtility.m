@@ -20,6 +20,7 @@
 @property (strong, nonatomic) ACAccountType *accountType;
 @property (strong, nonatomic) ACAccount *userAccount;
 @property (strong, nonatomic) NSMutableDictionary *profileDic;
+@property (strong, nonatomic) NSDictionary *userInfo;
 @end
 
 @implementation PMTweeterUtility
@@ -29,6 +30,7 @@
 @synthesize accountType = _accountType;
 @synthesize userAccount = _userAccount;
 @synthesize profileDic = _profileDic;
+@synthesize userInfo = _userInfo;
 
 #pragma mark - private function
 - (void)updateUser:(ACAccount *) user withProfileImageData:(NSData *) imgData
@@ -140,6 +142,45 @@
     return nil;
   else 
     return self.userAccount.username;
+}
+
+- (void) getDefaultsUserNameWithCompleteHandler:(void (^)(NSString *)) handler 
+{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSString *key = [[self getDefaultsScreenName] stringByAppendingString:@"_user_name"];
+  NSString *userName = [defaults objectForKey:key];
+  if (userName == nil)
+    [self getDefaultsUserInfoWithCompleteHandler:^(NSDictionary *userInfo) {
+      handler([userInfo objectForKey:@"name"]);
+      [defaults setValue:[userInfo objectForKey:@"name"] forKey:key];
+      [defaults synchronize];
+    }];
+  else
+    handler(userName);
+}
+
+- (void) getDefaultsUserInfoWithCompleteHandler:(void (^)(NSDictionary *))handler
+{
+  if (self.userInfo != nil) {
+    handler(self.userInfo);
+    return;
+  }
+  NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] initWithCapacity:1]; 
+  [requestDict setValue:[self getDefaultsScreenName] forKey:@"screen_name"];
+  TWRequest *getRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1/users/show.json"]
+                                               parameters:requestDict 
+                                            requestMethod:TWRequestMethodGET];
+  [getRequest setAccount:self.userAccount];
+  [getRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+    if (responseData != nil) {
+      NSError *jsonParsingError;
+      NSDictionary *info = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&jsonParsingError];
+      NSLog(@"%@", info);
+      self.userInfo = info;
+      handler(info);
+    }
+  }];
+  
 }
 
 - (void) updateDefaultsScreenName:(NSString *)screen_name

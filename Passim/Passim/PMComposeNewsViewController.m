@@ -116,6 +116,8 @@
   [news setValue:[self.address valueForKey:@"Name"] forKey:PASSIM_NEWS_ADDRESS];
   NSLog(@"name: %@", [news valueForKey:PASSIM_NEWS_ADDRESS]);
   [news setValue:self.summaryText forKey:PASSIM_NEWS_SUMMARY];
+  if ([self.photoView viewWithTag:TAG_PHOTOVIEW_IMG] != nil)
+    [news setValue:[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG] forKey:PASSIM_NEWS_PHOTO_UI];
 }
 
 #pragma mark - Life cycle
@@ -327,17 +329,24 @@
 #pragma mark - UIImagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 #warning test under the device
+  [picker dismissModalViewControllerAnimated:YES];
   NSLog(@"imagePickerController: %@", info);
   NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
   // check sourceType isEqual to kUTTypeImage
   UIImage *choosedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+  if (choosedImage == nil) choosedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
   // need to shrink the image to the right ratio
 #warning unfinished implementation
   UIImageView *uploadImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 8, 241, 136)];
   // init the image from selection
   uploadImageView.tag = TAG_PHOTOVIEW_IMG;
+  uploadImageView.image = choosedImage;
   [self.photoView addSubview:uploadImageView];
-  [picker dismissModalViewControllerAnimated:YES];
+  UIButton *cameraButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_CAMERA];
+  cameraButton.enabled = NO;
+  UIButton *photoButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_LIBRARY];
+  photoButton.enabled = NO;
+  
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

@@ -146,7 +146,12 @@
     if (granted && hasAccountInSystem) {
       dispatch_queue_t registerUser = dispatch_queue_create("register twitter user", nil);
       dispatch_async(registerUser, ^{
-        [herokRequest registerAnUser:[tweeter getDefaultsScreenName] withCompleteBlock:^(BOOL completed) {}];
+        NSMutableDictionary* userInfo = [[NSMutableDictionary alloc] initWithCapacity:2];
+        [userInfo setValue:[tweeter getDefaultsScreenName] forKey: PASSIM_SCREEN_NAME];
+        [tweeter getDefaultsUserInfoWithCompleteHandler:^(NSDictionary* tweeterUserInfo) {
+          [userInfo setValue: [tweeterUserInfo objectForKey:@"name"] forKey: PASSIM_USERNAME];
+          [herokRequest registerAnUser:userInfo withCompleteBlock:^(BOOL completed) {}];
+        }];
       });
       dispatch_release(registerUser);
       dispatch_async(dispatch_get_main_queue(), ^{

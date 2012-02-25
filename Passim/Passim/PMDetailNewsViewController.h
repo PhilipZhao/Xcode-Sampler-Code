@@ -12,8 +12,8 @@
 @interface PMDetailNewsViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) NSString *barItemTitle;
-@property (strong, nonatomic) PMNews * newsData;
+@property (strong, nonatomic) NSString  *barItemTitle;
+@property (strong, nonatomic) PMNews    *newsData;
 
-- (IBAction)goBackPreviousView:(id)sender;
+-(IBAction)goBackPreviousView:(id)sender;
 @end
