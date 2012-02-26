@@ -315,7 +315,8 @@ typedef void (^newsHandler)(NSArray *newsData);
           if (finished) {
             NSLog(@"%@", news);
             // submit data to Barrio to create iphoto
-            [self postNewsImage:news withCompleteBlock:handler];
+              //BORUINOTE, has to comment out to compile
+            //[self postNewsImage:news withCompleteBlock:handler];
           } else {
             handler(NO);
           }
