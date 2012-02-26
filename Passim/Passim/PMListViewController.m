@@ -15,6 +15,7 @@
 #import "PMNotification.h"
 #import "PMNews.h"
 #import "UIImage+Resize.h"
+#import "PMRoundedFloatingPanel.h"
 
 #define SEGUE_SHOW_NEWS @"showNewsDetail"
 #define TAG_TITILE      1
@@ -135,11 +136,12 @@
             CLLocation *location = [self.sharedUtility getUserCurrentLocationWithSender:self];
             [vc setValue:location forKey:POST_LOCATION];
             [vc setCompletionHandler:^(PMComposeViewControllerResult result) {
-                if (result == PMComposeViewControllerResultDone) NSLog(@"Done");
-                else NSLog(@"Cancel");
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [segue.destinationViewController dismissModalViewControllerAnimated:YES];
-                });
+                if (result == PMComposeViewControllerResultDone) {
+                  [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitSucess delay:0 sender:self.view];
+                }
+                else {
+                  [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitCancel delay:0.5 sender:self.view];
+                }
             }];
         }
     }

@@ -259,7 +259,7 @@
           NSLog(@"Done");
         }
         else {
-          [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitCancel delay:1 sender:self.view];
+          [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitCancel delay:0.5 sender:self.view];
           NSLog(@"Cancel");
         }
       }];
