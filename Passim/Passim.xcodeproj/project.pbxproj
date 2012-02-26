@@ -11,6 +11,7 @@
 		9A0A2F9314F88C7600A9069F /* table_row_bg_even.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0A2F9114F88C7600A9069F /* table_row_bg_even.png */; };
 		9A0A2F9414F88C7600A9069F /* table_row_bg_odd.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0A2F9214F88C7600A9069F /* table_row_bg_odd.png */; };
 		9A0A2F9814F8C88A00A9069F /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0A2F9714F8C88A00A9069F /* UIImage+Resize.m */; };
+		9A0A2FB214F9CB9C00A9069F /* nav_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0A2FB114F9CB9C00A9069F /* nav_bar.png */; };
 		E403B4DF14F0CAEF00B03CF2 /* NSDate+StringParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = E403B4DE14F0CAEF00B03CF2 /* NSDate+StringParsing.m */; };
 		E406641014CC89730020235D /* TabBarNipple.png in Resources */ = {isa = PBXBuildFile; fileRef = E406640E14CC89730020235D /* TabBarNipple.png */; };
 		E406641114CC89730020235D /* TabBarNipple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E406640F14CC89730020235D /* TabBarNipple@2x.png */; };
@@ -96,6 +97,7 @@
 		9A0A2F9714F8C88A00A9069F /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		9A0A2F9914F8C93000A9069F /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		9A0A2F9A14F8C93A00A9069F /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		9A0A2FB114F9CB9C00A9069F /* nav_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_bar.png; sourceTree = "<group>"; };
 		E403B4DD14F0CAEF00B03CF2 /* NSDate+StringParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+StringParsing.h"; sourceTree = "<group>"; };
 		E403B4DE14F0CAEF00B03CF2 /* NSDate+StringParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+StringParsing.m"; sourceTree = "<group>"; };
 		E406640E14CC89730020235D /* TabBarNipple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarNipple.png; sourceTree = "<group>"; };
@@ -256,6 +258,14 @@
 			name = img_resize;
 			sourceTree = "<group>";
 		};
+		9A0A2FA814F9C35B00A9069F /* sharedUtility */ = {
+			isa = PBXGroup;
+			children = (
+				9A0A2FB114F9CB9C00A9069F /* nav_bar.png */,
+			);
+			name = sharedUtility;
+			sourceTree = "<group>";
+		};
 		E406640C14CC89580020235D /* tabBarUtil */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +299,7 @@
 		E42A40FB14C14C7B009626C5 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				9A0A2FA814F9C35B00A9069F /* sharedUtility */,
 				9A0A2F7E14F885A900A9069F /* listview */,
 				E493EBBB14EF64FF00325C98 /* AppFace */,
 				E493EBA714EF5FC000325C98 /* buttonIcon */,
@@ -620,6 +631,7 @@
 				9A0A2F8E14F88B6B00A9069F /* seperator.png in Resources */,
 				9A0A2F9314F88C7600A9069F /* table_row_bg_even.png in Resources */,
 				9A0A2F9414F88C7600A9069F /* table_row_bg_odd.png in Resources */,
+				9A0A2FB214F9CB9C00A9069F /* nav_bar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +669,7 @@
 				E403B4DF14F0CAEF00B03CF2 /* NSDate+StringParsing.m in Sources */,
 				E464219214F7634900A7C8A6 /* UIImage+imageUtil.m in Sources */,
 				9A0A2F9814F8C88A00A9069F /* UIImage+Resize.m in Sources */,
+				E458D64A14F94A13006930D0 /* PMRoundedFloatingPanel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,7 +742,7 @@
 				INFOPLIST_FILE = "Passim/Passim-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -742,7 +755,7 @@
 				INFOPLIST_FILE = "Passim/Passim-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -262,31 +262,7 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request startAsynchronous];  
 }
 
-- (void) postNews:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler
-{
-  if ([news objectForKey:PASSIM_NEWS_PHOTO_UI] == nil) {
-    [self postNewsOnHerok:news flag:PMNetworkFlagAsync withCompleteBlock:handler];
-  } else {
-    dispatch_queue_t concur = dispatch_queue_create("submit news request with photo", nil);
-    __block BOOL herokCompleted = NO, passimCompleted = NO;
-    dispatch_async(concur, ^{
-      [self postNewsOnHerok:news flag:PMNetworkFlagSync
-          withCompleteBlock:^(BOOL finished){
-        herokCompleted = finished;
-      }];
-      [self postNews:news withImage:[news objectForKey:PASSIM_NEWS_PHOTO_UI] flag:PMNetworkFlagSync withCompleteBlock:^(BOOL finished){
-        passimCompleted = finished;
-      }];
-      NSLog(@"Update news: %@", news);
-      if (herokCompleted && passimCompleted) {
-        [self postNewsImage:news flag:PMNetworkFlagSync withCompleteBlock:handler];
-      } else {
-        handler(NO);
-      }
-    });
-    dispatch_release(concur);
-  }
-}
+
 
 - (void) postNewsOnHerok:(NSDictionary *)news flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler {
   NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news/do?screen_name=%@&&news_title=%@&&news_geo_lat=%f&&news_geo_long=%f&&news_date_time=%@&&news_city=%@&&news_country=%@&&news_state=%@&&news_summary=%@&&news_short_address=%@", (NSString *) [news objectForKey:PASSIM_SCREEN_NAME], (NSString *)[news objectForKey:PASSIM_NEWS_TITLE], [[news objectForKey:PASSIM_LATITIUDE] doubleValue], [[news objectForKey:PASSIM_LONGTITUDE] doubleValue], (NSString *)[news objectForKey:PASSIM_DATE_TIME], (NSString *)[news objectForKey:PASSIM_CITY], (NSString *)[news objectForKey:PASSIM_COUNTRY], (NSString *)[news objectForKey:PASSIM_STATE], (NSString *)[news objectForKey:PASSIM_NEWS_SUMMARY], (NSString *)[news objectForKey:PASSIM_NEWS_ADDRESS]];
@@ -350,18 +326,8 @@ typedef void (^newsHandler)(NSArray *newsData);
       NSDictionary *passimServerResult = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
       NSLog(@"Passim Return %@", passimServerResult);
       if ([passimServerResult count] > 0 && [passimServerResult objectForKey:@"error"] == nil) {
-        [news setValue:[passimServerResult objectForKey:POST_PASSIM_PHOTO] forKey:PASSIM_NEWS_PHOTO];
-        // submit data to Barrio to create news
-        [self postNews:news withCompleteBlock:^(BOOL finished){
-          if (finished) {
-            NSLog(@"%@", news);
-            // submit data to Barrio to create iphoto
-              //BORUINOTE, has to comment out to compile
-            //[self postNewsImage:news withCompleteBlock:handler];
-          } else {
-            handler(NO);
-          }
-        }];
+        [news setValue:[passimServerResult objectForKey:POST_PASSIM_PHOTO] forKey:PASSIM_NEWS_PHOTO_URL];
+        handler(YES);
       } else {
         handler(NO);
       }
@@ -470,5 +436,31 @@ typedef void (^newsHandler)(NSArray *newsData);
   }];
   [request setFailedBlock:^{handler(NO);}];
   [request startAsynchronous];
+}
+
+- (void) postNews:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler
+{
+    if ([news objectForKey:PASSIM_NEWS_PHOTO_UI] == nil) {
+        [self postNewsOnHerok:news flag:PMNetworkFlagAsync withCompleteBlock:handler];
+    } else {
+        dispatch_queue_t concur = dispatch_queue_create("submit news request with photo", nil);
+        __block BOOL herokCompleted = NO, passimCompleted = NO;
+        dispatch_async(concur, ^{
+            [self postNewsOnHerok:news flag:PMNetworkFlagSync
+                withCompleteBlock:^(BOOL finished){
+                    herokCompleted = finished;
+                }];
+            [self postNews:news withImage:[news objectForKey:PASSIM_NEWS_PHOTO_UI] flag:PMNetworkFlagSync withCompleteBlock:^(BOOL finished){
+                passimCompleted = finished;
+            }];
+            NSLog(@"Update news: %@", news);
+            if (herokCompleted && passimCompleted) {
+                [self postNewsImage:news flag:PMNetworkFlagSync withCompleteBlock:handler];
+            } else {
+                handler(NO);
+            }
+        });
+        dispatch_release(concur);
+    }
 }
 @end

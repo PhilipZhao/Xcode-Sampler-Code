@@ -226,27 +226,7 @@
   self.completionHandler(PMComposeViewControllerResultCancelled);
 }
 
-//BORUINOTE, has to coment out stuff to compile
-- (IBAction)selectedSegment:(UISegmentedControl *)sender {
-  switch ([sender selectedSegmentIndex]) {
-    case 0:
-      //[self titleButton:nil];
-      self.enableButtonIndex = 0;
-      break;
-    case 1:
-      //[self summaryButton:nil];
-      self.enableButtonIndex = 1;
-      break;
-    case 2:
-      //[self timeButton:nil];
-      self.enableButtonIndex = 2;
-      break;
-    case 3:
-      //[self photoButton:nil];
-      self.enableButtonIndex = 3;
-      break;
-  }
-}
+
 
 - (void)titleButton:(UIButton *)sender {
   //[self switchSelectedStateFrom:self.disEnableButton to:sender];
@@ -396,6 +376,27 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
   [picker dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)selectedSegment:(UISegmentedControl *)sender {
+    switch ([sender selectedSegmentIndex]) {
+        case 0:
+            [self titleButton:nil];
+            self.enableButtonIndex = 0;
+            break;
+        case 1:
+            [self summaryButton:nil];
+            self.enableButtonIndex = 1;
+            break;
+        case 2:
+            [self timeButton:nil];
+            self.enableButtonIndex = 2;
+            break;
+        case 3:
+            [self photoButton:nil];
+            self.enableButtonIndex = 3;
+            break;
+    }
 }
 
 @end

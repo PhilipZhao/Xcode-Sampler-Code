@@ -18,6 +18,7 @@
 #define TAG_LABEL   1
 
 @interface PMRoundedFloatingPanel()
+- (void)presentView:(DisplayType)type duration:(float)duration delay:(float)delay options:(AnimationOption)option completeBlock:(void (^)())handler;
 @end
 
 @implementation PMRoundedFloatingPanel
