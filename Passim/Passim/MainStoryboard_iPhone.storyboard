@@ -447,7 +447,7 @@
                     <tabBarItem key="tabBarItem" title="News Feed" image="tab_feed.png" id="HPg-pN-4Ja"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1052" y="518"/>
+            <point key="canvasLocation" x="938" y="641"/>
         </scene>
         <scene sceneID="Zs1-0T-XJQ">
             <objects>
@@ -678,7 +678,9 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZW-Jc-ssh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController navigationBarHidden="YES" id="2Ow-oq-gGq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" image="tab_list.png" id="qcI-lJ-B7Q"/>
+                    <tabBarItem key="tabBarItem" title="List" image="tab_list.png" id="qcI-lJ-B7Q">
+                        <inset key="imageInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7D5-vm-ycj">
@@ -759,7 +761,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ohY-QU-B4k"/>
         <segue reference="I6O-9f-vSi"/>
+        <segue reference="ohY-QU-B4k"/>
     </inferredMetricsTieBreakers>
 </document>

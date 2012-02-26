@@ -49,6 +49,9 @@
     // Override point for customization after application launch.
   [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_bar.png"] forBarMetrics:UIBarMetricsDefault ];
+    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tab_bar.png"] ];
+
+    
   NSLog(@"%@", NSStringFromSelector(_cmd));
   return YES;
 }
