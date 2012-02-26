@@ -43,20 +43,7 @@
   [self.delegate tweeterUtil:self user:user updateProfileImage:[UIImage imageWithData:imgData]];
 }
 
-- (UIImage *)getProfileImageFromUser:(ACAccount *)user
-{
-  if (user == nil) return nil;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSData *imgData = [defaults valueForKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
-  if (imgData == nil) {
-      //FIXME: the following line produces errors in xcode 4.2 - borui
-      /*
-    [PMTweeterUtility NTRequestForProfieImage:user.username withCompletedHandler:^(NSData *imgData) {
-      [self updateUser:user withProfileImageData:imgData];
-    }];*/
-  }
-  return [UIImage imageWithData:imgData];
-}
+
 
 + (void)NTRequestForProfieImage:(NSString *)screen_name withCompletedHandler:(void (^)(NSData *imgData)) handler
 {
@@ -73,6 +60,19 @@
   }];
 }
 
+- (UIImage *)getProfileImageFromUser:(ACAccount *)user
+{
+    if (user == nil) return nil;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *imgData = [defaults valueForKey:[NSString stringWithFormat:@"%@_profile_image_data", user.username]];
+    if (imgData == nil) {
+        
+        [PMTweeterUtility NTRequestForProfieImage:user.username withCompletedHandler:^(NSData *imgData) {
+            [self updateUser:user withProfileImageData:imgData];
+        }];
+    }
+    return [UIImage imageWithData:imgData];
+}
 
 - (void)loadUserProfile:(NSString *)screen_name withCompleteHandler:(void (^)(UIImage *))handler
 {
