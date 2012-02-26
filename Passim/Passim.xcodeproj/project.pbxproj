@@ -247,17 +247,6 @@
 			name = listview;
 			sourceTree = "<group>";
 		};
-		9A0A2F9514F8C82500A9069F /* img_resize */ = {
-			isa = PBXGroup;
-			children = (
-				9A0A2F9A14F8C93A00A9069F /* UIImage+RoundedCorner.h */,
-				9A0A2F9914F8C93000A9069F /* UIImage+Alpha.h */,
-				9A0A2F9614F8C85400A9069F /* UIImage+Resize.h */,
-				9A0A2F9714F8C88A00A9069F /* UIImage+Resize.m */,
-			);
-			name = img_resize;
-			sourceTree = "<group>";
-		};
 		9A0A2FA814F9C35B00A9069F /* sharedUtility */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +307,10 @@
 		E42E1B3E14F1485D0035AB70 /* Catogory */ = {
 			isa = PBXGroup;
 			children = (
+				9A0A2F9A14F8C93A00A9069F /* UIImage+RoundedCorner.h */,
+				9A0A2F9914F8C93000A9069F /* UIImage+Alpha.h */,
+				9A0A2F9614F8C85400A9069F /* UIImage+Resize.h */,
+				9A0A2F9714F8C88A00A9069F /* UIImage+Resize.m */,
 				E464219014F7634900A7C8A6 /* UIImage+imageUtil.h */,
 				E464219114F7634900A7C8A6 /* UIImage+imageUtil.m */,
 				E403B4DD14F0CAEF00B03CF2 /* NSDate+StringParsing.h */,
@@ -530,7 +523,6 @@
 		E4D5AE8A14C2ACFE0064924C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				9A0A2F9514F8C82500A9069F /* img_resize */,
 				E46A2D3114C7CE7800D57455 /* PMTweeterUtility.h */,
 				E46A2D3214C7CE7800D57455 /* PMTweeterUtility.m */,
 				E46A2D2214C7CE7800D57455 /* PMHerokCacheRequest.h */,
