@@ -12,6 +12,7 @@
 #import "PMNotification.h"
 #import "PMComposeNewsViewController.h"
 #import "PMDetailNewsViewController.h"
+#import "PMRoundedFloatingPanel.h"
 
 #define METERS_PER_MILE 1609.344
 #define MKANNOATIONVIEW_ID @"MapAnnoationView_reuseID"
@@ -253,8 +254,14 @@
       CLLocation *location = [self.sharedUtilty getUserCurrentLocationWithSender:self];
       [vc setValue:location forKey:POST_LOCATION];
       [vc setCompletionHandler:^(PMComposeViewControllerResult result) {
-        if (result == PMComposeViewControllerResultDone) NSLog(@"Done");
-        else NSLog(@"Cancel");
+        if (result == PMComposeViewControllerResultDone) {
+          [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitSucess delay:0 sender:self.view];
+          NSLog(@"Done");
+        }
+        else {
+          [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitCancel delay:1 sender:self.view];
+          NSLog(@"Cancel");
+        }
       }];
       // set the completeHandler
     }

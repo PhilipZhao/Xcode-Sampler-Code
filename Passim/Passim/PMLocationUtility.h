@@ -27,7 +27,7 @@
 /**
  *
  */
-- (void)addressInformationBaseOnLocation:(CLLocation *)location 
-                                  sender:(id)sender
+- (void)addressInformationBaseOnLocation:(CLLocation *)                    location 
+                                  sender:(id)                              sender
                           completedBlock:(void (^)(NSDictionary *address)) handler;
 @end

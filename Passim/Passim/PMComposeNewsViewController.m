@@ -8,9 +8,12 @@
 #define TAG_PHOTOVIEW_LIBRARY 1
 #define TAG_PHOTOVIEW_CAMERA  2
 #define TAG_PHOTOVIEW_IMG     3
+#define TAG_PHOTOVIEW_IMG_CANCEL 4
+
 #define TAG_UTILVIEW_TITLE 1
 #define TAG_UTILVIEW_SUMMARY 2
 #define TAG_UTILVIEW_PHOTO 3
+
 #define TAG_SUPERVIEW_DATEPICKER 100
 #define ALPHA_DISABLE 0.5
 #define ANIMATION_POPUP 0.3
@@ -21,12 +24,16 @@
 #import "PMHerokCacheRequest.h"
 #import "PMAppDelegate.h"
 #import "PMStandKeyConstant.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface PMComposeNewsViewController() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic) int enableButtonIndex;
 @property (strong, nonatomic) NSString *titleText;
 @property (strong, nonatomic) NSString *summaryText;
 @property (strong, nonatomic) NSDate *eventDateTime;
+@property (nonatomic) BOOL photoButtonEnable;
+@property (nonatomic) BOOL cameraButtonEnable;
 @end
 
 @implementation PMComposeNewsViewController
@@ -44,6 +51,9 @@
 @synthesize titleText = _titleText;
 @synthesize summaryText = _summaryText;
 @synthesize eventDateTime = _eventDateTime;
+
+@synthesize photoButtonEnable = _photoButtonEnable;
+@synthesize cameraButtonEnable = _cameraButtonEnable;
 
 #pragma mark - Setter/Getter
 - (PMComposeViewControllerCompletionHandler)completionHandler
@@ -116,6 +126,8 @@
   [news setValue:[self.address valueForKey:@"Name"] forKey:PASSIM_NEWS_ADDRESS];
   NSLog(@"name: %@", [news valueForKey:PASSIM_NEWS_ADDRESS]);
   [news setValue:self.summaryText forKey:PASSIM_NEWS_SUMMARY];
+  if ([self.photoView viewWithTag:TAG_PHOTOVIEW_IMG] != nil)
+    [news setValue:[(UIImageView *)[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG] image] forKey:PASSIM_NEWS_PHOTO_UI];
 }
 
 #pragma mark - Life cycle
@@ -210,8 +222,8 @@
 }
 
 - (IBAction)cancelSumbit:(id)sender {
-  self.completionHandler(PMComposeViewControllerResultCancelled);
   [self dismissViewControllerAnimated:YES completion:^{}];
+  self.completionHandler(PMComposeViewControllerResultCancelled);
 }
 
 //BORUINOTE, has to coment out stuff to compile
@@ -261,6 +273,9 @@
 
 - (void)photoButton:(UIButton *)sender {
   //[self switchSelectedStateFrom:self.disEnableButton to:sender];
+  if (self.enableButtonIndex == 0) self.titleText = self.textView.text;
+  else if (self.enableButtonIndex == 1) self.summaryText = self.textView.text;
+  
   self.photoView.hidden = NO;
   UIDatePicker *datepicker;
   if ((datepicker = (UIDatePicker *)[self.view viewWithTag:TAG_SUPERVIEW_DATEPICKER]) != nil 
@@ -325,20 +340,57 @@
   self.eventDateTime = sender.date;
 }
 
+- (IBAction)cancelImage:(id)sender {
+  NSLog(@"I am in called");
+  UIButton *cameraButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_CAMERA];
+  cameraButton.enabled = (cameraButton.alpha >= 1) ? YES: cameraButton.enabled;
+  UIButton *photoButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_LIBRARY];
+  photoButton.enabled = (photoButton.alpha >= 1) ? YES: photoButton.enabled;
+  UIButton *imgCancelButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG_CANCEL];
+  UIImageView *imgView = (UIImageView *)[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG];
+  imgCancelButton.enabled = NO;
+  imgCancelButton.hidden = imgView.hidden = YES;
+}
+
 #pragma mark - UIImagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-#warning test under the device
+  [picker dismissModalViewControllerAnimated:YES];
   NSLog(@"imagePickerController: %@", info);
+  
   NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
   // check sourceType isEqual to kUTTypeImage
   UIImage *choosedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+  if (choosedImage == nil) choosedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
   // need to shrink the image to the right ratio
 #warning unfinished implementation
-  UIImageView *uploadImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 8, 241, 136)];
+  UIImageView *uploadImageView;
+  if ([self.photoView viewWithTag:TAG_PHOTOVIEW_IMG] == nil) {
+    uploadImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 8, 241, 136)];
+    uploadImageView.tag = TAG_PHOTOVIEW_IMG;
+    [self.photoView addSubview:uploadImageView];
+  } else
+    uploadImageView = (UIImageView *)[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG];
   // init the image from selection
-  uploadImageView.tag = TAG_PHOTOVIEW_IMG;
-  [self.photoView addSubview:uploadImageView];
-  [picker dismissModalViewControllerAnimated:YES];
+  uploadImageView.hidden = NO;
+  uploadImageView.image = choosedImage;
+  UIButton *imgCancelButton;
+  if ([self.photoView viewWithTag:TAG_PHOTOVIEW_IMG_CANCEL] == nil) {
+    imgCancelButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    imgCancelButton.frame = CGRectMake(40+241-15, 8-15, 30, 30);
+    imgCancelButton.tag = TAG_PHOTOVIEW_IMG_CANCEL;
+    [self.photoView addSubview:imgCancelButton];
+    //[imgCancelButton setImage:<#(UIImage *)#> forState:UIControlStateNormal];
+    //[imgCancelButton setImage:<#(UIImage *)#> forState:UIControlStateHighlighted];
+    [imgCancelButton addTarget:self action:@selector(cancelImage:) forControlEvents:UIControlEventTouchUpInside];
+  } else 
+    imgCancelButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG_CANCEL];
+  imgCancelButton.hidden = NO;
+  imgCancelButton.enabled = YES;
+  
+  UIButton *cameraButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_CAMERA];
+  cameraButton.enabled = NO;
+  UIButton *photoButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_LIBRARY];
+  photoButton.enabled = NO;
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

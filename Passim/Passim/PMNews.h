@@ -17,24 +17,26 @@ struct _PMNewsDateTime {
 typedef struct _PMNewsDateTime PMNewsDateTime;
 
 @interface PMNews : NSObject
-@property (strong, nonatomic) NSDictionary *newsData;
-@property (strong, nonatomic) UIImage *frontPhoto;
-@property (strong, nonatomic) NSArray *newsComments;
+@property (strong, nonatomic) NSDictionary  *newsData;
+@property (strong, nonatomic) UIImage       *frontPhoto;
+@property (strong, nonatomic) NSArray       *newsComments;
+@property (strong, nonatomic) NSArray       *photoCollection;
 
-+ (PMNews *) newsFromObject: (NSDictionary *) newsData;
++ (PMNews *)newsFromObject: (NSDictionary *) newsData;
 
-- (void) getNewsFrontPhotoWithBlock:(void (^)(UIImage *)) handler;
-- (void) getNewsAllPhotoWithBlock:(void (^)(NSArray *)) handler;
-- (void) getNewsCommentWithHandler:(void (^)(NSArray *)) handler;
+- (void)getNewsFrontPhotoWithBlock:(void (^)(UIImage *))  handler;
+- (void)getNewsAllPhotoWithBlock:(void (^)(NSArray *))    handler;
+- (void)getNewsCommentWithHandler:(void (^)(NSArray *))   handler;
 
-- (NSString *) newsTitle;
-- (NSString *) newsSummary;
-- (NSString *) newsAuthor;
-- (NSString *) newsScreenName;
-- (NSDate *) newsDate;
-- (PMNewsDateTime)  newsDateTimeByAgo;
-- (NSString *) newsAddress;
-- (NSInteger)  newsId;
-- (CLLocationCoordinate2D) newsCoordinate;
-- (UIImage *) newsFrontPhoto;
+- (NSString *)    newsTitle;
+- (NSString *)    newsSummary;
+- (NSString *)    newsAuthor;
+- (NSString *)    newsScreenName;
+- (NSDate *)      newsDate;
+- (PMNewsDateTime)newsDateTimeByAgo;
+- (NSString *)    newsAddress;
+- (NSInteger)     newsId;
+- (UIImage *)     newsFrontPhoto;
+
+- (CLLocationCoordinate2D)newsCoordinate;
 @end

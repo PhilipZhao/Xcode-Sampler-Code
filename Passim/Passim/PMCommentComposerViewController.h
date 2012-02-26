@@ -15,13 +15,13 @@
 typedef void (^PMCommentComposeViewControllerCompletionHandler)(PMComposeViewControllerResult result);
 
 @interface PMCommentComposerViewController : UIViewController
-- (IBAction)submit:(id)sender;
-- (IBAction)cancel:(id)sender;
+-(IBAction)submit:(id)sender;
+-(IBAction)cancel:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 
 @property (strong, nonatomic) NSString *author_screen_name;
 @property (nonatomic) int news_id;
 
-@property(nonatomic, copy) PMCommentComposeViewControllerCompletionHandler completionHandler;
+@property (nonatomic, copy) PMCommentComposeViewControllerCompletionHandler completionHandler;
 @end

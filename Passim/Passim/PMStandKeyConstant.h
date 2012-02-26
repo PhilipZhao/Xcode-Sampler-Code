@@ -21,7 +21,8 @@
 #define PASSIM_ERROR        @"error"
 #define PASSIM_COMMENT      @"comment_content"
 #define PASSIM_NEWS_ADDRESS @"news_short_address"
-#define PASSIM_NEWS_PHOTO   @""
+#define PASSIM_NEWS_PHOTO_URL   @"photo_url"
+#define PASSIM_NEWS_PHOTO_UI @"UIImage_photo"
 #define PASSIM_NUM_COMMENT  @"comment_amount"
 
 

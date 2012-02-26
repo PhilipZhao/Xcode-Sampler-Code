@@ -11,12 +11,9 @@
 #import "PMNews.h"
 @interface PMNewsAnnotation : NSObject <MKAnnotation>
 
-//+ (PMNewsAnnotation *)annotationForNews:(NSDictionary *)news;  // passim news data input.
 + (PMNewsAnnotation *)annotationForNewsObject:(PMNews *)news;
 
 @property (strong, nonatomic) PMNews *news;
 
 - (NSInteger) news_id;
-//@property (nonatomic) NSInteger news_id;
-//@property (strong, nonatomic) NSDictionary *news;  // news store min amount news information
 @end

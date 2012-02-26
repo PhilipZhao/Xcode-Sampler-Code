@@ -262,10 +262,36 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request startAsynchronous];  
 }
 
-- (void) postNews:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler {
+- (void) postNews:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler
+{
+  if ([news objectForKey:PASSIM_NEWS_PHOTO_UI] == nil) {
+    [self postNewsOnHerok:news flag:PMNetworkFlagAsync withCompleteBlock:handler];
+  } else {
+    dispatch_queue_t concur = dispatch_queue_create("submit news request with photo", nil);
+    __block BOOL herokCompleted = NO, passimCompleted = NO;
+    dispatch_async(concur, ^{
+      [self postNewsOnHerok:news flag:PMNetworkFlagSync
+          withCompleteBlock:^(BOOL finished){
+        herokCompleted = finished;
+      }];
+      [self postNews:news withImage:[news objectForKey:PASSIM_NEWS_PHOTO_UI] flag:PMNetworkFlagSync withCompleteBlock:^(BOOL finished){
+        passimCompleted = finished;
+      }];
+      NSLog(@"Update news: %@", news);
+      if (herokCompleted && passimCompleted) {
+        [self postNewsImage:news flag:PMNetworkFlagSync withCompleteBlock:handler];
+      } else {
+        handler(NO);
+      }
+    });
+    dispatch_release(concur);
+  }
+}
+
+- (void) postNewsOnHerok:(NSDictionary *)news flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler {
   NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"news/do?screen_name=%@&&news_title=%@&&news_geo_lat=%f&&news_geo_long=%f&&news_date_time=%@&&news_city=%@&&news_country=%@&&news_state=%@&&news_summary=%@&&news_short_address=%@", (NSString *) [news objectForKey:PASSIM_SCREEN_NAME], (NSString *)[news objectForKey:PASSIM_NEWS_TITLE], [[news objectForKey:PASSIM_LATITIUDE] doubleValue], [[news objectForKey:PASSIM_LONGTITUDE] doubleValue], (NSString *)[news objectForKey:PASSIM_DATE_TIME], (NSString *)[news objectForKey:PASSIM_CITY], (NSString *)[news objectForKey:PASSIM_COUNTRY], (NSString *)[news objectForKey:PASSIM_STATE], (NSString *)[news objectForKey:PASSIM_NEWS_SUMMARY], (NSString *)[news objectForKey:PASSIM_NEWS_ADDRESS]];
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
-  NSLog(@"%@", url);
+  NSLog(@"postNewsOnHerok: %@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
   [request setCompletionBlock:^{
@@ -292,16 +318,31 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request setFailedBlock:^{
     handler(NO);
   }];
-  [request startAsynchronous];
+  if (flag == PMNetworkFlagSync)
+    [request startSynchronous];
+  else
+    [request startAsynchronous];
 }
 
-- (void) postNews:(NSDictionary *)news withImage:(UIImage *)image withCompleteBlock:(void (^)(BOOL))handler
+- (void) postNews:(NSDictionary *)news withImage:(UIImage *)image flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler
 {
   NSString *urlString = @"http://ipassim.com/www/barrio_pic/imageUpload.php";
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+  NSLog(@"postNewsImage %@", url);
   ASIFormDataRequest *_request = [ASIFormDataRequest requestWithURL:url];
   __weak ASIFormDataRequest *request = _request;
   [request setPostValue:[news objectForKey:PASSIM_NEWS_AUTHOR] forKey:@"screen_name"];
+  
+  UIGraphicsBeginImageContext(CGSizeMake(320,480)); 
+  [image drawInRect:CGRectMake(0, 0,320,480)];
+  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext(); 
+  UIGraphicsEndImageContext();
+  NSData *imageData = UIImageJPEGRepresentation(newImage, 0.5);
+  NSString *imageFileName = [(NSString *)[news objectForKey:PASSIM_SCREEN_NAME] 
+                              stringByAppendingFormat:@"%@.jpg",(NSString *)
+                              [news objectForKey:PASSIM_DATE_TIME]];
+  imageFileName = [imageFileName stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+  [request setData:imageData withFileName:imageFileName andContentType:@"image/jpeg" forKey:@"file"];
   [request setCompletionBlock:^() {
     NSData *returnData = [request responseData];
     if (returnData != nil) {
@@ -327,12 +368,15 @@ typedef void (^newsHandler)(NSArray *newsData);
     }
   }];
   [request setFailedBlock:^(){ handler(NO);}];
-  [request startAsynchronous];
+  if (flag == PMNetworkFlagSync)
+    [request startSynchronous];
+  else 
+    [request startAsynchronous];
 }
 
-- (void) postNewsImage:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler
+- (void) postNewsImage:(NSDictionary *)news flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler
 {
-  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"photo/do?news_id=%d&&photo_url=%@&&screen_name=%@", [news objectForKey:PASSIM_NEWS_ID], [news objectForKey:PASSIM_NEWS_PHOTO], [news objectForKey:PASSIM_NEWS_AUTHOR]];
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"photo/do?news_id=%d&&photo_url=%@&&screen_name=%@", [[news objectForKey:PASSIM_NEWS_ID] intValue], [news objectForKey:PASSIM_NEWS_PHOTO_URL], [news objectForKey:PASSIM_SCREEN_NAME]];
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
@@ -353,10 +397,13 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request setFailedBlock:^{
     handler(NO);
   }];
-  [request startAsynchronous];
+  if (flag == PMNetworkFlagSync)
+    [request startSynchronous];
+  else 
+    [request startAsynchronous];
 }
 
-- (void)postComment:(NSDictionary *)comment withCompleteBlock:(void (^)(BOOL))handler 
+- (void)postComment:(NSDictionary *)comment flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler 
 {
   NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"comment/do?screen_name=%@&&news_id=%d&&comment_content=%@&&commenter_screen_name=%@", [comment objectForKey:PASSIM_SCREEN_NAME], [[comment objectForKey:PASSIM_NEWS_ID] integerValue], [comment objectForKey:PASSIM_COMMENT], [comment objectForKey:PASSIM_SCREEN_NAME]];
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
@@ -379,7 +426,10 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request setFailedBlock:^{
     handler(NO);
   }];
-  [request startAsynchronous];
+  if (flag == PMNetworkFlagSync)
+    [request startSynchronous];
+  else 
+    [request startAsynchronous];
 }
 
 - (void)newsFeedForPeopleWhoseIFollowedWith:(NSString *) screen_name
@@ -397,9 +447,11 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request startAsynchronous];
 }
 
-- (void) registerAnUser:(NSString *)screen_name withCompleteBlock:(void (^)(BOOL))handler
+- (void) registerAnUser:(NSDictionary *) userInfo 
+      withCompleteBlock:(void (^)(BOOL))handler
 {
-  NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"user/do?screen_name=%@", screen_name]];
+  NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"user/do?screen_name=%@&&user_name=%@", [userInfo objectForKey:PASSIM_SCREEN_NAME], [userInfo objectForKey:PASSIM_USERNAME]];
+  NSURL *url = [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
   [request setCompletionBlock:^{
@@ -409,8 +461,10 @@ typedef void (^newsHandler)(NSArray *newsData);
       NSDictionary *create_user = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:&jsonParsingError];
       if ([create_user objectForKey:@"error"] == nil) {
         handler(YES);
+        NSLog(@"create a user");
       } else {
         handler(NO);
+        NSLog(@"faile to user");
       }
     }
   }];
