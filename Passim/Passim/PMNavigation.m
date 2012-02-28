@@ -34,6 +34,8 @@
 
 - (CGFloat)tabBar:(UITabBarController *)tabBarController horizontalLocationFor:(NSUInteger)tabIndex
 {
+  // add tabbar highlighted color
+  [tabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:0.6 green:0.7 blue:0.6 alpha:1.0]];
   // A single tab item's width is the entire width of the tab bar divided by number of items
   CGFloat tabItemWidth = tabBarController.tabBar.frame.size.width / TAB_ITEM_COUNT;
   // A half width is tabItemWidth divided by 2 minus half the width of the arrow
@@ -45,14 +47,14 @@
 
 - (void)tabBar:(UITabBarController *) tabBar addTabBarArrowFor:(NSUInteger) tabIndex;
 {
-  UIImage* tabBarArrowImage = [UIImage imageNamed:@"TabBarNipple.png"];
+  UIImage* tabBarArrowImage = [UIImage imageNamed:@"triangle_with_shadow.png"];
   self.tabBarArrow = [[UIImageView alloc] initWithImage:tabBarArrowImage];
   // To get the vertical location we start at the bottom of the window, 
   // go up by height of the tab bar, go up again by the height of arrow and then
   // come back down 2 pixels so the arrow is slightly on top of the tab bar.
   CGFloat verticalLocation = tabBar.view.frame.size.height - 
                              tabBar.tabBar.frame.size.height - 
-                             tabBarArrowImage.size.height + 2;
+                             tabBarArrowImage.size.height/* + 2*/;
   self.tabBarArrow.frame = CGRectMake([self tabBar:tabBar horizontalLocationFor:tabIndex], 
                                       verticalLocation, 
                                       tabBarArrowImage.size.width, 
