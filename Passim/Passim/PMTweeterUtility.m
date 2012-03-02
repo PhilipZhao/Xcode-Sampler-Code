@@ -78,10 +78,11 @@
 {
   if ([self.profileDic objectForKey:screen_name] != nil) {
     handler((UIImage *)[self.profileDic objectForKey:screen_name]);
+    return;
   }
   [PMTweeterUtility NTRequestForProfieImage:screen_name withCompletedHandler:^(NSData *imgData){
     UIImage *profile = [UIImage imageWithData:imgData];
-    [self.profileDic setObject:profile forKey:screen_name];
+    if (profile != nil) [self.profileDic setObject:profile forKey:screen_name];
     dispatch_async(dispatch_get_main_queue(), ^{handler(profile);});
   }];
 }

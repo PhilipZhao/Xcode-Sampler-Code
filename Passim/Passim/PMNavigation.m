@@ -8,6 +8,7 @@
 
 #import "PMNavigation.h"
 #import "PMAppDelegate.h"
+#import "PMNotification.h"
 
 #define TAB_SELECTED_INDEX @"tabSelectedIndex"
 #define TAB_BAR_HEIGHT 49
@@ -16,6 +17,7 @@
 @interface PMNavigation()
 @property (weak, nonatomic) id viewController;
 @property (strong, nonatomic) UIImageView *tabBarArrow;
+@property (strong, nonatomic) UIImageView *tabBarShadow;
 @property (strong, nonatomic) NSMutableDictionary *glowNotificationArray;
 
 @end
@@ -23,6 +25,7 @@
 @implementation PMNavigation
 @synthesize viewController = _viewController;
 @synthesize tabBarArrow = _tabBarArrow;
+@synthesize tabBarShadow = _tabBarShadow;
 @synthesize glowNotificationArray = _glowNotificationArray;
 
 #pragma mark - private function
@@ -47,20 +50,26 @@
 
 - (void)tabBar:(UITabBarController *) tabBar addTabBarArrowFor:(NSUInteger) tabIndex;
 {
-  UIImage* tabBarArrowImage = [UIImage imageNamed:@"triangle_with_shadow.png"];
+  UIImage* tabBarArrowImage = [UIImage imageNamed:@"triangle_without_shadow.png"];
+  UIImage* tabBarShadow = [UIImage imageNamed:@"tab_bar_shadow.png"];
+  NSLog(@"%f, %f", tabBarShadow.size.width, tabBarShadow.size.height);
   self.tabBarArrow = [[UIImageView alloc] initWithImage:tabBarArrowImage];
+  self.tabBarShadow = [[UIImageView alloc] initWithImage:tabBarShadow];
   // To get the vertical location we start at the bottom of the window, 
   // go up by height of the tab bar, go up again by the height of arrow and then
   // come back down 2 pixels so the arrow is slightly on top of the tab bar.
   CGFloat verticalLocation = tabBar.view.frame.size.height - 
                              tabBar.tabBar.frame.size.height - 
                              tabBarArrowImage.size.height/* + 2*/;
-  self.tabBarArrow.frame = CGRectMake([self tabBar:tabBar horizontalLocationFor:tabIndex], 
-                                      verticalLocation, 
-                                      tabBarArrowImage.size.width, 
-                                      tabBarArrowImage.size.height);
-  
+  CGRect frame = CGRectMake([self tabBar:tabBar horizontalLocationFor:tabIndex], 
+                            verticalLocation, 
+                            tabBarArrowImage.size.width, 
+                            tabBarArrowImage.size.height);
+  self.tabBarArrow.frame = frame;
+  frame = CGRectMake(0, verticalLocation, tabBar.tabBar.frame.size.width, tabBarShadow.size.height);
+  self.tabBarShadow.frame = frame;
   [tabBar.view addSubview:self.tabBarArrow];
+  [tabBar.view addSubview:self.tabBarShadow];
 }
 
 - (void)tabBar:(UITabBarController *)tabBar addGlowingNotification:(NSUInteger)tabIndex
@@ -106,6 +115,7 @@
   [[NSNotificationCenter defaultCenter] addObserver:self 
                                            selector:@selector(saveCurrentStatus:) 
                                                name:UIApplicationDidEnterBackgroundNotification object:app];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationForTabBar:) name:PMNotificationBottomBar object:app];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -140,7 +150,31 @@
 
 - (void)notificationForTabBar:(NSNotification *) notification
 {
-  
+  NSNumber *hideKey = [notification.userInfo objectForKey:BOTTOM_BAR_KEY];
+  if ([hideKey intValue] == PMNotificationBottomBarShow) {
+    //self.tabBarArrow.hidden = NO;
+    [UIView animateWithDuration:0.35 animations:^{
+      CGRect frame = self.tabBarArrow.frame;
+      frame.origin.x = frame.origin.x + [[UIScreen mainScreen] bounds].size.width;
+      self.tabBarArrow.frame = frame;
+      
+      frame = self.tabBarShadow.frame;
+      frame.origin.x = 0;
+      self.tabBarShadow.frame = frame;
+    } completion:^(BOOL completed) {}];
+  } else {
+    //self.tabBarArrow.hidden = YES;
+    [UIView animateWithDuration:0.35 animations:^{
+      CGRect frame = self.tabBarArrow.frame;
+      frame.origin.x = frame.origin.x - [[UIScreen mainScreen] bounds].size.width;
+      NSLog(@"frame: %f", frame.origin.x);
+      self.tabBarArrow.frame = frame;
+      
+      frame = self.tabBarShadow.frame;
+      frame.origin.x = -frame.size.width;
+      self.tabBarShadow.frame = frame;
+    } completion:^(BOOL completed){}];
+  }
 }
 
 #pragma mark - TabBar Delegatation implementation

@@ -7,6 +7,7 @@
 //
 
 #import "PMDetailNewsViewController.h"
+#import "PMNotification.h"
 #import "PMAppDelegate.h"
 
 #define TAG_PROFILE 4
@@ -61,9 +62,10 @@
   UILabel *creator_name = (UILabel *)[cell viewWithTag:TAG_AUTHOR];
   UILabel *screen_name = (UILabel *)[cell viewWithTag:TAG_SCREEN_NAME];
   UIImageView* profile = (UIImageView *)[cell viewWithTag:TAG_PROFILE];
-  screen_name.text = [@"@" stringByAppendingFormat:@"%@", [self.newsData newsAuthor]];
+  creator_name.text = [self.newsData newsAuthor];
+  screen_name.text = [@"@" stringByAppendingFormat:@"%@", [self.newsData newsScreenName]];
   NSLog(@"%@", [self.newsData newsAuthor]);
-  [self.tweeterUtil loadUserProfile:[self.newsData newsAuthor] withCompleteHandler:^(UIImage *profilePic) {
+  [self.tweeterUtil loadUserProfile:[self.newsData newsScreenName] withCompleteHandler:^(UIImage *profilePic) {
     profile.image = profilePic;
   }];
 }
@@ -153,6 +155,10 @@
 - (IBAction)goBackPreviousView:(id)sender {
   if (self.navigationController != nil){
     [self.navigationController popViewControllerAnimated:YES];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:PMNotificationBottomBarShow] forKey:BOTTOM_BAR_KEY];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationBottomBar 
+                                                        object:[UIApplication sharedApplication] 
+                                                      userInfo:userInfo];
   } else {
     [self dismissModalViewControllerAnimated:YES];
   }

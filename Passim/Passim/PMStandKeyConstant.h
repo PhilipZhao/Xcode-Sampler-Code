@@ -32,6 +32,9 @@
 #define POST_NEWS_ID @"news_id"
 #define POST_PASSIM_PHOTO @"img_url"
 
+#define NOTIFICATION_HIDE_BOTTOM_BAR @"hiden bottom bar"
+#define NOTIFICATION_SHOW_BOTTOM_BAR @"show bottom bar"
+
 #define PASSIM_DATE_TIME_FORMAT @"yyyy-MM-dd HH:mm:ss"
 /**
  * Other constant across the VC

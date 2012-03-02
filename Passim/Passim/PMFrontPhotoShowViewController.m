@@ -34,7 +34,7 @@
     NSMutableArray *imgArray = [[NSMutableArray alloc] initWithCapacity:MAX_NUM_OF_IMAGE];
     for (int i = 0; i < MAX_NUM_OF_IMAGE; i++) {
       UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"TestPhotos%d.jpg", i]];
-      NSLog(@"%@", [NSString stringWithFormat:@"TestPhotos%d.png",i]);
+      //NSLog(@"%@", [NSString stringWithFormat:@"TestPhotos%d.png",i]);
       if (image) [imgArray addObject:image];
     }
     _imageArray = [[NSArray alloc] initWithArray:imgArray];
