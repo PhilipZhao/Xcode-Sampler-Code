@@ -158,6 +158,10 @@
 - (IBAction)returnPreviousView:(id)sender {
     if (self.navigationController != nil){
         [self.navigationController popViewControllerAnimated:YES];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:PMNotificationBottomBarShow] forKey:BOTTOM_BAR_KEY];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationBottomBar 
+                                                            object:[UIApplication sharedApplication] 
+                                                          userInfo:userInfo];
     } else {
         [self dismissModalViewControllerAnimated:YES];
     }
