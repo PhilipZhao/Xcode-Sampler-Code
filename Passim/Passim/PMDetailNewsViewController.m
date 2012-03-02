@@ -26,6 +26,7 @@
 
 
 @interface PMDetailNewsViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *returnPreviousView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *goBackPreviousViewButton;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
@@ -35,6 +36,7 @@
 @synthesize tableView = _tableView;
 @synthesize barItemTitle = _barItemTitle;
 
+@synthesize returnPreviousView = _returnPreviousView;
 @synthesize goBackPreviousViewButton = _goBackPreviousViewButton;
 @synthesize sharedHerokRequest = _sharedHerokRequest;
 @synthesize tweeterUtil = _tweeterUtil;
@@ -129,6 +131,7 @@
 {
   [self setGoBackPreviousViewButton:nil];
   [self setTableView:nil];
+    [self setReturnPreviousView:nil];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
 }
@@ -150,6 +153,14 @@
 }
 
 #pragma mark - Target action
+- (IBAction)returnPreviousView:(id)sender {
+    if (self.navigationController != nil){
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissModalViewControllerAnimated:YES];
+    }
+}
+
 - (IBAction)goBackPreviousView:(id)sender {
   if (self.navigationController != nil){
     [self.navigationController popViewControllerAnimated:YES];
@@ -157,6 +168,7 @@
     [self dismissModalViewControllerAnimated:YES];
   }
 }
+
 
 #pragma mark - Table View implementation
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

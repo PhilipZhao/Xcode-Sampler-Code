@@ -320,6 +320,7 @@
     */
     
     UIImage * img = [single_news newsFrontPhoto];
+    
     if (img == nil) {
         [single_news getNewsFrontPhotoWithBlock:^(UIImage *image) {
             // test code, for demo not recommend
