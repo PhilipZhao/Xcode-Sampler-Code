@@ -123,6 +123,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:SEGUE_SHOW_NEWS]) {
+      [segue.destinationViewController setHidesBottomBarWhenPushed:YES];
+      NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:PMNotificationBottomBarHide] forKey:BOTTOM_BAR_KEY];
+      [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationBottomBar 
+                                                          object:[UIApplication sharedApplication] 
+                                                        userInfo:userInfo];
         if ([segue.destinationViewController respondsToSelector:@selector(setBarItemTitle:)])
             [segue.destinationViewController setBarItemTitle:@"List view"];
         if ([segue.destinationViewController respondsToSelector:@selector(setNewsData:)] && [sender isKindOfClass:[PMNews class]])
@@ -181,8 +186,9 @@
 
 - (void)viewWillAppear:(BOOL)animated 
 {
-    [super viewWillAppear:animated];
-    self.viewIsDisappear = NO;
+  [super viewWillAppear:animated];
+  self.viewIsDisappear = NO;
+  self.hidesBottomBarWhenPushed = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated

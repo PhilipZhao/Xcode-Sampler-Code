@@ -16,6 +16,11 @@
 #define PMNotificationLocationNewAddress @"PMNotificationLocationNewAddress"
 #define PMNotificationHerokCacheRequestNewData @"PMNotificationHerokCacheRequestNewData"
 
+#define PMNotificationBottomBar @"bottom bar"
+#define BOTTOM_BAR_KEY @"showBottomBar"
+#define PMNotificationBottomBarHide 0
+#define PMNotificationBottomBarShow 1
+
 #define PMInfoCLLocation @"PMInfoCLLocation"
 #define PMInfoAddress @"PMAddressBook"
 #define PMNewsData @"PMNewsDate"
