@@ -24,6 +24,7 @@
 #define PASSIM_NEWS_PHOTO_URL   @"photo_url"
 #define PASSIM_NEWS_PHOTO_UI @"UIImage_photo"
 #define PASSIM_NUM_COMMENT  @"comment_amount"
+#define PASSIM_NEWS_FRONT_PHOTO_URL @"news_front_photo_url"
 
 
 #define POST_AUTHOR @"author_screen_name"

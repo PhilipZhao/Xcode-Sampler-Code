@@ -59,7 +59,11 @@
   return self;
 }
 
-- (void)presentView:(DisplayType)type duration:(float)duration delay:(float)delay options:(AnimationOption)option completeBlock:(void (^)())handler
+- (void) presentView:(DisplayType) type 
+            duration:(float) duration 
+               delay:(float) delay 
+             options:(AnimationOption) option 
+       completeBlock:(void (^)()) handler
 {
   UILabel *label = (UILabel *)[self viewWithTag:TAG_LABEL];
   if (label == nil) {

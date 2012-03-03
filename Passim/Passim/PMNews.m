@@ -94,22 +94,31 @@
 
 - (UIImage *) newsFrontPhoto
 {
+  NSLog(@"%@", self.frontPhoto);
   return self.frontPhoto;
+}
+
+- (NSURL *) newsFrontPhotoURL
+{
+  NSString *url = [self.newsData objectForKey:PASSIM_NEWS_FRONT_PHOTO_URL];
+  if (url != [NSNull null])  // protection bar here. Need to remove in the future
+    return [NSURL URLWithString:
+            [(NSString *)[self.newsData objectForKey:PASSIM_NEWS_FRONT_PHOTO_URL] stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+  else 
+    return nil;
 }
 
 - (void) getNewsFrontPhotoWithBlock:(void (^)(UIImage *))handler
 {
   if (self.frontPhoto == nil) {
     // request through network
-    [PMHerokCacheRequest fetchPhotoWithNewsId:[self newsId] 
+    [PMHerokCacheRequest fetchPhotoWithURL:[self newsFrontPhotoURL] 
                                        option:PMHerokPhotoFront 
+                                         flag:PMNetworkFlagAsync
                             withCompleteBlock:^(NSArray *photos) {
+      if ([photos count] != 0) self.frontPhoto =[photos objectAtIndex:0]; 
       dispatch_async(dispatch_get_main_queue(), ^{
-        if ([photos count] == 0) handler(nil);
-        else {
-          self.frontPhoto = [photos objectAtIndex:0];
-          handler(self.frontPhoto);
-        }
+        handler(self.frontPhoto);
       });
     }];
   } else {

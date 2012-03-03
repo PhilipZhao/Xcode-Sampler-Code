@@ -90,7 +90,6 @@
 		E493EBBA14EF645200325C98 /* logo_r.png in Resources */ = {isa = PBXBuildFile; fileRef = E493EBB914EF645200325C98 /* logo_r.png */; };
 		E49AA02A14C12A6100C504E3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49AA02914C12A6100C504E3 /* Accounts.framework */; };
 		E4B2A7B314EE322E00D302EC /* PMCommentComposerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B2A7B214EE322E00D302EC /* PMCommentComposerViewController.m */; };
-		E4B2A7B614EE3B8100D302EC /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = E4B2A7B514EE3B8100D302EC /* google.png */; };
 		E4BB200A14CCA2B10020ADEA /* TabBarGlow.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BB200814CCA2B10020ADEA /* TabBarGlow.png */; };
 		E4BB200B14CCA2B10020ADEA /* TabBarGlow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BB200914CCA2B10020ADEA /* TabBarGlow@2x.png */; };
 		E4C87CDD14E724E600ED0F91 /* picons46.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C87CDC14E724E600ED0F91 /* picons46.png */; };
@@ -225,7 +224,6 @@
 		E49AA02914C12A6100C504E3 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		E4B2A7B114EE322E00D302EC /* PMCommentComposerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCommentComposerViewController.h; sourceTree = "<group>"; };
 		E4B2A7B214EE322E00D302EC /* PMCommentComposerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCommentComposerViewController.m; sourceTree = "<group>"; };
-		E4B2A7B514EE3B8100D302EC /* google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google.png; sourceTree = "<group>"; };
 		E4BB200814CCA2B10020ADEA /* TabBarGlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarGlow.png; sourceTree = "<group>"; };
 		E4BB200914CCA2B10020ADEA /* TabBarGlow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarGlow@2x.png"; sourceTree = "<group>"; };
 		E4C87CDC14E724E600ED0F91 /* picons46.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = picons46.png; path = ../picons46.png; sourceTree = "<group>"; };
@@ -269,7 +267,7 @@
 			name = listview;
 			sourceTree = "<group>";
 		};
-		9A0A2FA814F9C35B00A9069F /* sharedUtility */ = {
+		9A0A2FA814F9C35B00A9069F /* icons */ = {
 			isa = PBXGroup;
 			children = (
 				9A779BD6150071B10013E078 /* go_back_btn@2x.png */,
@@ -281,10 +279,10 @@
 				9A0A2FB314F9F1E900A9069F /* nav_bar@2x.png */,
 				9A0A2FB114F9CB9C00A9069F /* nav_bar.png */,
 			);
-			name = sharedUtility;
+			name = icons;
 			sourceTree = "<group>";
 		};
-		E406640C14CC89580020235D /* tabBarUtil */ = {
+		E406640C14CC89580020235D /* tabBarIcons */ = {
 			isa = PBXGroup;
 			children = (
 				9A779BDF1500833B0013E078 /* triangle_without_shadow@2x.png */,
@@ -296,7 +294,7 @@
 				E406640E14CC89730020235D /* TabBarNipple.png */,
 				E406640F14CC89730020235D /* TabBarNipple@2x.png */,
 			);
-			name = tabBarUtil;
+			name = tabBarIcons;
 			sourceTree = "<group>";
 		};
 		E418464114CA23D80035A04F /* Detail News View */ = {
@@ -321,12 +319,12 @@
 		E42A40FB14C14C7B009626C5 /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				9A0A2FA814F9C35B00A9069F /* sharedUtility */,
+				E406640C14CC89580020235D /* tabBarIcons */,
+				9A0A2FA814F9C35B00A9069F /* icons */,
 				9A0A2F7E14F885A900A9069F /* listview */,
 				E493EBBB14EF64FF00325C98 /* AppFace */,
 				E493EBA714EF5FC000325C98 /* buttonIcon */,
 				E493EB8314EF58AF00325C98 /* tabIcons */,
-				E4B2A7B514EE3B8100D302EC /* google.png */,
 				E4C87CDC14E724E600ED0F91 /* picons46.png */,
 				E4E5830114C368F2005AB7C1 /* TestPhotos0.jpg */,
 				E4E5830214C368F2005AB7C1 /* TestPhotos2.jpg */,
@@ -425,10 +423,10 @@
 				E46A2D1514C7CDA500D57455 /* MainStoryboard_iPhone.storyboard */,
 				E418464114CA23D80035A04F /* Detail News View */,
 				E46A2D4214C7CE9000D57455 /* Composation */,
+				E44441C514C3D2E2003C8A4F /* List View */,
 				E44441C214C3D29A003C8A4F /* Map View */,
 				E4D5AE8A14C2ACFE0064924C /* Utility */,
 				E44441C414C3D2CB003C8A4F /* Launch View */,
-				E44441C514C3D2E2003C8A4F /* List View */,
 				E45247AF14C0EEC200CC8BFC /* Supporting Files */,
 			);
 			path = Passim;
@@ -438,7 +436,6 @@
 			isa = PBXGroup;
 			children = (
 				E42E1B3E14F1485D0035AB70 /* Catogory */,
-				E406640C14CC89580020235D /* tabBarUtil */,
 				E473FBD114CB1AF500F58FC4 /* Pull to refresh */,
 				E46A2D0514C7CC8D00D57455 /* ASIHttp */,
 				E42875A214C2491B00357EFE /* Test Location */,
@@ -638,7 +635,6 @@
 				E4BB200A14CCA2B10020ADEA /* TabBarGlow.png in Resources */,
 				E4BB200B14CCA2B10020ADEA /* TabBarGlow@2x.png in Resources */,
 				E4C87CDD14E724E600ED0F91 /* picons46.png in Resources */,
-				E4B2A7B614EE3B8100D302EC /* google.png in Resources */,
 				E493EBAA14EF5FD800325C98 /* sign_in_btn.png in Resources */,
 				E493EBAB14EF5FD800325C98 /* sign_in_btn@2x.png in Resources */,
 				E493EBB814EF644D00325C98 /* logo.png in Resources */,

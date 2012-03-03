@@ -144,9 +144,6 @@
                 if (result == PMComposeViewControllerResultDone) {
                   [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitSucess delay:0 sender:self.view];
                 }
-                else {
-                  [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitCancel delay:0.5 sender:self.view];
-                }
             }];
         }
     }
@@ -325,29 +322,22 @@
     when_ago.frame = reusable_frame;
     */
     
-    UIImage * img = [single_news newsFrontPhoto];
-    
-    if (img == nil) {
+    imageView.image = [single_news newsFrontPhoto];
+    if (imageView.image == nil) {
         [single_news getNewsFrontPhotoWithBlock:^(UIImage *image) {
             // test code, for demo not recommend
-
-            imageView.image = image;
+          imageView.image = image;
            /* CGSize new_frame = CGSizeMake(32,32);
             imageView.image = [image resizedImage:new_frame interpolationQuality:(CGInterpolationQuality)3];*/
         }];
-    } else {
-        imageView.image = img;
     }
-    
-    
+
     // get the count. Need to update later
     //numLike.text = @"10";
     //numComment.text = @"21";
     
     //set cell background
     cell.contentView.backgroundColor = (indexPath.row % 2 == 0)?[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_even.png"]]:[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_odd.png"]];
-
-    
     return cell;
 }
 

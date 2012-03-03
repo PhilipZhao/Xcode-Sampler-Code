@@ -258,10 +258,6 @@
           [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitSucess delay:0 sender:self.view];
           NSLog(@"Done");
         }
-        else {
-          [PMRoundedFloatingPanel presentRoundedFloatingPanel:SubmitCancel delay:0.5 sender:self.view];
-          NSLog(@"Cancel");
-        }
       }];
       // set the completeHandler
     }

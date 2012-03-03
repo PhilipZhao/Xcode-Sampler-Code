@@ -32,7 +32,7 @@ typedef enum {
 @property (strong, nonatomic) UIManagedDocument   *passimDB;
 @property (strong, nonatomic) NSMutableArray      *lastLoadFromNetworkData;
 
-- (void)newsBoundedByOrigin:(CLLocationCoordinate2D)      origin 
+- (void) newsBoundedByOrigin:(CLLocationCoordinate2D)      origin 
                    withSpan:(MKCoordinateSpan)            span
                        from:(NSTimer *)                   pastTime
     withCacheCompletedBlock:(void (^)())                  cacheHandler
@@ -45,7 +45,7 @@ typedef enum {
  * option:  either load from current cache, db or network
  
  */
-- (void)newsBasedOnRegion:(NSDictionary *)              address
+- (void) newsBasedOnRegion:(NSDictionary *)              address
                    option:(PMHerokCacheOption)          option
         withCompleteBlock:(void (^)(NSArray *newsData)) handler;
 
@@ -62,11 +62,13 @@ withCompleteBlock:(void (^)(BOOL))  handler;
    withCompleteBlock:(void (^)(BOOL completed)) handler;
 
 - (void) registerAnUser:(NSDictionary *)            userInfo  
+                   flag:(PMNetworkFlag)             flag
       withCompleteBlock:(void (^)(BOOL completed))  handler;
 
-+ (void) fetchPhotoWithNewsId:(NSInteger)           news_id 
-                       option:(PMHerokPhotoOption)  option
-            withCompleteBlock:(void (^)(NSArray *)) handler;
++ (void) fetchPhotoWithURL:(NSURL *)             url
+                    option:(PMHerokPhotoOption)  option
+                      flag:(PMNetworkFlag)       flag
+         withCompleteBlock:(void (^)(NSArray *)) handler;
 
 + (void) fetchNewsCommentWithNewsId:(NSInteger)           new_id
                   withCompleteBlock:(void (^)(NSArray *)) handler;
