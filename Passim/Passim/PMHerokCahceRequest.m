@@ -242,7 +242,7 @@ typedef void (^newsHandler)(NSArray *newsData);
           NSLog(@"%@", key);
         }
       }
-      NSLog(@"finished Parse the return data %@", result);
+      NSLog(@"finished Parse the return data # %d", [result count]);
       self.lastLoadFromNetworkData = result;
       self.newsInRegionHandler(self.lastLoadFromNetworkData);
 

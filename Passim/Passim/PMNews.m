@@ -100,8 +100,7 @@
 
 - (NSURL *) newsFrontPhotoURL
 {
-  NSString *url = [self.newsData objectForKey:PASSIM_NEWS_FRONT_PHOTO_URL];
-  if (url != [NSNull null])  // protection bar here. Need to remove in the future
+  if ([self.newsData objectForKey:PASSIM_NEWS_FRONT_PHOTO_URL] != [NSNull null])  // protection bar here. Need to remove in the future
     return [NSURL URLWithString:
             [(NSString *)[self.newsData objectForKey:PASSIM_NEWS_FRONT_PHOTO_URL] stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
   else 

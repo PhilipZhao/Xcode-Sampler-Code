@@ -154,9 +154,7 @@
         }];
       });
       dispatch_release(registerUser);
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSegueWithIdentifier:@"fromPhotoSlideToTabBar" sender:self];
-      });
+      [self performSegueWithIdentifier:@"fromPhotoSlideToTabBar" sender:self];
     } else if (granted && !hasAccountInSystem) {
       // I did not know what to do here!!!
       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Twitter Account Set up" 

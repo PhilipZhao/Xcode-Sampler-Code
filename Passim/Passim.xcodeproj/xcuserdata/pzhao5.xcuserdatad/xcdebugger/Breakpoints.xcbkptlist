@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMTweeterUtility.m"
-         timestampString = "352345010.96472"
+         timestampString = "352573302.612045"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "213"
-         endingLineNumber = "213"
+         startingLineNumber = "240"
+         endingLineNumber = "240"
          landmarkName = "-followOnTwitter:withCompleteHandler:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMTweeterUtility.m"
-         timestampString = "352345010.96472"
+         timestampString = "352573302.612045"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "214"
-         endingLineNumber = "214"
+         startingLineNumber = "241"
+         endingLineNumber = "241"
          landmarkName = "-followOnTwitter:withCompleteHandler:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMTweeterUtility.m"
-         timestampString = "352345010.96472"
+         timestampString = "352573302.612045"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "177"
+         endingLineNumber = "177"
          landmarkName = "-getDefaultsUserNameWithCompleteHandler:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMNews.m"
-         timestampString = "352430303.12781"
+         timestampString = "352494774.248092"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "110"
-         endingLineNumber = "110"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
          landmarkName = "@implementation PMNews"
          landmarkType = "3">
       </FileBreakpoint>
@@ -209,6 +209,45 @@
          startingLineNumber = "97"
          endingLineNumber = "97"
          landmarkName = "-updateNewsWithCurrentAddress:option:withCompleteBlock:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMFrontPhotoShowViewController.m"
+         timestampString = "352497784.105445"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "147"
+         endingLineNumber = "147"
+         landmarkName = "-twitterSignIn:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMHerokCahceRequest.m"
+         timestampString = "352497790.209408"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "451"
+         endingLineNumber = "451"
+         landmarkName = "-postNews:withCompleteBlock:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Passim/PMDetailNewsViewController.m"
+         timestampString = "352573127.121422"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "70"
+         endingLineNumber = "70"
+         landmarkName = "-compositeForAuthorCell:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

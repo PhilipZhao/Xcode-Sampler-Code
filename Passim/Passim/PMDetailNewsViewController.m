@@ -28,7 +28,6 @@
 
 @interface PMDetailNewsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *returnPreviousView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *goBackPreviousViewButton;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
 @end
@@ -38,7 +37,6 @@
 @synthesize barItemTitle = _barItemTitle;
 
 @synthesize returnPreviousView = _returnPreviousView;
-@synthesize goBackPreviousViewButton = _goBackPreviousViewButton;
 @synthesize sharedHerokRequest = _sharedHerokRequest;
 @synthesize tweeterUtil = _tweeterUtil;
 @synthesize newsData = _newsData;
@@ -53,6 +51,7 @@
 {
   _barItemTitle = barItemTitle;
 }
+
 - (NSString *)barItemTitle {
   if (_barItemTitle == nil || [_barItemTitle length] <= 0)
     return @"Return";
@@ -66,8 +65,8 @@
   UIImageView* profile = (UIImageView *)[cell viewWithTag:TAG_PROFILE];
   creator_name.text = [self.newsData newsAuthor];
   screen_name.text = [@"@" stringByAppendingFormat:@"%@", [self.newsData newsScreenName]];
-  NSLog(@"%@", [self.newsData newsAuthor]);
-  [self.tweeterUtil loadUserProfile:[self.newsData newsScreenName] withCompleteHandler:^(UIImage *profilePic) {
+  
+  [self.tweeterUtil loadUserProfile:[self.newsData newsScreenName] withCompleteHandler:^(UIImage* profilePic) {
     profile.image = profilePic;
   }];
 }
@@ -101,7 +100,6 @@
   tableHeigh += [newsTitle sizeWithFont: [UIFont boldSystemFontOfSize:15] constrainedToSize:CGSizeMake(NEWS_TITLE_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height ;
   tableHeigh += [newsSummary sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(NEWS_SUMMARY_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
   tableHeigh += PADDING * 4;
-  NSLog(@"tableHeight %f", tableHeigh);
   return tableHeigh;
 }
 
@@ -131,9 +129,8 @@
 
 - (void)viewDidUnload
 {
-  [self setGoBackPreviousViewButton:nil];
   [self setTableView:nil];
-    [self setReturnPreviousView:nil];
+  [self setReturnPreviousView:nil];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
 }
@@ -141,12 +138,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  self.goBackPreviousViewButton.title = self.barItemTitle;
   // load news
-  [self.newsData getNewsCommentWithHandler:^(NSArray *data) {
+  /*[self.newsData getNewsCommentWithHandler:^(NSArray *data) {
     NSLog(@"finish data");
     [self.tableView reloadData];
-  }];
+  }]; */
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -158,27 +154,17 @@
 - (IBAction)returnPreviousView:(id)sender {
     if (self.navigationController != nil){
         [self.navigationController popViewControllerAnimated:YES];
+      /*
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:PMNotificationBottomBarShow] forKey:BOTTOM_BAR_KEY];
         [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationBottomBar 
                                                             object:[UIApplication sharedApplication] 
-                                                          userInfo:userInfo];
+                                                          userInfo:userInfo]; */
     } else {
         [self dismissModalViewControllerAnimated:YES];
     }
+  [self setNewsData:nil];
+  [self setBarItemTitle:nil];
 }
-
-- (IBAction)goBackPreviousView:(id)sender {
-  if (self.navigationController != nil){
-    [self.navigationController popViewControllerAnimated:YES];
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:PMNotificationBottomBarShow] forKey:BOTTOM_BAR_KEY];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationBottomBar 
-                                                        object:[UIApplication sharedApplication] 
-                                                      userInfo:userInfo];
-  } else {
-    [self dismissModalViewControllerAnimated:YES];
-  }
-}
-
 
 #pragma mark - Table View implementation
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -257,6 +243,4 @@
     return 62;
   }
 }
-
-
 @end

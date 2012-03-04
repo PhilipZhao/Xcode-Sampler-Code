@@ -14,7 +14,7 @@
 #import "PMStandKeyConstant.h"
 #import "PMNotification.h"
 #import "PMNews.h"
-#import "UIImage+Resize.h"
+//#import "UIImage+Resize.h"
 #import "PMRoundedFloatingPanel.h"
 
 #define SEGUE_SHOW_NEWS @"showNewsDetail"
@@ -165,7 +165,8 @@
     if (userLocation != nil) {
         CLLocation *location = [[CLLocation alloc] initWithLatitude:userLocation.coordinate.latitude longitude:userLocation.coordinate.longitude];
         [self.sharedUtility addressInformationBaseOnLocation:location sender:self completedBlock:^(NSDictionary *address) {
-            [self updateNewsWithCurrentAddress:address option:PMHerokCacheFromCache withCompleteBlock:^(){}];
+          NSLog(@"[List]Address:%@", address);  
+          [self updateNewsWithCurrentAddress:address option:PMHerokCacheFromCache withCompleteBlock:^(){}];
         }];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtility];
@@ -208,17 +209,19 @@
 #pragma mark - Notification Center
 - (void)notificationReceiveNewAddress:(NSNotification *)notification 
 {
-    NSDictionary *location = [notification.userInfo valueForKey:PMInfoAddress];
-    if (self.viewIsDisappear) {
-        self.curr_address = location;
-        return;
-    }
-    [self updateNewsWithCurrentAddress:location option:PMHerokCacheFromCache withCompleteBlock:^(){}];
+  NSDictionary *location = [notification.userInfo valueForKey:PMInfoAddress];
+  NSLog(@"[List]Address:%@", location);
+  if (self.viewIsDisappear) {
+    self.curr_address = location;
+    return;
+  }
+  [self updateNewsWithCurrentAddress:location option:PMHerokCacheFromCache withCompleteBlock:^(){}];
 }
 
 - (void)notificationReceiveNewsData:(NSNotification *)notification
 {
     //if (self.viewIsDisappear) return;
+  NSLog(@"[List]Receive new data from Model");
     if (notification.userInfo == nil) {
         [self updateNewsWithCurrentAddress:self.curr_address option:PMHerokCacheFromCache withCompleteBlock: ^(){
         }];
@@ -262,8 +265,8 @@
     UILabel *who = (UILabel *)[cell.contentView viewWithTag:TAG_WHO];
     UILabel *screen_name = (UILabel *)[cell.contentView viewWithTag:TAG_SCREEN_NAME];
     UILabel *when_ago = (UILabel *)[cell.contentView viewWithTag:TAG_AGO];
-    UILabel *numComment = (UILabel *)[cell.contentView viewWithTag:TAG_NUM_COMMENT];
-    UILabel *numLike = (UILabel *)[cell.contentView viewWithTag:TAG_NUM_LIKE];
+    //UILabel *numComment = (UILabel *)[cell.contentView viewWithTag:TAG_NUM_COMMENT];
+    //UILabel *numLike = (UILabel *)[cell.contentView viewWithTag:TAG_NUM_LIKE];
     UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:TAG_IMG];
     
     // fetch news
@@ -337,7 +340,7 @@
     //numComment.text = @"21";
     
     //set cell background
-    cell.contentView.backgroundColor = (indexPath.row % 2 == 0)?[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_even.png"]]:[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_odd.png"]];
+    //cell.contentView.backgroundColor = (indexPath.row % 2 == 0)?[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_even.png"]]:[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_odd.png"]];
     return cell;
 }
 
