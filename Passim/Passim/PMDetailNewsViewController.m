@@ -9,27 +9,36 @@
 #import "PMDetailNewsViewController.h"
 #import "PMNotification.h"
 #import "PMAppDelegate.h"
+#import "PMNewsAnnotation.h"
+#import <MapKit/MapKit.h>
 
-#define TAG_PROFILE 4
-#define TAG_AUTHOR 1
-#define TAG_SCREEN_NAME 2
-#define TAG_BY_WHEN 3
-#define TAG_COMMENT 5
-#define TAG_TITLE 6
-#define TAG_SUMMARY 7
-#define TAG_SPINNER 8
+#define TAG_AUTHOR        1
+#define TAG_SCREEN_NAME   2
+#define TAG_BY_WHEN       3
+#define TAG_PROFILE       4
+#define TAG_COMMENT       5
+#define TAG_TITLE         6
+#define TAG_SUMMARY       7
+#define TAG_SPINNER       8
+#define TAG_SHOW_MAP      9 
+#define TAG_MAP           10
 
 #define NEWS_TITLE_WIDE 281
 #define NEWS_SUMMARY_WIDE 281
 #define NEWS_COMMENT_WIDE 220
 #define MAX_HEIGH 300
 #define PADDING 5
+#define MAP_HEIGHT        150
+
+#define SHOW_MAP    @"show map"
+#define HIDE_MAP    @"hide map"
 
 
-@interface PMDetailNewsViewController ()
+@interface PMDetailNewsViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *returnPreviousView;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
+@property (nonatomic) BOOL showGoogleMap;
 @end
 
 @implementation PMDetailNewsViewController
@@ -40,6 +49,7 @@
 @synthesize sharedHerokRequest = _sharedHerokRequest;
 @synthesize tweeterUtil = _tweeterUtil;
 @synthesize newsData = _newsData;
+@synthesize showGoogleMap = _showGoogleMap;
 
 #pragma mark - setter/getter
 - (void) setNewsData:(PMNews *)newsData
@@ -76,12 +86,42 @@
   UILabel* summary = (UILabel *)[cell viewWithTag:TAG_SUMMARY];
   title.text = [self.newsData newsTitle];
   summary.text = [self.newsData newsSummary];
-  CGRect bound = title.frame;
-  bound.size.height = [[self.newsData newsTitle] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_TITLE_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
-  title.frame = bound;
-  bound = summary.frame;
-  bound.size.height = [[self.newsData newsSummary] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_SUMMARY_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
-  summary.frame = bound;
+  CGRect frame = title.frame;
+  frame.size.height = [[self.newsData newsTitle] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_TITLE_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
+  title.frame = frame;
+  frame = summary.frame;
+  frame.size.height = [[self.newsData newsSummary] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_SUMMARY_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
+  summary.frame = frame;
+  UIButton* showMap = (UIButton *)[cell viewWithTag:TAG_SHOW_MAP];
+  if (self.showGoogleMap)
+    showMap.titleLabel.text = HIDE_MAP;
+  else
+    showMap.titleLabel.text = SHOW_MAP;
+  frame = showMap.frame;
+  frame.origin.y = [self tableViewHeightForNews] - frame.size.height;
+  showMap.frame = frame;
+}
+
+- (void)compositeMapCell:(UITableViewCell *) cell {
+  MKMapView* mapView = (MKMapView *)[cell viewWithTag:TAG_MAP];
+  mapView.delegate = self;
+  CGRect frame;
+  frame = mapView.frame;
+  frame = CGRectMake(20.0, 5.0, 260.0, MAP_HEIGHT- 10.0);
+  mapView.frame = frame;
+  frame = mapView.frame;
+  PMNewsAnnotation* annotation = [PMNewsAnnotation annotationForNewsObject:self.newsData];
+  mapView.scrollEnabled = NO; mapView.zoomEnabled = NO;
+
+  if (mapView.centerCoordinate.latitude != [annotation coordinate].latitude || mapView.centerCoordinate.longitude != [annotation coordinate].longitude ) {
+    //[mapView removeAnnotations:[mapView annotations]];
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([annotation coordinate], 100, 100);
+    MKCoordinateRegion adjustRegion = [mapView regionThatFits:viewRegion];
+    [mapView setRegion:adjustRegion animated:YES];
+  }
+  if ([[mapView annotations] count] == 0) 
+    [mapView addAnnotation:annotation];
+  mapView.frame = frame;
 }
 
 - (void)compositeForCommentCell:(UITableViewCell *) cell {
@@ -154,16 +194,20 @@
 - (IBAction)returnPreviousView:(id)sender {
     if (self.navigationController != nil){
         [self.navigationController popViewControllerAnimated:YES];
-      /*
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:PMNotificationBottomBarShow] forKey:BOTTOM_BAR_KEY];
         [[NSNotificationCenter defaultCenter] postNotificationName:PMNotificationBottomBar 
                                                             object:[UIApplication sharedApplication] 
-                                                          userInfo:userInfo]; */
+                                                          userInfo:userInfo];
     } else {
         [self dismissModalViewControllerAnimated:YES];
     }
   [self setNewsData:nil];
   [self setBarItemTitle:nil];
+}
+
+- (IBAction)showMap:(id)sender {
+  self.showGoogleMap = !self.showGoogleMap;
+  [self.tableView reloadData];
 }
 
 #pragma mark - Table View implementation
@@ -174,8 +218,10 @@
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == 0) {
-    return 2;
+  if (section == 0 && self.showGoogleMap) {
+    return 3; // with google map
+  } else if (section == 0 && !self.showGoogleMap) {
+    return 2; // without google map
   } else {
     if (self.newsData.newsComments == nil)
       return 1;
@@ -186,7 +232,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-  return 2; // 2 cells. One for Story & Comment
+  return 2; // 2 cells. One for Story and 1 for Comment
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
@@ -204,11 +250,14 @@
   static NSString *CellIdentifierForNews = @"cell for news";
   static NSString *CellIdentifierForComment = @"cell for comment";
   static NSString *CellIdentifierForLoading = @"cell for loading comment";
+  static NSString *CellIdentifierForMap = @"cell for map view";
   NSString *cellID;
   if (indexPath.row == 0 && indexPath.section == 0)
     cellID = CellIdentifierForAuthor;
   else if (indexPath.row == 1 && indexPath.section == 0) 
     cellID = CellIdentifierForNews;
+  else if (indexPath.row == 2 && indexPath.section == 0)
+    cellID = CellIdentifierForMap;
   else if (self.newsData.newsComments == nil) 
     cellID = CellIdentifierForLoading;
   else
@@ -223,6 +272,8 @@
     [self compositeForAuthorCell:cell];
   else if (indexPath.row == 1 && indexPath.section == 0)
     [self compositeForNewsCell:cell];
+  else if (indexPath.row == 2 && indexPath.section == 0)
+    [self compositeMapCell:cell];
   else if (self.newsData.newsComments == nil) 
     ;  // do nothing
   else 
@@ -237,10 +288,15 @@
   } else if (indexPath.row == 1 && indexPath.section == 0) {
     //return 100;
     return [self tableViewHeightForNews];
+  } else if (indexPath.row == 2 && indexPath.section == 0) {
+    return MAP_HEIGHT;
   } else if (indexPath.row == 0 && indexPath.section == 1 && self.newsData.newsComments == nil) {
     return 42; // for loading comment
   } else {
     return 62;
   }
 }
+
+#pragma mark map view delegate
+// not need to implement it
 @end

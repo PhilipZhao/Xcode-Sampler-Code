@@ -104,7 +104,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "240"
          endingLineNumber = "240"
-         landmarkName = "-followOnTwitter:withCompleteHandler:"
+         landmarkName = "-unfollowOnTwitter:withCompleteHandler:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -117,7 +117,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "241"
          endingLineNumber = "241"
-         landmarkName = "-followOnTwitter:withCompleteHandler:"
+         landmarkName = "-unfollowOnTwitter:withCompleteHandler:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -156,7 +156,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "177"
          endingLineNumber = "177"
-         landmarkName = "-getDefaultsUserNameWithCompleteHandler:"
+         landmarkName = "-getDefaultsUserInfoWithCompleteHandler:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -242,11 +242,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Passim/PMDetailNewsViewController.m"
-         timestampString = "352573127.121422"
+         timestampString = "352599269.210965"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "70"
-         endingLineNumber = "70"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
          landmarkName = "-compositeForAuthorCell:"
          landmarkType = "5">
       </FileBreakpoint>
