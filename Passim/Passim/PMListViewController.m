@@ -335,8 +335,8 @@
             imageView.image = [image resizedImage:new_frame interpolationQuality:(CGInterpolationQuality)3];*/
         }];
     }
-
-    // get the count. Need to update later
+    imageView.layer.cornerRadius = 8.0;
+    imageView.layer.masksToBounds = YES;    // get the count. Need to update later
     //numLike.text = @"10";
     //numComment.text = @"21";
     
