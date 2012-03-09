@@ -44,6 +44,9 @@
 @property (strong, nonatomic) NSDictionary *curr_address;
 @property (nonatomic) BOOL viewIsDisappear;
 @property (strong, nonatomic) NSIndexPath* currentIndexPath;
+@property (strong, nonatomic) UIImage* odd_row_bg;
+@property (strong, nonatomic) UIImage* even_row_bg;
+
 @end
 
 
@@ -60,6 +63,8 @@
 @synthesize tableView = _tableView;
 @synthesize viewIsDisappear = _viewIsDisappear;
 @synthesize currentIndexPath = _currentIndexPath;
+@synthesize odd_row_bg = _odd_row_bg;
+@synthesize even_row_bg = _even_row_bg;
 
 #pragma mark - Setter/Getter
 - (EGORefreshTableHeaderView *)refreshTableHeaderView 
@@ -156,6 +161,8 @@
     [self.tableView addSubview: self.refreshTableHeaderView];
     [self.refreshTableHeaderView refreshLastUpdatedDate];
     self.tableView.delegate = self;
+    _even_row_bg = [UIImage imageNamed:@"table_row_bg_even.png"];
+    _odd_row_bg = [UIImage imageNamed:@"table_row_bg_odd.png"];
     
     id delegate = [[UIApplication sharedApplication] delegate];
     self.sharedUtility = [delegate valueForKey:PMUTILITY_KEY];
@@ -172,6 +179,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtility];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewsData:) name:PMNotificationHerokCacheRequestNewData object:self.sharedHerokRequest];
     self.viewIsDisappear = YES;
+    
 }
 
 - (void)viewDidUnload
@@ -341,7 +349,7 @@
     //numComment.text = @"21";
     
     //set cell background
-    cell.contentView.backgroundColor = (indexPath.row % 2 == 0)?[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_even.png"]]:[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_odd.png"]];
+    cell.contentView.backgroundColor = (indexPath.row % 2 == 0)?[UIColor colorWithPatternImage:_even_row_bg]:[UIColor colorWithPatternImage:_odd_row_bg];
     return cell;
 }
 

@@ -25,7 +25,7 @@
 #define TAG_SHOW_MAP      9 
 #define TAG_MAP           10
 
-#define NEWS_TITLE_WIDE   281
+#define NEWS_TITLE_WIDE   300
 #define NEWS_SUMMARY_WIDE 281
 #define NEWS_COMMENT_WIDE 220
 #define MAX_HEIGH         300
@@ -41,6 +41,7 @@
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
 @property (nonatomic) BOOL showGoogleMap;
+- (CGFloat) tableViewHeightForNews;
 @end
 
 @implementation PMDetailNewsViewController
@@ -74,9 +75,36 @@
 - (void)compositeForAuthorCell:(UITableViewCell *) cell {
   UILabel *creator_name = (UILabel *)[cell viewWithTag:TAG_AUTHOR];
   UILabel *screen_name = (UILabel *)[cell viewWithTag:TAG_SCREEN_NAME];
+  UILabel* title  = (UILabel *)[cell viewWithTag:TAG_TITLE];
   UIImageView* profile = (UIImageView *)[cell viewWithTag:TAG_PROFILE];
+    
+  CGRect reusable_frame;
+  CGSize reusable_width;  
+    
   creator_name.text = [self.newsData newsAuthor];
+    reusable_frame = creator_name.frame;
+    reusable_width = [creator_name.text sizeWithFont:[UIFont systemFontOfSize:12]];
+    reusable_frame.size = [creator_name.text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(reusable_width.width, 12)];
+    reusable_frame.origin.x = 72;
+    reusable_frame.origin.y = 8; 
+    creator_name.frame = reusable_frame;
+    
   screen_name.text = [@"@" stringByAppendingFormat:@"%@", [self.newsData newsScreenName]];
+    reusable_frame = screen_name.frame;
+    reusable_width = [screen_name.text sizeWithFont:[UIFont systemFontOfSize:12]];
+    reusable_frame.size = [screen_name.text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(reusable_width.width, 12)];
+    reusable_frame.origin.x = creator_name.frame.size.width + creator_name.frame.origin.x + 2;
+    reusable_frame.origin.y = 8; 
+    screen_name.frame = reusable_frame;
+    
+  title.text = [self.newsData newsTitle];
+    reusable_frame = title.frame;
+    reusable_width = [title.text sizeWithFont:[UIFont systemFontOfSize:14]];
+    reusable_frame.size = [title.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(200, 9999)];
+
+    title.frame = reusable_frame;
+
+    
   profile.layer.cornerRadius = 8.0;
   profile.layer.masksToBounds = YES;
   [self.tweeterUtil loadUserProfile:[self.newsData newsScreenName] withCompleteHandler:^(UIImage* profilePic) {
@@ -85,13 +113,12 @@
 }
 
 - (void)compositeForNewsCell:(UITableViewCell *) cell {
-  UILabel* title  = (UILabel *)[cell viewWithTag:TAG_TITLE];
+ 
   UILabel* summary = (UILabel *)[cell viewWithTag:TAG_SUMMARY];
-  title.text = [self.newsData newsTitle];
+ 
   summary.text = [self.newsData newsSummary];
-  CGRect frame = title.frame;
-  frame.size.height = [[self.newsData newsTitle] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_TITLE_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
-  title.frame = frame;
+    CGRect frame;
+
   frame = summary.frame;
   frame.size.height = [[self.newsData newsSummary] sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize: CGSizeMake(NEWS_SUMMARY_WIDE, MAX_HEIGH) lineBreakMode:UILineBreakModeWordWrap].height;
   summary.frame = frame;
@@ -125,6 +152,7 @@
 }
 
 - (void)compositeForCommentCell:(UITableViewCell *) cell {
+    
   UILabel* commenter = (UILabel *)[cell viewWithTag:TAG_AUTHOR];
   UILabel* by_when = (UILabel *)[cell viewWithTag:TAG_BY_WHEN];
   UILabel* comment = (UILabel *)[cell viewWithTag:TAG_COMMENT];
