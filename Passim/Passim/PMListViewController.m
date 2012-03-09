@@ -179,6 +179,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewAddress:) name:PMNotificationLocationNewAddress object:self.sharedUtility];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceiveNewsData:) name:PMNotificationHerokCacheRequestNewData object:self.sharedHerokRequest];
     self.viewIsDisappear = YES;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bg"]];
     
 }
 
