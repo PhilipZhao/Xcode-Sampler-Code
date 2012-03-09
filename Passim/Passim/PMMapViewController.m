@@ -222,8 +222,8 @@
   self.viewIsDisappear = YES;
   [super viewDidDisappear:animated];
   // clear up for memory
-  [self.mapView removeAnnotations:[self.mapView annotations]];
-  self.newsAnnotations = nil;
+  //[self.mapView removeAnnotations:[self.mapView annotations]];
+  //self.newsAnnotations = nil;
 }
 
 
