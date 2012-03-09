@@ -41,6 +41,7 @@
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
 @property (nonatomic) BOOL showGoogleMap;
+- (CGFloat) tableViewHeightForNews;
 @end
 
 @implementation PMDetailNewsViewController
