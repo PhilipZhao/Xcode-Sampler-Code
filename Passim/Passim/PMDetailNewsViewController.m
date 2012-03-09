@@ -10,6 +10,8 @@
 #import "PMNotification.h"
 #import "PMAppDelegate.h"
 #import "PMNewsAnnotation.h"
+
+#import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
 
 #define TAG_AUTHOR        1
@@ -23,18 +25,18 @@
 #define TAG_SHOW_MAP      9 
 #define TAG_MAP           10
 
-#define NEWS_TITLE_WIDE 281
+#define NEWS_TITLE_WIDE   281
 #define NEWS_SUMMARY_WIDE 281
 #define NEWS_COMMENT_WIDE 220
-#define MAX_HEIGH 300
-#define PADDING 5
-#define MAP_HEIGHT        150
+#define MAX_HEIGH         300
+#define PADDING           5
+#define MAP_HEIGHT        120
 
 #define SHOW_MAP    @"show map"
 #define HIDE_MAP    @"hide map"
 
 
-@interface PMDetailNewsViewController () <MKMapViewDelegate>
+@interface PMDetailNewsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *returnPreviousView;
 @property (weak, nonatomic) PMHerokCacheRequest *sharedHerokRequest;
 @property (weak, nonatomic) PMTweeterUtility *tweeterUtil;
@@ -75,7 +77,8 @@
   UIImageView* profile = (UIImageView *)[cell viewWithTag:TAG_PROFILE];
   creator_name.text = [self.newsData newsAuthor];
   screen_name.text = [@"@" stringByAppendingFormat:@"%@", [self.newsData newsScreenName]];
-  
+  profile.layer.cornerRadius = 8.0;
+  profile.layer.masksToBounds = YES;
   [self.tweeterUtil loadUserProfile:[self.newsData newsScreenName] withCompleteHandler:^(UIImage* profilePic) {
     profile.image = profilePic;
   }];
@@ -104,15 +107,13 @@
 
 - (void)compositeMapCell:(UITableViewCell *) cell {
   MKMapView* mapView = (MKMapView *)[cell viewWithTag:TAG_MAP];
-  mapView.delegate = self;
-  CGRect frame;
-  frame = mapView.frame;
-  frame = CGRectMake(20.0, 5.0, 260.0, MAP_HEIGHT- 10.0);
+  CGRect frame = CGRectMake(6.0, 5.0, 290.0, MAP_HEIGHT- 10.0);
   mapView.frame = frame;
-  frame = mapView.frame;
   PMNewsAnnotation* annotation = [PMNewsAnnotation annotationForNewsObject:self.newsData];
   mapView.scrollEnabled = NO; mapView.zoomEnabled = NO;
-
+  mapView.layer.cornerRadius = 8.0;
+  mapView.layer.masksToBounds = YES;
+  
   if (mapView.centerCoordinate.latitude != [annotation coordinate].latitude || mapView.centerCoordinate.longitude != [annotation coordinate].longitude ) {
     //[mapView removeAnnotations:[mapView annotations]];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([annotation coordinate], 100, 100);
@@ -121,7 +122,6 @@
   }
   if ([[mapView annotations] count] == 0) 
     [mapView addAnnotation:annotation];
-  mapView.frame = frame;
 }
 
 - (void)compositeForCommentCell:(UITableViewCell *) cell {
@@ -129,7 +129,9 @@
   UILabel* by_when = (UILabel *)[cell viewWithTag:TAG_BY_WHEN];
   UILabel* comment = (UILabel *)[cell viewWithTag:TAG_COMMENT];
   UIImageView *profile = (UIImageView *)[cell viewWithTag:TAG_PROFILE];
-  
+  // rounded the profile
+  profile.layer.cornerRadius = 8.0;   
+  profile.layer.masksToBounds = YES;
 }
 
 - (CGFloat) tableViewHeightForNews
@@ -145,7 +147,8 @@
 
 - (GLfloat) tableViewHeightForComment:(NSInteger) commentIndex
 {
-  
+  // need to figure it out
+  return 10.0;
 }
 
 #pragma mark - Life cycle
@@ -165,6 +168,7 @@
   id delegate = [[UIApplication sharedApplication] delegate];
   self.sharedHerokRequest = [delegate valueForKey:PMHEROKREQUEST_KEY];
   self.tweeterUtil = [delegate valueForKey:PMTWEETERUTILITY_KEY];
+  self.showGoogleMap = YES;
 }
 
 - (void)viewDidUnload
@@ -179,10 +183,18 @@
 {
   [super viewWillAppear:animated];
   // load news
-  /*[self.newsData getNewsCommentWithHandler:^(NSArray *data) {
+  [self.newsData getNewsCommentWithHandler:^(NSArray *data) {
     NSLog(@"finish data");
     [self.tableView reloadData];
-  }]; */
+  }];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
+  [self setNewsData:nil];
+  [self setTableView:nil];
+  [self setReturnPreviousView:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

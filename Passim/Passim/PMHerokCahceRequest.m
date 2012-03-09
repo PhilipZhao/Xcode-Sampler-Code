@@ -129,11 +129,13 @@ typedef void (^newsHandler)(NSArray *newsData);
 {
   if (self = [super init]) {
     // create passimDB instance
+    /*
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory 
                                                          inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"Passim Cache Database"];
     // url is now "<Documents Directory>/Passim Cache Databas"
     self.passimDB = [[UIManagedDocument alloc] initWithFileURL:url]; // setter will create this for us on disk
+    */
   }
   return self;
 }

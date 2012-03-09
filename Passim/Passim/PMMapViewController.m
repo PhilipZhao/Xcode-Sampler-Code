@@ -155,7 +155,7 @@
 - (NSMutableDictionary *)newsAnnotations
 {
   if (_newsAnnotations == nil) {
-    _newsAnnotations = [[NSMutableDictionary alloc] init];
+    _newsAnnotations = [[NSMutableDictionary alloc] initWithCapacity:1];
   }
   return _newsAnnotations;
 }
@@ -201,7 +201,7 @@
   [self setMapView:nil];
   [super viewDidUnload];
   self.sharedUtilty = nil;
-  [[NSNotificationCenter defaultCenter] removeObject:self];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
     // Release any retained subviews of the main view.
 }
 
@@ -211,13 +211,19 @@
   [super viewWillAppear:animated];
   if (self.curr_address != nil) 
     [self updateNewsWithCurrentAddress:self.curr_address];
+  else {
+    // need to implement
+#warning need more implement
+  }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
   self.viewIsDisappear = YES;
   [super viewDidDisappear:animated];
-  [self.mapView addAnnotations: [self.newsAnnotations allValues]];
+  // clear up for memory
+  [self.mapView removeAnnotations:[self.mapView annotations]];
+  self.newsAnnotations = nil;
 }
 
 

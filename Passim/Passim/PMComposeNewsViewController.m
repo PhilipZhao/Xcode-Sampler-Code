@@ -330,6 +330,7 @@
   UIImageView *imgView = (UIImageView *)[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG];
   imgCancelButton.enabled = NO;
   imgCancelButton.hidden = imgView.hidden = YES;
+  imgView.image = nil;
 }
 
 #pragma mark - UIImagePickerController Delegate
@@ -355,13 +356,13 @@
   uploadImageView.image = choosedImage;
   UIButton *imgCancelButton;
   if ([self.photoView viewWithTag:TAG_PHOTOVIEW_IMG_CANCEL] == nil) {
-    imgCancelButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    imgCancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     imgCancelButton.frame = CGRectMake(40+241-15, 8-15, 30, 30);
     imgCancelButton.tag = TAG_PHOTOVIEW_IMG_CANCEL;
-    [self.photoView addSubview:imgCancelButton];
-    //[imgCancelButton setImage:<#(UIImage *)#> forState:UIControlStateNormal];
-    //[imgCancelButton setImage:<#(UIImage *)#> forState:UIControlStateHighlighted];
+    [imgCancelButton setImage:[UIImage imageNamed:@"closeIcon.png"] forState:UIControlStateNormal];
+    [imgCancelButton setImage:[UIImage imageNamed:@"closeIcon.png"] forState:UIControlStateHighlighted];
     [imgCancelButton addTarget:self action:@selector(cancelImage:) forControlEvents:UIControlEventTouchUpInside];
+    [self.photoView addSubview:imgCancelButton];
   } else 
     imgCancelButton = (UIButton *)[self.photoView viewWithTag:TAG_PHOTOVIEW_IMG_CANCEL];
   imgCancelButton.hidden = NO;

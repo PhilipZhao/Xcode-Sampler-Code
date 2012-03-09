@@ -176,10 +176,10 @@
 
 - (void)viewDidUnload
 {
-    [self setTableView:nil];
-    [self setRefreshTableHeaderView:nil];
-    [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObject:self];
+  [super viewDidUnload];
+  [self setTableView:nil];
+  [self setRefreshTableHeaderView:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated 
@@ -197,8 +197,9 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
-    self.viewIsDisappear = YES;
+  [super viewDidDisappear:animated];
+  self.viewIsDisappear = YES;
+  //self.tableData = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
