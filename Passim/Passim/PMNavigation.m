@@ -38,7 +38,7 @@
 - (CGFloat)tabBar:(UITabBarController *)tabBarController horizontalLocationFor:(NSUInteger)tabIndex
 {
   // add tabbar highlighted color
-  [tabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:0.6 green:0.7 blue:0.6 alpha:1.0]];
+  //[tabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:0.6 green:0.7 blue:0.6 alpha:1.0]];
   // A single tab item's width is the entire width of the tab bar divided by number of items
   CGFloat tabItemWidth = tabBarController.tabBar.frame.size.width / TAB_ITEM_COUNT;
   // A half width is tabItemWidth divided by 2 minus half the width of the arrow

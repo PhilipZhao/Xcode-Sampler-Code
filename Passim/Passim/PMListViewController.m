@@ -341,7 +341,7 @@
     //numComment.text = @"21";
     
     //set cell background
-    //cell.contentView.backgroundColor = (indexPath.row % 2 == 0)?[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_even.png"]]:[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_odd.png"]];
+    cell.contentView.backgroundColor = (indexPath.row % 2 == 0)?[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_even.png"]]:[UIColor colorWithPatternImage:[UIImage imageNamed:@"table_row_bg_odd.png"]];
     return cell;
 }
 
