@@ -7,7 +7,7 @@
 //
 
 #import "PMTweeterUtility.h"
-
+#import "ASIHTTPRequest.h"
 
 // k-v storage for plist
 #define PREFER_SCREEN_NAME @"prefer screen_name"
@@ -32,6 +32,14 @@
 @synthesize profileDic = _profileDic;
 @synthesize userInfo = _userInfo;
 
+#pragma mark - setter and getter
+- (NSDictionary *) profileDic {
+  if (_profileDic == nil) {
+    _profileDic = [[NSMutableDictionary alloc] initWithCapacity:2];
+  }
+  return _profileDic;
+}
+
 #pragma mark - private function
 - (void)updateUser:(ACAccount *) user withProfileImageData:(NSData *) imgData
 {
@@ -47,17 +55,15 @@
 
 + (void)NTRequestForProfieImage:(NSString *)screen_name withCompletedHandler:(void (^)(NSData *imgData)) handler
 {
-  TWRequest *getRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:TWAPI_PROFILE_IMAGE] 
-                                              parameters: [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:screen_name, @"bigger", nil] 
-                                                                                      forKeys: [NSArray arrayWithObjects:@"screen_name",@"size", nil]] 
-                                           requestMethod:TWRequestMethodGET];
-  //[getRequest setAccount:account];
-  [getRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-    if (responseData != nil) {
-      handler(responseData);
-      //[self updateUser:account withProfileImageData:responseData];
-    }
-  }];
+  NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat: @"https://api.twitter.com/1/users/profile_image?screen_name=%@&size=bigger", screen_name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+  ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
+  __weak ASIHTTPRequest *request = _request;
+  request.shouldPresentAuthenticationDialog = YES;
+    [request setCompletionBlock:^{
+     handler([request responseData]);
+    }];
+  [request setFailedBlock:^{}];
+  [request startAsynchronous]; 
 }
 
 - (UIImage *)getProfileImageFromUser:(ACAccount *)user
@@ -81,9 +87,12 @@
     return;
   }
   [PMTweeterUtility NTRequestForProfieImage:screen_name withCompletedHandler:^(NSData *imgData){
-    UIImage *profile = [UIImage imageWithData:imgData];
-    if (profile != nil) [self.profileDic setObject:profile forKey:screen_name];
-    dispatch_async(dispatch_get_main_queue(), ^{handler(profile);});
+    dispatch_async(dispatch_get_main_queue(), ^{
+      UIImage *profile = [UIImage imageWithData:imgData];
+      if (profile != nil) [self.profileDic setObject:profile forKey:screen_name];
+      NSLog(@"loading from network");
+      handler(profile);
+    });
   }];
 }
 

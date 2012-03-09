@@ -94,7 +94,7 @@
 #pragma mark - Location delegate
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-  NSLog(@"locationManager failed with error");
+  NSLog(@"locationManager failed with error %@", error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation

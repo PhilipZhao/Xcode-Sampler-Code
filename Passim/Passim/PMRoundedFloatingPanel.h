@@ -24,12 +24,13 @@ typedef enum _AnimationOption AnimationOption;
 @interface PMRoundedFloatingPanel : UIView
 @property (weak, nonatomic) id parent;
 
-+ (void)presentRoundedFloatingPanel:(DisplayType) type 
++ (void) presentRoundedFloatingPanel:(DisplayType) type 
                               delay:(float)       delay
                              sender:(UIView *)    sender;
 
-- (void)presentView:(DisplayType)     type 
-           duration:(float)           duration
-            options:(AnimationOption) option
-      completeBlock:(void (^)())      handler;
+- (void) presentView:(DisplayType)     type 
+            duration:(float)           duration
+               delay:(float)           delay
+             options:(AnimationOption) option
+       completeBlock:(void (^)())      handler;
 @end

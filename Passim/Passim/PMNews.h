@@ -37,6 +37,6 @@ typedef struct _PMNewsDateTime PMNewsDateTime;
 - (NSString *)    newsAddress;
 - (NSInteger)     newsId;
 - (UIImage *)     newsFrontPhoto;
-
+- (NSURL *)       newsFrontPhotoURL;
 - (CLLocationCoordinate2D)newsCoordinate;
 @end

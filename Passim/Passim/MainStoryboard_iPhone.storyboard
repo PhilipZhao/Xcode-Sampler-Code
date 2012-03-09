@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11A511" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="654-O0-DAl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="2148" systemVersion="11D50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="654-O0-DAl">
     <dependencies>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1145"/>
     </dependencies>
     <scenes>
+        <!--Map View Controller - Map-->
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -54,6 +55,7 @@
             </objects>
             <point key="canvasLocation" x="1343" y="-851"/>
         </scene>
+        <!--Compose News View Controller-->
         <scene sceneID="EVj-1v-G2f">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W60-MV-7ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -170,6 +172,7 @@
             </objects>
             <point key="canvasLocation" x="2136" y="-775"/>
         </scene>
+        <!--Comment Composer View Controller-->
         <scene sceneID="qi5-Ji-xmL">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAb-VI-HL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -213,6 +216,7 @@
             </objects>
             <point key="canvasLocation" x="2609" y="-754"/>
         </scene>
+        <!--Detail News View Controller-->
         <scene sceneID="JXc-eE-TZc">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbV-Ta-V7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -278,6 +282,36 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
+                                                <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Za-mT-biA">
+                                                    <rect key="frame" x="224" y="50" width="76" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <state key="normal" title="show map">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="showMap:" destination="AGr-Bk-JhT" eventType="touchUpInside" id="zf8-Wc-1lS"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell for map view" id="ngK-p8-FhL">
+                                        <rect key="frame" x="0.0" y="180" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" tag="10" contentMode="scaleToFill" mapType="standard" id="hjR-D1-odz">
+                                                    <rect key="frame" x="5" y="6" width="290" height="37"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                                </mapView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -397,6 +431,7 @@
             </objects>
             <point key="canvasLocation" x="2047" y="-190"/>
         </scene>
+        <!--View Controller - Profile-->
         <scene sceneID="Sqt-Vy-CfZ">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cef-vR-omU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -452,6 +487,7 @@
             </objects>
             <point key="canvasLocation" x="1045" y="1133"/>
         </scene>
+        <!--View Controller - News Feed-->
         <scene sceneID="H2N-1s-rhe">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="at6-ia-eIB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -484,6 +520,7 @@
             </objects>
             <point key="canvasLocation" x="938" y="641"/>
         </scene>
+        <!--List View Controller-->
         <scene sceneID="Zs1-0T-XJQ">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxI-mE-YiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -612,6 +649,7 @@
             </objects>
             <point key="canvasLocation" x="1429" y="-59"/>
         </scene>
+        <!--Front Photo Show View Controller-->
         <scene sceneID="kmu-GZ-mXf">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32B-l7-OpQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -668,6 +706,7 @@
             </objects>
             <point key="canvasLocation" x="126" y="-681"/>
         </scene>
+        <!--Tab Bar Controller - tabBarController-->
         <scene sceneID="PcA-Uj-ebw">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXU-W3-Sle" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -687,8 +726,9 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="113" y="45"/>
+            <point key="canvasLocation" x="61" y="45"/>
         </scene>
+        <!--Navigation Controller-->
         <scene sceneID="Cdt-Sh-eWb">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZ0-09-OQv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -707,6 +747,7 @@
             </objects>
             <point key="canvasLocation" x="-788" y="45"/>
         </scene>
+        <!--Navigation-->
         <scene sceneID="RKo-d3-q8l">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrT-Q5-SQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -721,6 +762,7 @@
             </objects>
             <point key="canvasLocation" x="-351" y="45"/>
         </scene>
+        <!--Navigation Controller - List-->
         <scene sceneID="hxd-e0-l5p">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZW-Jc-ssh" userLabel="First Responder" sceneMemberID="firstResponder"/>

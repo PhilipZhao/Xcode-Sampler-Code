@@ -30,30 +30,29 @@ typedef void (^newsHandler)(NSArray *newsData);
 @synthesize newsInRegionHandler = _newsInRegionHandler;
 
 #pragma mark - class method
-+ (void) fetchPhotoWithNewsId:(NSInteger)news_id option:(PMHerokPhotoOption)option withCompleteBlock:(void (^)(NSArray *))arrayOfImageHandler
++ (void) fetchPhotoWithURL:(NSURL *) url 
+                    option:(PMHerokPhotoOption)option 
+                      flag:(PMNetworkFlag)flag 
+         withCompleteBlock:(void (^)(NSArray *))handler
 {
-  dispatch_queue_t imageDownloadQ = dispatch_queue_create("Server image downloader", NULL);
-  dispatch_async(imageDownloadQ, ^{
-    [NSThread sleepForTimeInterval:10];
-    UIImage *image = [UIImage imageNamed:@"picons46.png"];
-    NSArray *imageArray = [NSArray arrayWithObject:image];
-    arrayOfImageHandler(imageArray);
-  });
-  dispatch_release(imageDownloadQ);
-  /*
-  NSURL *url = [NSURL URLWithString:[PASSIM_WEB stringByAppendingFormat:@"","" ]];
+  if (url == nil) {
+    handler(nil);
+    return;
+  }
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
+  request.shouldPresentAuthenticationDialog = YES;
   [request setCompletionBlock:^{
     NSData *returnData = [request responseData];
     if (returnData != nil) {
-      NSError *jsonParsingError;
-      NSDictionary *newsResult = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&jsonParsingError];
-      
+      UIImage* image = [UIImage imageWithData:returnData];
+      NSArray* imageA = [NSArray arrayWithObject:image];
+      handler(imageA);
     }
   }];
   [request setFailedBlock:^{}];
-  [request startAsynchronous]; */
+  if (flag == PMNetworkFlagSync) [request startSynchronous];
+  else [request startAsynchronous];
 }
 
 + (void) fetchNewsCommentWithNewsId:(NSInteger)new_id withCompleteBlock:(void (^)(NSArray *))handler
@@ -130,11 +129,13 @@ typedef void (^newsHandler)(NSArray *newsData);
 {
   if (self = [super init]) {
     // create passimDB instance
+    /*
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory 
                                                          inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"Passim Cache Database"];
     // url is now "<Documents Directory>/Passim Cache Databas"
     self.passimDB = [[UIManagedDocument alloc] initWithFileURL:url]; // setter will create this for us on disk
+    */
   }
   return self;
 }
@@ -243,7 +244,7 @@ typedef void (^newsHandler)(NSArray *newsData);
           NSLog(@"%@", key);
         }
       }
-      NSLog(@"finished Parse the return data %@", result);
+      NSLog(@"finished Parse the return data # %d", [result count]);
       self.lastLoadFromNetworkData = result;
       self.newsInRegionHandler(self.lastLoadFromNetworkData);
 
@@ -307,8 +308,8 @@ typedef void (^newsHandler)(NSArray *newsData);
   NSLog(@"postNewsImage %@", url);
   ASIFormDataRequest *_request = [ASIFormDataRequest requestWithURL:url];
   __weak ASIFormDataRequest *request = _request;
+  request.shouldPresentAuthenticationDialog = YES;
   [request setPostValue:[news objectForKey:PASSIM_NEWS_AUTHOR] forKey:@"screen_name"];
-  
   UIGraphicsBeginImageContext(CGSizeMake(320,480)); 
   [image drawInRect:CGRectMake(0, 0,320,480)];
   UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext(); 
@@ -347,6 +348,7 @@ typedef void (^newsHandler)(NSArray *newsData);
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
+  request.shouldPresentAuthenticationDialog = YES;
   [request setCompletionBlock:^(){
     NSData *returnData = [request responseData];
     if (returnData != nil) {
@@ -369,13 +371,14 @@ typedef void (^newsHandler)(NSArray *newsData);
     [request startAsynchronous];
 }
 
-- (void)postComment:(NSDictionary *)comment flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler 
+- (void) postComment:(NSDictionary *)comment flag:(PMNetworkFlag)flag withCompleteBlock:(void (^)(BOOL))handler 
 {
   NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"comment/do?screen_name=%@&&news_id=%d&&comment_content=%@&&commenter_screen_name=%@", [comment objectForKey:PASSIM_SCREEN_NAME], [[comment objectForKey:PASSIM_NEWS_ID] integerValue], [comment objectForKey:PASSIM_COMMENT], [comment objectForKey:PASSIM_SCREEN_NAME]];
   NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
   NSLog(@"%@", url);
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
+  request.shouldPresentAuthenticationDialog = YES;
   [request setCompletionBlock:^{
     NSData *returnData = [request responseData];  
     if (returnData != nil) {
@@ -398,12 +401,13 @@ typedef void (^newsHandler)(NSArray *newsData);
     [request startAsynchronous];
 }
 
-- (void)newsFeedForPeopleWhoseIFollowedWith:(NSString *) screen_name
+- (void) newsFeedForPeopleWhoseIFollowedWith:(NSString *) screen_name
                   withNetworkCompletedBlock:(void (^)()) networkhandler
 {
   NSURL *url = [NSURL URLWithString:[PASSIM_NEWS_FEED stringByAppendingFormat:@"%@", screen_name]];
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
+  request.shouldPresentAuthenticationDialog = YES;
   [request setCompletionBlock:^{
   
   }];
@@ -413,13 +417,15 @@ typedef void (^newsHandler)(NSArray *newsData);
   [request startAsynchronous];
 }
 
-- (void) registerAnUser:(NSDictionary *) userInfo 
+- (void) registerAnUser:(NSDictionary *) userInfo
+                   flag:(PMNetworkFlag) flag
       withCompleteBlock:(void (^)(BOOL))handler
 {
   NSString *urlString = [PASSIM_WEB stringByAppendingFormat:@"user/do?screen_name=%@&&user_name=%@", [userInfo objectForKey:PASSIM_SCREEN_NAME], [userInfo objectForKey:PASSIM_USERNAME]];
   NSURL *url = [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   ASIHTTPRequest *_request = [ASIHTTPRequest requestWithURL:url];
   __weak ASIHTTPRequest *request = _request;
+  request.shouldPresentAuthenticationDialog = YES;
   [request setCompletionBlock:^{
     NSData *returnData = request.responseData;
     if (returnData != nil) {
@@ -435,32 +441,33 @@ typedef void (^newsHandler)(NSArray *newsData);
     }
   }];
   [request setFailedBlock:^{handler(NO);}];
-  [request startAsynchronous];
+  if (flag == PMNetworkFlagSync) [request startSynchronous];
+  else [request startAsynchronous];
 }
 
 - (void) postNews:(NSDictionary *)news withCompleteBlock:(void (^)(BOOL))handler
 {
-    if ([news objectForKey:PASSIM_NEWS_PHOTO_UI] == nil) {
-        [self postNewsOnHerok:news flag:PMNetworkFlagAsync withCompleteBlock:handler];
-    } else {
-        dispatch_queue_t concur = dispatch_queue_create("submit news request with photo", nil);
-        __block BOOL herokCompleted = NO, passimCompleted = NO;
-        dispatch_async(concur, ^{
-            [self postNewsOnHerok:news flag:PMNetworkFlagSync
-                withCompleteBlock:^(BOOL finished){
-                    herokCompleted = finished;
-                }];
-            [self postNews:news withImage:[news objectForKey:PASSIM_NEWS_PHOTO_UI] flag:PMNetworkFlagSync withCompleteBlock:^(BOOL finished){
-                passimCompleted = finished;
-            }];
-            NSLog(@"Update news: %@", news);
-            if (herokCompleted && passimCompleted) {
-                [self postNewsImage:news flag:PMNetworkFlagSync withCompleteBlock:handler];
-            } else {
-                handler(NO);
-            }
-        });
-        dispatch_release(concur);
-    }
+  if ([news objectForKey:PASSIM_NEWS_PHOTO_UI] == nil) {
+      [self postNewsOnHerok:news flag:PMNetworkFlagAsync withCompleteBlock:handler];
+  } else {
+      dispatch_queue_t concur = dispatch_queue_create("submit news request with photo", nil);
+      __block BOOL herokCompleted = NO, passimCompleted = NO;
+      dispatch_async(concur, ^{
+          [self postNewsOnHerok:news flag:PMNetworkFlagSync
+              withCompleteBlock:^(BOOL finished){
+                  herokCompleted = finished;
+              }];
+          [self postNews:news withImage:[news objectForKey:PASSIM_NEWS_PHOTO_UI] flag:PMNetworkFlagSync withCompleteBlock:^(BOOL finished){
+              passimCompleted = finished;
+          }];
+          NSLog(@"Update news: %@", news);
+          if (herokCompleted && passimCompleted) {
+              [self postNewsImage:news flag:PMNetworkFlagSync withCompleteBlock:handler];
+          } else {
+              handler(NO);
+          }
+      });
+      dispatch_release(concur);
+  }
 }
 @end

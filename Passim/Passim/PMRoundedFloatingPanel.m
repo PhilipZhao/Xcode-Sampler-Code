@@ -47,7 +47,6 @@
   self = [super initWithFrame:frame];
   if (self) {
       // Initialization code
-    
     self.backgroundColor = [UIColor clearColor];
     self.backgroundColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.8];
     self.layer.cornerRadius = 10;
@@ -59,7 +58,11 @@
   return self;
 }
 
-- (void)presentView:(DisplayType)type duration:(float)duration delay:(float)delay options:(AnimationOption)option completeBlock:(void (^)())handler
+- (void) presentView:(DisplayType) type 
+            duration:(float) duration 
+               delay:(float) delay 
+             options:(AnimationOption) option 
+       completeBlock:(void (^)()) handler
 {
   UILabel *label = (UILabel *)[self viewWithTag:TAG_LABEL];
   if (label == nil) {

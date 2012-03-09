@@ -150,13 +150,11 @@
         [userInfo setValue:[tweeter getDefaultsScreenName] forKey: PASSIM_SCREEN_NAME];
         [tweeter getDefaultsUserInfoWithCompleteHandler:^(NSDictionary* tweeterUserInfo) {
           [userInfo setValue: [tweeterUserInfo objectForKey:@"name"] forKey: PASSIM_USERNAME];
-          [herokRequest registerAnUser:userInfo withCompleteBlock:^(BOOL completed) {}];
+          [herokRequest registerAnUser:userInfo flag: PMNetworkFlagAsync withCompleteBlock:^(BOOL completed) {}];
         }];
       });
       dispatch_release(registerUser);
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSegueWithIdentifier:@"fromPhotoSlideToTabBar" sender:self];
-      });
+      [self performSegueWithIdentifier:@"fromPhotoSlideToTabBar" sender:self];
     } else if (granted && !hasAccountInSystem) {
       // I did not know what to do here!!!
       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Twitter Account Set up" 
@@ -184,8 +182,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   if ([segue.identifier isEqualToString:@"fromPhotoSlideToTabBar"]) {
-    NSLog(@"%@", segue.destinationViewController);
-    NSLog(@"%@", self.PMNaviController);
     if ([segue.destinationViewController isKindOfClass:[UITabBarController class]] 
         && (self.PMNaviController != nil) 
         && [self.PMNaviController isKindOfClass:[PMNavigation class]] ) {

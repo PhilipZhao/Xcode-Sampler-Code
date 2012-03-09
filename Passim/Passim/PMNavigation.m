@@ -52,7 +52,6 @@
 {
   UIImage* tabBarArrowImage = [UIImage imageNamed:@"triangle_without_shadow.png"];
   UIImage* tabBarShadow = [UIImage imageNamed:@"tab_bar_shadow.png"];
-  NSLog(@"%f, %f", tabBarShadow.size.width, tabBarShadow.size.height);
   self.tabBarArrow = [[UIImageView alloc] initWithImage:tabBarArrowImage];
   self.tabBarShadow = [[UIImageView alloc] initWithImage:tabBarShadow];
   // To get the vertical location we start at the bottom of the window, 
@@ -167,7 +166,6 @@
     [UIView animateWithDuration:0.35 animations:^{
       CGRect frame = self.tabBarArrow.frame;
       frame.origin.x = frame.origin.x - [[UIScreen mainScreen] bounds].size.width;
-      NSLog(@"frame: %f", frame.origin.x);
       self.tabBarArrow.frame = frame;
       
       frame = self.tabBarShadow.frame;

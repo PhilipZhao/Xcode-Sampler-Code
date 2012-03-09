@@ -15,5 +15,4 @@
 @property (strong, nonatomic) NSString  *barItemTitle;
 @property (strong, nonatomic) PMNews    *newsData;
 - (IBAction)returnPreviousView:(id)sender;
--(IBAction)goBackPreviousView:(id)sender;
 @end
